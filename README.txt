@@ -1,0 +1,3 @@
+Minecraft mobs with human-player level intelligence.
+
+still pretty dumb...
