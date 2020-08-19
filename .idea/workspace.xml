@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7f4c8a97-3ace-4f15-aa39-7f1b48744d3d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" afterDir="false" />
+    <list default="true" id="10d3daae-254e-44be-80b7-2ce6fbcfd8d8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpenSteve_1.16.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/runClient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/runData.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/runServer.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legacy/util/CmdExecute.java" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/util/CmdExecute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/muss/opensteve/ExampleMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/ExampleMod.java" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,21 +30,61 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="OpenSteve_1.16" />
-  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/ExampleMod.java">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/BodyController.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="165">
+              <caret line="15" column="50" lean-forward="true" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/JumpController.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/LookController.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="421">
+              <caret line="38" column="126" lean-forward="true" selection-start-line="38" selection-start-column="126" selection-end-line="38" selection-end-column="126" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/MovementController.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/brain/Brain.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="189" column="102" lean-forward="true" selection-start-line="189" selection-start-column="102" selection-end-line="189" selection-end-column="102" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,79 +92,146 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/util/RegistryHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/ExampleMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/entities/AlexAIEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/AIBase.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/AlexAIEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/SteveAIEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/BaseAIEntity.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1280" />
     <option name="height" value="800" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="bgmAI" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="neuralnet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="render" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="legacy" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="muss" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="muss" type="462c0819:PsiDirectoryNode" />
               <item name="opensteve" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OpenSteve_1.16" type="462c0819:PsiDirectoryNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="opensteve" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="opensteve" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="opensteve" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="monster" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenSteve_1.16" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="opensteve" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
@@ -118,17 +240,85 @@
             <path>
               <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+              <item name="brain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OpenSteve_1.16" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Gradle: net.minecraftforge:forge:1.16.2-33.0.5_mapped_snapshot_20200514-1.16" type="70bed36:NamedLibraryElementNode" />
+              <item name="forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/legacy" />
+      <recent name="$PROJECT_DIR$/legacy/util" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/muss/opensteve/util" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -142,17 +332,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.runClient" />
+  <component name="SpellCheckerSettings" BundledDictionaries="2" BundledDictionary0="jetbrains.dic" BundledDictionary1="english.dic" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7f4c8a97-3ace-4f15-aa39-7f1b48744d3d" name="Default Changelist" comment="" />
-      <created>1597738806389</created>
+      <changelist id="10d3daae-254e-44be-80b7-2ce6fbcfd8d8" name="Default Changelist" comment="" />
+      <created>1597761135065</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1597738806389</updated>
+      <updated>1597761135065</updated>
     </task>
     <servers />
   </component>
@@ -169,65 +359,217 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" order="0" />
-      <window_info id="Favorites" order="1" sideWeight="0.50136983" side_tool="true" weight="0.1558966" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49863014" visible="true" weight="0.20355412" />
-      <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.32876712" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="2" />
-      <window_info anchor="bottom" id="Find" order="3" />
+      <window_info id="Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26494345" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32876712" />
+      <window_info anchor="bottom" id="Run" order="3" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32876712" />
       <window_info anchor="right" id="Gradle" order="0" />
       <window_info anchor="right" id="Maven" order="1" />
       <window_info anchor="right" id="Palette&#9;" order="2" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="3" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
-      <window_info anchor="right" id="Terminal" order="6" weight="0.49434572" />
-      <window_info anchor="right" id="Build" order="7" weight="0.5274637" />
-      <window_info anchor="right" id="TODO" order="8" weight="0.2924071" />
-      <window_info anchor="right" id="Run" order="9" weight="0.59531504" />
+      <window_info anchor="right" id="Build" order="6" weight="0.41033927" />
+      <window_info anchor="right" id="TODO" order="7" weight="0.32956383" />
+      <window_info anchor="right" id="Terminal" order="8" weight="0.3293617" />
+      <window_info anchor="right" id="Version Control" order="9" weight="0.32956383" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/mods.toml">
+    <entry file="file://$PROJECT_DIR$/legacy/init/EntityInit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="255">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/mods.toml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/ai/BgmAIBase.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/src.zip!/java/util/function/Consumer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+        <state relative-caret-position="330">
+          <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraftforge/fml/javafmlmod/FMLJavaModLoadingContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_repo/versions/1.16.2/client-extra.jar!/assets/minecraft/models/block/acacia_button_inventory.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/legacy/ExampleMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraftforge/registries/ForgeRegistryEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/ai/brain/memory/MemoryModuleType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-64">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/LivingEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="116" column="47" lean-forward="true" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/BaseAI.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/ai/brain/d.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/ai/d.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/monster/ZombieEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="85" column="39" lean-forward="true" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/AlexAIEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/neuralnet/NNetBase.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/neuralnet/NNetIO.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/MobEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        <state relative-caret-position="-138">
+          <caret line="76" column="46" selection-start-line="76" selection-start-column="46" selection-end-line="76" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/ExampleMod.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/SteveAIEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="150">
+          <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/util/RegistryHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/CreatureEntity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/monster/MonsterEntity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="31" column="49" lean-forward="true" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/muss/opensteve/entity/monster/BaseAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/brain/schedule/ScheduleBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16-sources.jar!/net/minecraft/entity/ai/brain/schedule/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/JumpController.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/brain/Brain.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="189" column="102" lean-forward="true" selection-start-line="189" selection-start-column="102" selection-end-line="189" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/BodyController.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="15" column="50" lean-forward="true" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/LookController.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="38" column="126" lean-forward="true" selection-start-line="38" selection-start-column="126" selection-end-line="38" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.16.2-33.0.5_mapped_snapshot_20200514-1.16/forge-1.16.2-33.0.5_mapped_snapshot_20200514-1.16.jar!/net/minecraft/entity/ai/controller/MovementController.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
         </state>
       </provider>
     </entry>

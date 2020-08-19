@@ -64,7 +64,7 @@ public class CmdExecute
 	
 	public void CommandSpawn(String entity, String num) throws NumberInvalidException
 	{
-		// a command for spawning multiple entities
+		// a command for spawning multiple entity
 		int spawnNum = CommandBase.parseInt(num);
 
 		if(entity.toLowerCase().matches(cmd.LIST[2][1])) //steve
