@@ -3,7 +3,7 @@ package com.muss.opensteve.entity.monster;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
-public class SteveAIEntity extends BaseAI
+public class SteveAIEntity extends BaseAIEntity
 {
 	protected SteveAIEntity(EntityType<? extends SteveAIEntity> p_i48553_1_, World p_i48553_2_)
 	{
