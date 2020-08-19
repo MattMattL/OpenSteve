@@ -1,8 +1,8 @@
 # This is an example mods.toml file. It contains the data relating to the loading mods.
 # There are several mandatory fields (#mandatory), and many more that are optional (#optional).
 # The overall format is standard TOML format, v0.5.0.
-# Note that there are a couple of TOML lists in this file.
 # Find more information on toml format here:  https://github.com/toml-lang/toml
+# Note that there are a couple of TOML lists in this file.
 
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml" #mandatory
@@ -24,7 +24,7 @@ issueTrackerURL = "" #optional
 modId = "opst" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${alpha.0.1}" #mandatory
+version = 1.16.2-alpha.0.1 #mandatory
 
 # A display name for the mod
 displayName = "OpenSteve" #mandatory
@@ -46,7 +46,9 @@ authors = "Muss" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-OpenSteve, under development
+Minecraft mobs with human-player level intelligence.
+
+Still pretty dumb...
 '''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
