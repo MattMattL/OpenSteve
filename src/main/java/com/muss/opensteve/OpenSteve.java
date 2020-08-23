@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class OpenSteve
 {
 	private static final Logger LOGGER = LogManager.getLogger();
+	public static final String MOD_ID = "opst";
 
 	public OpenSteve()
 	{
@@ -41,3 +42,6 @@ public class OpenSteve
 
 	}
 }
+
+// ctrl + G
+// ctrl + shift + G

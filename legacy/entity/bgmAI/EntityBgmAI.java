@@ -97,13 +97,6 @@ public abstract class EntityBgmAI extends MonsterEntity
 	public EntityBgmAI parentAlex;
 	public EntityBgmAI parentSteve;
 	public List<EntityBgmAI> childList;
-	
-	/*
-	 *	TODO:
-	 *		- Implement procreation AI
-	 *		- Fix: Absorbent inventory
-	 *		- 
-	 */
 
 	public EntityBgmAI(EntityType<? extends ZombieEntity> type, World worldIn)
 	{
