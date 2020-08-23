@@ -1,6 +1,6 @@
 package com.muss.opensteve.util;
 
-import com.muss.opensteve.Item.ModSpawnEggItem;
+import com.muss.opensteve.Item.SpawnEggItem;
 import com.muss.opensteve.OpenSteve;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,6 +14,6 @@ public class ClientEventBusSubscriber
 	@SubscribeEvent
 	public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event)
 	{
-		ModSpawnEggItem.initSpawnEggs();
+		SpawnEggItem.initSpawnEggs();
 	}
 }
