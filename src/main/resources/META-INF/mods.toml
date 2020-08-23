@@ -15,7 +15,7 @@ loaderVersion = "[33,)" #mandatory This is typically bumped every Minecraft vers
 license = "All rights reserved"
 
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL = "" #optional
+#issueTrackerURL = "" #optional
 
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
@@ -24,16 +24,16 @@ issueTrackerURL = "" #optional
 modId = "opst" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version = 1.16.2-alpha.0.1 #mandatory
+version = "${1.16.2-alpha.0.1}" #mandatory
 
 # A display name for the mod
 displayName = "OpenSteve" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL = "" #optional
+#updateJSONURL = "" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL = "" #optional
+#displayURL = "" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile = "OpenSteve.png" #optional, to be added
@@ -42,7 +42,7 @@ logoFile = "OpenSteve.png" #optional, to be added
 credits = "" #optional
 
 # A text field displayed in the mod UI
-authors = "Muss" #optional
+authors = "Muss_4" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
