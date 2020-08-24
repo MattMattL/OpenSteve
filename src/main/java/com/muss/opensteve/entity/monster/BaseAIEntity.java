@@ -1,9 +1,9 @@
 package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.NNetIO;
-import com.muss.opensteve.entity.ai.controller.MovementController;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -48,18 +48,19 @@ public class BaseAIEntity extends MonsterEntity
 		super.livingTick();
 	}
 
+
 	@Nullable
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
 		return spawnDataIn;
 	}
 
-
 	protected void registerData()
 	{
 		super.registerData();
 		this.getDataManager().register(IS_CHILD, false);
 	}
+
 
 	public boolean isChild()
 	{
@@ -89,35 +90,34 @@ public class BaseAIEntity extends MonsterEntity
 	}
 
 
-	// TODO: add appropriate sound events
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
+		return null;
 	}
 
+	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
 	{
-		return SoundEvents.ENTITY_ZOMBIE_HURT;
+		return SoundEvents.ENTITY_PLAYER_HURT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return SoundEvents.ENTITY_ZOMBIE_DEATH;
+		return SoundEvents.ENTITY_PLAYER_DEATH;
 	}
 
-	protected SoundEvent getStepSound()
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState blockIn)
 	{
-		return SoundEvents.ENTITY_ZOMBIE_STEP;
+		super.playStepSound(pos, blockIn);
 	}
 
-	protected void playStepSound(BlockPos pos, BlockState blockIn) // ?
+	@Override
+	public CreatureAttribute getCreatureAttribute()
 	{
-		this.playSound(this.getStepSound(), 0.15F, 1.0F);
-	}
-
-	public CreatureAttribute getCreatureAttribute() // ?
-	{
-		return CreatureAttribute.UNDEAD;
+		return CreatureAttribute.UNDEFINED;
 	}
 
 
