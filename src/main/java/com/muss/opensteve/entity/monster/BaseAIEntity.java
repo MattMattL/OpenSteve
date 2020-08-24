@@ -36,19 +36,6 @@ public class BaseAIEntity extends MonsterEntity
 		this.experienceValue = 5;
 	}
 
-	/* Called to update the entity's position/logic. */
-	public void tick()
-	{
-		super.tick();
-	}
-
-	/* Called to update the entity's behaviour */
-	public void livingTick()
-	{
-		super.livingTick();
-	}
-
-
 	@Nullable
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
@@ -61,6 +48,37 @@ public class BaseAIEntity extends MonsterEntity
 		this.getDataManager().register(IS_CHILD, false);
 	}
 
+	/* Called to update the entity's position/logic. */
+	public void tick()
+	{
+		super.tick();
+	}
+
+	/* Called to update the entity's behaviour */
+	public void livingTick()
+	{
+		super.livingTick();
+	}
+
+	/* Called when the entity is attacked. */
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		return false;
+	}
+
+
+	@Override
+	public void readAdditional(CompoundNBT compound)
+	{
+		super.readAdditional(compound);
+	}
+
+	@Override
+	public void writeAdditional(CompoundNBT compound)
+	{
+		super.writeAdditional(compound);
+	}
+
 
 	public boolean isChild()
 	{
@@ -70,13 +88,6 @@ public class BaseAIEntity extends MonsterEntity
 	public void setChild(boolean childAI)
 	{
 		this.getDataManager().set(IS_CHILD, childAI);
-	}
-
-
-	/* Called when the entity is attacked. */
-	public boolean attackEntityFrom(DamageSource source, float amount)
-	{
-		return false;
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
@@ -113,6 +124,7 @@ public class BaseAIEntity extends MonsterEntity
 	{
 		super.playStepSound(pos, blockIn);
 	}
+
 
 	@Override
 	public CreatureAttribute getCreatureAttribute()

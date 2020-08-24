@@ -1,5 +1,6 @@
 package com.muss.opensteve.entity.ai.brain;
 
+@Deprecated
 public class NNetIO extends NNetBase
 {
 	public NNetIO(int netIn, int netMid, int netOut)
@@ -23,7 +24,7 @@ public class NNetIO extends NNetBase
 			return;
 		}
 
-		this.input[pos] = vector;
+		this.inputVector[pos] = vector;
 	}
 
 	public void nnSetInputVec(int pos, int vector)
@@ -34,9 +35,8 @@ public class NNetIO extends NNetBase
 			return;
 		}
 
-		this.input[pos] = vector;
+		this.inputVector[pos] = vector;
 	}
-
 
 	public void nnSetDesiredOut(int pos, double vector)
 	{
@@ -46,7 +46,7 @@ public class NNetIO extends NNetBase
 			return;
 		}
 
-		this.desired[pos] = vector;
+		this.desiredOut[pos] = vector;
 	}
 
 	public void nnSetDesiredOut(int pos, int vector)
@@ -57,7 +57,7 @@ public class NNetIO extends NNetBase
 			return;
 		}
 
-		this.desired[pos] = vector;
+		this.desiredOut[pos] = vector;
 	}
 
 	public void nnSetWeightAt(int layerIn, int layerA, int layerB, double weightIn)
@@ -67,7 +67,7 @@ public class NNetIO extends NNetBase
 			case 1:
 			{
 				if(0<=layerA && layerA<NET_IN && 0<=layerB && layerB<NET_MID)
-					this.wL1[layerA][layerB] = weightIn;
+					this.weightsL1[layerA][layerB] = weightIn;
 
 				return;
 			}
@@ -75,7 +75,7 @@ public class NNetIO extends NNetBase
 			case 2:
 			{
 				if(0<=layerA && layerA<NET_MID && 0<=layerB && layerB<NET_OUT)
-					this.wL2[layerA][layerB] = weightIn;
+					this.weightsL2[layerA][layerB] = weightIn;
 
 				return;
 			}
@@ -95,7 +95,7 @@ public class NNetIO extends NNetBase
 			return 0.0;
 		}
 
-		return this.input[pos];
+		return this.inputVector[pos];
 	}
 
 	public double nnGetOutputVec(int pos)
@@ -106,7 +106,7 @@ public class NNetIO extends NNetBase
 			return 0.0;
 		}
 
-		return this.z[pos];
+		return this.outputVector[pos];
 	}
 
 	public double nnGetDesiredOut(int pos)
@@ -117,7 +117,7 @@ public class NNetIO extends NNetBase
 			return 0.0;
 		}
 
-		return this.desired[pos];
+		return this.desiredOut[pos];
 	}
 
 	public int nnGetMaxOutputNode()
@@ -140,67 +140,19 @@ public class NNetIO extends NNetBase
 			case 1:
 			{
 				if(0<=layerA && layerA<NET_IN && 0<=layerB && layerB<NET_MID)
-					return this.wL1[layerA][layerB];
+					return this.weightsL1[layerA][layerB];
 			}
 
 			case 2:
 			{
 				if(0<=layerA && layerA<NET_MID && 0<=layerB && layerB<NET_OUT)
-					return this.wL2[layerA][layerB];
+					return this.weightsL2[layerA][layerB];
 			}
 		}
 
 		this.nnBarf("nnGetWeightAt", "Address requested not initialised");
 		return 0;
 	}
-
-
-	// TEST: Print network info to console //
-
-	/*public void printNNOut()
-	{
-		System.out.printf("[Net]");
-
-		int iteration = (NET_OUT > NET_IN)? NET_OUT : NET_IN;
-
-		for(int i=0; i<iteration; i++)
-		{
-			if(i<NET_IN)
-				System.out.printf("\t%8.2f", this.input[i]);
-			else
-				System.out.printf("\t        ");
-
-			System.out.printf("  -->  ");
-
-			if(i<NET_OUT)
-				System.out.printf("%4.2f  (%3.1f)\n", this.z[i], this.desired[i]);
-			else
-				System.out.printf("\n");
-		}
-
-		System.out.printf("\n");
-	}
-
-	public void printWeightsOut()
-	{
-		int i, j, k;
-
-		for(i=0; i<NET_IN; i++)
-		{
-			for(j=0; j<NET_MID; j++)
-				System.out.printf("%6.2f ", wL1[i][j]);
-			System.out.printf("\n");
-		}
-		System.out.printf("\n");
-
-		for(i=0; i<NET_MID; i++)
-		{
-			for(j=0; j<NET_OUT; j++)
-				System.out.printf("%6.2f ", wL2[i][j]);
-			System.out.printf("\n");
-		}
-		System.out.printf("\n");
-	}*/
 }
 
 
