@@ -1,11 +1,9 @@
 package com.muss.opensteve.entity.monster;
 
-import com.muss.opensteve.entity.ai.brain.NNetIO;
+import com.muss.opensteve.entity.ai.brain.NNetBase;
+import com.muss.opensteve.entity.ai.controller.AIControllerTest;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,8 +23,11 @@ import javax.annotation.Nullable;
 
 public class BaseAIEntity extends MonsterEntity
 {
-//	private NNetIO globalNNet = new NNetIO(5, 5, 5);
-//	private MovementController movementController = new MovementController(this);
+	private NNetBase globalNNet = new NNetBase(8, 4, 3);
+	private int nnetOut = 0;
+
+	private NNetBase nnetArray[];
+	private AIControllerTest aiControllerTest = new AIControllerTest(this);
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
@@ -34,6 +35,8 @@ public class BaseAIEntity extends MonsterEntity
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;
+
+		this.nnetArray[1] = this.aiControllerTest;
 	}
 
 	@Nullable
@@ -48,7 +51,7 @@ public class BaseAIEntity extends MonsterEntity
 		this.getDataManager().register(IS_CHILD, false);
 	}
 
-	/* Called to update the entity's position/logic. */
+	/* Called to update the entity's position and logic. */
 	public void tick()
 	{
 		super.tick();
@@ -58,6 +61,21 @@ public class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
+
+		// test
+		globalNNet.inputVector[0] = (int)(this.getPosX()) >> 2;
+		globalNNet.inputVector[1] = (int)(this.getPosY()) >> 2;
+		globalNNet.inputVector[2] = (int)(this.getPosZ()) >> 2;
+		globalNNet.inputVector[3] = this.isJumping? 1 : 0;
+		globalNNet.inputVector[4] = this.inWater? 1 : 0;
+		globalNNet.inputVector[5] = (int)(this.getLookVec().x) >> 2;
+		globalNNet.inputVector[6] = (int)(this.getLookVec().y) >> 2;
+		globalNNet.inputVector[7] = (int)(this.getLookVec().z) >> 2;
+
+		globalNNet.nnRunFeedforward();
+		nnetOut = globalNNet.nnGetMaxPerceptron();
+
+
 	}
 
 	/* Called when the entity is attacked. */
@@ -68,15 +86,15 @@ public class BaseAIEntity extends MonsterEntity
 
 
 	@Override
-	public void readAdditional(CompoundNBT compound)
-	{
-		super.readAdditional(compound);
-	}
-
-	@Override
 	public void writeAdditional(CompoundNBT compound)
 	{
 		super.writeAdditional(compound);
+	}
+
+	@Override
+	public void readAdditional(CompoundNBT compound)
+	{
+		super.readAdditional(compound);
 	}
 
 

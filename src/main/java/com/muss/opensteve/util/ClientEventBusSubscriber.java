@@ -1,6 +1,6 @@
 package com.muss.opensteve.util;
 
-import com.muss.opensteve.Item.SpawnEggItem;
+import com.muss.opensteve.item.SpawnEggItem;
 import com.muss.opensteve.OpenSteve;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;

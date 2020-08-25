@@ -120,7 +120,7 @@ public class NNetIO extends NNetBase
 		return this.desiredOut[pos];
 	}
 
-	public int nnGetMaxOutputNode()
+	public int nnGetMaxPerceptron()
 	{
 		int maxIndex = 0;
 

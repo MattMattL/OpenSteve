@@ -1,4 +1,4 @@
-package com.muss.opensteve.Item;
+package com.muss.opensteve.item;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;

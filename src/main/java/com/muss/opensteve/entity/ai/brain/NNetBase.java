@@ -122,7 +122,7 @@ public class NNetBase
 		}
 	}
 
-	public int nnGetMaxOutputNode()
+	public int nnGetMaxPerceptron()
 	{
 		int iMax = 0;
 
