@@ -1,7 +1,9 @@
 package com.muss.opensteve.entity.monster;
 
+import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.NNetBase;
 import com.muss.opensteve.entity.ai.controller.AIControllerTest;
+import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -26,7 +28,7 @@ public class BaseAIEntity extends MonsterEntity
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
 
-	private NNetBase nnetArray[];
+	private AIControllerBase nnetArray[];
 	private AIControllerTest aiControllerTest = new AIControllerTest(this);
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
@@ -37,6 +39,8 @@ public class BaseAIEntity extends MonsterEntity
 		this.experienceValue = 5;
 
 		this.nnetArray[1] = this.aiControllerTest;
+
+		OpenSteveStatics.setRandomCustomName(this);
 	}
 
 	@Nullable
@@ -74,8 +78,6 @@ public class BaseAIEntity extends MonsterEntity
 
 		globalNNet.nnRunFeedforward();
 		nnetOut = globalNNet.nnGetMaxPerceptron();
-
-
 	}
 
 	/* Called when the entity is attacked. */
@@ -89,12 +91,18 @@ public class BaseAIEntity extends MonsterEntity
 	public void writeAdditional(CompoundNBT compound)
 	{
 		super.writeAdditional(compound);
+
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].writeAdditional(compound);
 	}
 
 	@Override
 	public void readAdditional(CompoundNBT compound)
 	{
 		super.readAdditional(compound);
+
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].readAdditional(compound);
 	}
 
 
@@ -154,5 +162,16 @@ public class BaseAIEntity extends MonsterEntity
 	protected ItemStack getSkullDrop()
 	{
 		return new ItemStack(Items.ZOMBIE_HEAD);
+	}
+
+
+	public boolean isSteve()
+	{
+		return false;
+	}
+
+	public boolean isAlex()
+	{
+		return false;
 	}
 }

@@ -10,4 +10,16 @@ public class AlexAIEntity extends SteveAIEntity // temporary extension
 		super(p_i48553_1_, p_i48553_2_);
 		this.experienceValue = 5;
 	}
+
+	@Override
+	public boolean isAlex()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isSteve()
+	{
+		return false;
+	}
 }

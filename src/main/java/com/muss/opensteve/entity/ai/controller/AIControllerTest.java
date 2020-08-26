@@ -1,10 +1,10 @@
 package com.muss.opensteve.entity.ai.controller;
 
-import com.muss.opensteve.entity.ai.brain.NNetBase;
-import com.muss.opensteve.entity.ai.brain.NNetIO;
+import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.nbt.CompoundNBT;
 
-public class AIControllerTest extends NNetBase
+public class AIControllerTest extends AIControllerBase
 {
 	private MonsterEntity entity;
 
@@ -13,6 +13,4 @@ public class AIControllerTest extends NNetBase
 		super(5, 3, 5);
 		this.entity = entityIn;
 	}
-
-
 }
