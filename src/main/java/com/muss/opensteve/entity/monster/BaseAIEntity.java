@@ -41,6 +41,7 @@ public class BaseAIEntity extends MonsterEntity
 		this.nnetArray[1] = this.aiControllerTest;
 
 		OpenSteveStatics.setRandomCustomName(this);
+		this.enablePersistence();
 	}
 
 	@Nullable

@@ -24,9 +24,11 @@ public class OpenSteveStatics
 		if(giveCustomName)
 		{
 			if(entity.isSteve())
-				entityName = namesForSteve[(int) (Math.random()*namesForSteve.length)];
+				entityName = namesForSteve[(int) (Math.random() * namesForSteve.length)];
 			else
-				entityName = namesForAlex[(int) (Math.random()*namesForAlex.length)];
+				entityName = namesForAlex[(int) (Math.random() * namesForAlex.length)];
+
+			entity.setCustomNameVisible(true);
 		}
 		else
 		{
@@ -34,6 +36,8 @@ public class OpenSteveStatics
 				entityName = "Steve";
 			else
 				entityName = "Alex";
+
+			entity.setCustomNameVisible(false);
 		}
 
 		entity.setCustomName(ITextComponent.func_244388_a(entityName));
