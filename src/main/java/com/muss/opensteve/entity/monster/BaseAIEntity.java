@@ -6,6 +6,7 @@ import com.muss.opensteve.entity.ai.controller.AIControllerTest;
 import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -48,6 +49,11 @@ public class BaseAIEntity extends MonsterEntity
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
 		return spawnDataIn;
+	}
+
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes()
+	{
+		return null;
 	}
 
 	protected void registerData()
@@ -163,16 +169,5 @@ public class BaseAIEntity extends MonsterEntity
 	protected ItemStack getSkullDrop()
 	{
 		return new ItemStack(Items.ZOMBIE_HEAD);
-	}
-
-
-	public boolean isSteve()
-	{
-		return false;
-	}
-
-	public boolean isAlex()
-	{
-		return false;
 	}
 }

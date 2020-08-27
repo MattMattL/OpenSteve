@@ -3,7 +3,7 @@ package com.muss.opensteve.entity.monster;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
-public class AlexAIEntity extends SteveAIEntity // temporary extension
+public class AlexAIEntity extends BaseAIEntity implements IBaseAI
 {
 	public AlexAIEntity(EntityType<? extends AlexAIEntity> p_i48553_1_, World p_i48553_2_)
 	{

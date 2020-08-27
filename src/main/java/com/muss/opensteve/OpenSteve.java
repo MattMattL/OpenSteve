@@ -1,10 +1,16 @@
 package com.muss.opensteve;
 
+import com.muss.opensteve.entity.monster.SteveAIEntity;
+import com.muss.opensteve.init.EntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -43,5 +49,3 @@ public class OpenSteve
 	}
 }
 
-// ctrl + G
-// ctrl + shift + G
