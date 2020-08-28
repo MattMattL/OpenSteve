@@ -1,7 +1,7 @@
 package com.muss.opensteve;
 
 import com.muss.opensteve.entity.monster.SteveAIEntity;
-import com.muss.opensteve.init.EntityTypes;
+import com.muss.opensteve.init.ModEntityType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -48,4 +48,3 @@ public class OpenSteve
 
 	}
 }
-

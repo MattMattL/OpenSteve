@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BaseAIEntity extends MonsterEntity
+public class BaseAIEntity extends MonsterEntity implements IBaseAI
 {
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
@@ -53,7 +53,7 @@ public class BaseAIEntity extends MonsterEntity
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes()
 	{
-		return null;
+		return new AttributeModifierMap.MutableAttribute();
 	}
 
 	protected void registerData()
@@ -61,6 +61,8 @@ public class BaseAIEntity extends MonsterEntity
 		super.registerData();
 		this.getDataManager().register(IS_CHILD, false);
 	}
+
+
 
 	/* Called to update the entity's position and logic. */
 	public void tick()
@@ -169,5 +171,16 @@ public class BaseAIEntity extends MonsterEntity
 	protected ItemStack getSkullDrop()
 	{
 		return new ItemStack(Items.ZOMBIE_HEAD);
+	}
+
+
+	public boolean isAlex()
+	{
+		return false;
+	}
+
+	public boolean isSteve()
+	{
+		return false;
 	}
 }
