@@ -1,6 +1,7 @@
 package com.muss.opensteve;
 
 import com.muss.opensteve.entity.monster.SteveAIEntity;
+import com.muss.opensteve.init.ClientSetup;
 import com.muss.opensteve.init.ModEntityType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -32,8 +33,11 @@ public class OpenSteve
 
 	public OpenSteve()
 	{
+		ModEntityType.register();
+
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
