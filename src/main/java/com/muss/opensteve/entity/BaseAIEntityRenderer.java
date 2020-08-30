@@ -1,6 +1,7 @@
 package com.muss.opensteve.entity;
 
 import com.muss.opensteve.OpenSteve;
+import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
