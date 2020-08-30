@@ -3,15 +3,16 @@ package com.muss.opensteve;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
 import com.muss.opensteve.init.ClientSetup;
 import com.muss.opensteve.init.ModEntityType;
+import com.muss.opensteve.init.ModItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -33,7 +34,9 @@ public class OpenSteve
 
 	public OpenSteve()
 	{
+		// TODO: merge registry methods into one class
 		ModEntityType.register();
+		ModItem.register();
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
@@ -51,4 +54,14 @@ public class OpenSteve
 	{
 
 	}
+
+	public static final ItemGroup TAB = new ItemGroup("OpenSteve")
+	{
+		@Override
+		public ItemStack createIcon()
+		{
+//			return new ItemStack(ModItem.STEVE_SPAWN_EGG.get());
+			return new ItemStack(Items.PLAYER_HEAD);
+		}
+	};
 }

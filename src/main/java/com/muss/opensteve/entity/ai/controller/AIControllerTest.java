@@ -2,7 +2,6 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.nbt.CompoundNBT;
 
 public class AIControllerTest extends AIControllerBase
 {

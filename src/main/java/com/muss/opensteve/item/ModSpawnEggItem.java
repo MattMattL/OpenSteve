@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SpawnEggItem extends net.minecraft.item.SpawnEggItem
+public class ModSpawnEggItem extends net.minecraft.item.SpawnEggItem
 {
-	protected static final List<SpawnEggItem> UNADDED_EGGS = new ArrayList<>();
+	protected static final List<ModSpawnEggItem> UNADDED_EGGS = new ArrayList<>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-	public SpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColorIn, int secondaryColorIn, Item.Properties builder) {
+	public ModSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColorIn, int secondaryColorIn, Item.Properties builder) {
 		super(null, primaryColorIn, secondaryColorIn, builder);
 
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
