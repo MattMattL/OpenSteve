@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 
-public class SteveAIEntity extends BaseAIEntity implements IBaseAI
+public class SteveAIEntity extends BaseAIEntity // implements IBaseAI
 {
 	public SteveAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
 	{
@@ -12,11 +12,13 @@ public class SteveAIEntity extends BaseAIEntity implements IBaseAI
 		this.experienceValue = 5;
 	}
 
+	@Override
 	public boolean isSteve()
 	{
 		return true;
 	}
 
+	@Override
 	public boolean isAlex()
 	{
 		return false;

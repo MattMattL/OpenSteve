@@ -12,11 +12,13 @@ public class AlexAIEntity extends BaseAIEntity implements IBaseAI
 		this.experienceValue = 5;
 	}
 
+	@Override
 	public boolean isAlex()
 	{
 		return true;
 	}
 
+	@Override
 	public boolean isSteve()
 	{
 		return false;
