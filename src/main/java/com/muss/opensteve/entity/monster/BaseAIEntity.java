@@ -7,6 +7,7 @@ import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -34,7 +35,7 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
-	public BaseAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
+	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;
@@ -51,17 +52,20 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 		return spawnDataIn;
 	}
 
-	public static AttributeModifierMap.MutableAttribute setCustomAttributes()
-	{
-		return new AttributeModifierMap.MutableAttribute();
-	}
-
 	protected void registerData()
 	{
 		super.registerData();
 		this.getDataManager().register(IS_CHILD, false);
 	}
 
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes()
+	{
+		return MonsterEntity.func_234295_eP_()
+				.func_233815_a_(Attributes.field_233818_a_, 20.0D)
+				.func_233815_a_(Attributes.field_233821_d_, (double)0.23F)
+				.func_233815_a_(Attributes.field_233823_f_, 2.0D)
+				.func_233814_a_(Attributes.field_233829_l_);
+	}
 
 
 	/* Called to update the entity's position and logic. */

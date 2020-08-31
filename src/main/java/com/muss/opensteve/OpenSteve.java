@@ -1,5 +1,6 @@
 package com.muss.opensteve;
 
+import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
 import com.muss.opensteve.init.ClientSetup;
 import com.muss.opensteve.init.ModEntityType;
@@ -13,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -31,6 +33,15 @@ public class OpenSteve
 {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "opst";
+
+	public static final ItemGroup TAB = new ItemGroup("OpenSteve")
+	{
+		@Override
+		public ItemStack createIcon()
+		{
+			return new ItemStack(Items.PLAYER_HEAD);
+		}
+	};
 
 	public OpenSteve()
 	{
@@ -54,14 +65,4 @@ public class OpenSteve
 	{
 
 	}
-
-	public static final ItemGroup TAB = new ItemGroup("OpenSteve")
-	{
-		@Override
-		public ItemStack createIcon()
-		{
-//			return new ItemStack(ModItem.STEVE_SPAWN_EGG.get());
-			return new ItemStack(Items.PLAYER_HEAD);
-		}
-	};
 }
