@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class AlexAIEntity extends BaseAIEntity implements IBaseAI
 {
-	public AlexAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
+	public AlexAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;

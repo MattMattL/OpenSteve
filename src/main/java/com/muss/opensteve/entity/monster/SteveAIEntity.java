@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class SteveAIEntity extends BaseAIEntity implements IBaseAI
 {
-	public SteveAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
+	public SteveAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;

@@ -6,8 +6,7 @@ import com.muss.opensteve.entity.ai.controller.AIControllerTest;
 import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,8 +29,9 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
 
-	private AIControllerBase nnetArray[];
-	private AIControllerTest aiControllerTest = new AIControllerTest(this);
+//	FIXME Properly initialise nnetArray
+//	private AIControllerBase nnetArray[];
+	private AIControllerBase aiControllerTest = new AIControllerTest(this);
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
@@ -40,7 +40,7 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-		this.nnetArray[1] = this.aiControllerTest;
+//		this.nnetArray[0] = this.aiControllerTest;
 
 		OpenSteveStatics.setRandomCustomName(this);
 		this.enablePersistence();
@@ -105,8 +105,8 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 	{
 		super.writeAdditional(compound);
 
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].writeAdditional(compound);
+//		for(int i=0; i<this.nnetArray.length; i++)
+//			this.nnetArray[i].writeAdditional(compound);
 	}
 
 	@Override
@@ -114,8 +114,8 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 	{
 		super.readAdditional(compound);
 
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].readAdditional(compound);
+//		for(int i=0; i<this.nnetArray.length; i++)
+//			this.nnetArray[i].readAdditional(compound);
 	}
 
 

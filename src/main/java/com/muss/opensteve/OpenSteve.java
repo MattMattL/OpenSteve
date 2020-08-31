@@ -58,7 +58,10 @@ public class OpenSteve
 
 	private void setup(final FMLCommonSetupEvent event)
 	{
-
+			DeferredWorkQueue.runLater(() -> {
+				GlobalEntityTypeAttributes.put(ModEntityType.STEVE_AI.get(), SteveAIEntity.setCustomAttributes().func_233813_a_());
+				GlobalEntityTypeAttributes.put(ModEntityType.ALEX_AI.get(), AlexAIEntity.setCustomAttributes().func_233813_a_());
+			});
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event)
