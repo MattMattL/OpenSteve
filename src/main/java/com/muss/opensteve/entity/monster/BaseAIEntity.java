@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BaseAIEntity extends MonsterEntity implements IBaseAI
+public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
 {
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
@@ -96,7 +96,7 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 	/* Called when the entity is attacked. */
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		return false;
+		return super.attackEntityFrom(source, amount);
 	}
 
 
@@ -178,13 +178,7 @@ public class BaseAIEntity extends MonsterEntity implements IBaseAI
 	}
 
 
-	public boolean isAlex()
-	{
-		return false;
-	}
+	public abstract boolean isAlex();
 
-	public boolean isSteve()
-	{
-		return false;
-	}
+	public abstract boolean isSteve();
 }
