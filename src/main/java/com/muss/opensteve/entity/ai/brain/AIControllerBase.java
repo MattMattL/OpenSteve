@@ -9,7 +9,7 @@ public class AIControllerBase extends NNetBase
 		super(netIn, netMid, netOut);
 	}
 
-	// TODO: add code to save and load neural weights from compounds
+	// TODO Save and load neural weights from compounds
 	public void writeAdditional(CompoundNBT compound)
 	{
 
