@@ -22,13 +22,11 @@ public class BaseAIEntityRenderer extends MobRenderer<BaseAIEntity, BaseAIEntity
 
 	public ResourceLocation getEntityTexture(BaseAIEntity entity)
 	{
-		return TEXTURE_STEVE_AI;
-
-//		if(entity.isAlex())
-//			return TEXTURE_ALEX_AI;
-//		else if(entity.isSteve())
-//			return TEXTURE_STEVE_AI;
-//		else
-//			return null;
+		if(entity.isAlex())
+			return TEXTURE_ALEX_AI;
+		else if(entity.isSteve())
+			return TEXTURE_STEVE_AI;
+		else
+			return null;
 	}
 }
