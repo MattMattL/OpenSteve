@@ -3,7 +3,7 @@ package com.muss.opensteve.entity.monster;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.NNetBase;
 import com.muss.opensteve.entity.ai.controller.AIControllerTest;
-import com.muss.opensteve.util.OpenSteveStatics;
+import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.*;
@@ -42,7 +42,7 @@ public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
 
 //		this.nnetArray[0] = this.aiControllerTest;
 
-		OpenSteveStatics.setRandomCustomName(this);
+		OpenSteveDataTable.setRandomCustomName(this);
 		this.enablePersistence();
 	}
 
