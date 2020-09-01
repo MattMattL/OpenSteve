@@ -1,14 +1,10 @@
-package com.muss.opensteve.entity;
+package com.muss.opensteve.entity.renderer;
 
 import com.muss.opensteve.OpenSteve;
-import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.entity.monster.SteveAIEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 
 public class AlexAIEntityRenderer extends MobRenderer<BaseAIEntity, BaseAIEntityModel<BaseAIEntity>>
 {

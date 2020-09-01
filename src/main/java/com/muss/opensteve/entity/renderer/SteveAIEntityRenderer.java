@@ -1,4 +1,4 @@
-package com.muss.opensteve.entity;
+package com.muss.opensteve.entity.renderer;
 
 import com.muss.opensteve.OpenSteve;
 import com.muss.opensteve.entity.monster.BaseAIEntity;

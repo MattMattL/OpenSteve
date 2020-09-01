@@ -1,4 +1,4 @@
-package com.muss.opensteve.entity;
+package com.muss.opensteve.entity.renderer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;

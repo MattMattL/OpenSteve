@@ -1,8 +1,8 @@
 package com.muss.opensteve.init;
 
 import com.muss.opensteve.OpenSteve;
-import com.muss.opensteve.entity.AlexAIEntityRenderer;
-import com.muss.opensteve.entity.SteveAIEntityRenderer;
+import com.muss.opensteve.entity.renderer.AlexAIEntityRenderer;
+import com.muss.opensteve.entity.renderer.SteveAIEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
