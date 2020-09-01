@@ -1,7 +1,8 @@
 package com.muss.opensteve.init;
 
 import com.muss.opensteve.OpenSteve;
-import com.muss.opensteve.entity.BaseAIEntityRenderer;
+import com.muss.opensteve.entity.AlexAIEntityRenderer;
+import com.muss.opensteve.entity.SteveAIEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -12,7 +13,7 @@ public class ClientSetup
 {
 	public static void init(final FMLCommonSetupEvent event)
 	{
-		RenderingRegistry.registerEntityRenderingHandler(ModEntityType.STEVE_AI.get(), BaseAIEntityRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntityType.ALEX_AI.get(), BaseAIEntityRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntityType.ALEX_AI.get(), AlexAIEntityRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntityType.STEVE_AI.get(), SteveAIEntityRenderer::new);
 	}
 }
