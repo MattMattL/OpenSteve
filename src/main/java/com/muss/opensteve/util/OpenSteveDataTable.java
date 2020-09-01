@@ -1,7 +1,6 @@
 package com.muss.opensteve.util;
 
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.util.text.ITextComponent;
 
 public class OpenSteveDataTable

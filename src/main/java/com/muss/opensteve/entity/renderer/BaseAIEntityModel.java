@@ -1,25 +1,12 @@
 package com.muss.opensteve.entity.renderer;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.ZombieModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
 
 public class BaseAIEntityModel<T extends LivingEntity> extends BipedModel<T>
 {

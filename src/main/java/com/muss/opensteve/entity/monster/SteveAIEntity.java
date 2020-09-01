@@ -1,7 +1,6 @@
 package com.muss.opensteve.entity.monster;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.World;
 
 public class SteveAIEntity extends BaseAIEntity // implements IBaseAI
