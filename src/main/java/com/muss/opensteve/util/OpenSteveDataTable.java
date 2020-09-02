@@ -6,13 +6,13 @@ import net.minecraft.util.text.ITextComponent;
 public class OpenSteveDataTable
 {
 	public static final String namesForSteve[] = {
-			"M", "G_Cat", "G_Omg", "Racoon", "Notch",
+			"Muss", "G_Cat", "G_Omg", "Racoon", "Notch",
 			"BGM", "베배", "DummyData", "newbigbird", "웡",
 			"skyblue_6_",
 		};
 
 	public static final String namesForAlex[] = {
-			"NULL",
+			"J",
 		};
 
 	public static void setRandomCustomName(BaseAIEntity entity)
