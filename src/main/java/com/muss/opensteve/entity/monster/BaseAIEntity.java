@@ -29,9 +29,8 @@ public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
 
-//	FIXME Properly initialise nnetArray
-//	private AIControllerBase nnetArray[];
-	private AIControllerBase aiControllerTest = new AIControllerTest(this);
+	private AIControllerBase nnetArray[];
+	protected AIControllerBase aiControllerTest = new AIControllerTest(this);
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
@@ -40,15 +39,20 @@ public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-//		this.nnetArray[0] = this.aiControllerTest;
+		this.nnetArray = new AIControllerBase[4];
 
-		OpenSteveDataTable.setRandomCustomName(this);
-		this.enablePersistence();
+		this.nnetArray[0] = this.aiControllerTest;
+		this.nnetArray[1] = new AIControllerTest(this);
+		this.nnetArray[2] = new AIControllerTest(this);
+		this.nnetArray[3] = new AIControllerTest(this);
 	}
 
 	@Nullable
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
+		OpenSteveDataTable.setRandomCustomName(this);
+		this.enablePersistence();
+
 		return spawnDataIn;
 	}
 
