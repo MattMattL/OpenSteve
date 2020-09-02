@@ -8,6 +8,7 @@ public class OpenSteveDataTable
 	public static final String namesForSteve[] = {
 			"M", "G_Cat", "G_Omg", "Racoon", "Notch",
 			"BGM", "베배", "DummyData", "newbigbird", "웡",
+			"skyblue_6_",
 		};
 
 	public static final String namesForAlex[] = {
@@ -17,7 +18,7 @@ public class OpenSteveDataTable
 	public static void setRandomCustomName(BaseAIEntity entity)
 	{
 		final int CUSTOM_NAME_CHANCE = 10;
-		boolean giveCustomName = ((int)(Math.random() * CUSTOM_NAME_CHANCE) == 0)? true : false;
+		boolean giveCustomName = ((int)(Math.random() * (CUSTOM_NAME_CHANCE - 1)) == 0)? true : false;
 		String entityName;
 
 		if(giveCustomName)
