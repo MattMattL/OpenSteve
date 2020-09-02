@@ -41,6 +41,4 @@ public class OpenSteveDataTable
 
 		entity.setCustomName(ITextComponent.func_244388_a(entityName));
 	}
-
-
 }

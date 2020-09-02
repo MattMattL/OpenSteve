@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
+public abstract class BaseAIEntity extends MonsterEntity
 {
 	private NNetBase globalNNet = new NNetBase(8, 4, 3);
 	private int nnetOut = 0;
@@ -39,12 +39,9 @@ public abstract class BaseAIEntity extends MonsterEntity // implements IBaseAI
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-		this.nnetArray = new AIControllerBase[4];
+//		this.nnetArray = new AIControllerBase[4];
 
-		this.nnetArray[0] = this.aiControllerTest;
-		this.nnetArray[1] = new AIControllerTest(this);
-		this.nnetArray[2] = new AIControllerTest(this);
-		this.nnetArray[3] = new AIControllerTest(this);
+//		this.nnetArray[0] = this.aiControllerTest;
 	}
 
 	@Nullable
