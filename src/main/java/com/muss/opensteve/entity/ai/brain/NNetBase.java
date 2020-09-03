@@ -88,7 +88,7 @@ public class NNetBase
 			for(i=0; i<NET_IN; i++)
 				productL1[j] += inputVector[i] * weightsL1[i][j];
 
-			outputL1[j] = 1.0/(1 + Math.exp(productL1[j]));
+			outputL1[j] = 1.0/(1 + Math.exp(-productL1[j]));
 		}
 
 		for(k=0; k<NET_OUT; k++)
@@ -98,7 +98,7 @@ public class NNetBase
 			for(j=0; j<NET_MID; j++)
 				productL2[k] += outputL1[j] * weightsL2[j][k];
 
-			outputVector[k] = 1.0/(1 + Math.exp(productL2[k]));
+			outputVector[k] = 1.0/(1 + Math.exp(-productL2[k]));
 		}
 	}
 
