@@ -1,5 +1,6 @@
 package com.muss.opensteve.entity.ai.brain;
 
+@Deprecated
 public class NNetBase
 {
 	public final int NET_IN;
