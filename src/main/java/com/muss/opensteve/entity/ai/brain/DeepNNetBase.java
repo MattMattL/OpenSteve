@@ -127,5 +127,18 @@ public class DeepNNetBase
 					weights[layer][i][j] += delta[layer][j] * sigmoid[layer][i];
 		}
 	}
+
+	public int nnGetMaxOutputIndex()
+	{
+		int iMax = 0;
+
+		for(int i=1; i<NET_OUT; i++)
+		{
+			if(vectorOut[i] > vectorOut[iMax])
+				iMax = i;
+		}
+
+		return iMax;
+	}
 }
 

@@ -14,19 +14,6 @@ public abstract class AIControllerBase
 		this.deepNNet = new DeepNNetBase(netIn, netOut, netDepth);
 	}
 
-	public int getMaxNNetOutput()
-	{
-		int iMax = 0;
-
-		for(int i=1; i<this.deepNNet.NET_OUT; i++)
-		{
-			if(this.deepNNet.vectorOut[i] > this.deepNNet.vectorOut[iMax])
-				iMax = i;
-		}
-
-		return iMax;
-	}
-
 	/* put entity's environmental factors as NNet inputs */
 	public abstract void setNNetInput();
 
