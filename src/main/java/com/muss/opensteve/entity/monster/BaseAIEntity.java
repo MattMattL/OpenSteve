@@ -3,7 +3,7 @@ package com.muss.opensteve.entity.monster;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
 import com.muss.opensteve.entity.ai.brain.NNetBase;
-import com.muss.opensteve.entity.ai.controller.AIControllerTest;
+import com.muss.opensteve.entity.ai.controller.*;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -27,11 +27,14 @@ import javax.annotation.Nullable;
 
 public abstract class BaseAIEntity extends MonsterEntity
 {
-	private DeepNNetBase globalNNet = new DeepNNetBase(8, 4, 3);
+	private DeepNNetBase globalNNet = new DeepNNetBase(8, 8, 8);
 	private int nnetOut = 0;
 
 	private AIControllerBase nnetArray[];
-	protected AIControllerBase aiControllerTest = new AIControllerTest(this);
+	protected AIControllerBase aiBodyController = new AIBodyController(8, 8, 8);
+	protected AIControllerBase aiJumpController = new AIJumpController(8, 8, 8);
+	protected AIControllerBase aiLookController = new AILookController(8, 8, 8);
+	protected AIControllerBase aiMovementController = new AIMovementController(8, 8, 8);
 
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
@@ -40,9 +43,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-		// TODO: register entity AIs here
-		this.nnetArray = new AIControllerBase[1];
-		this.nnetArray[0] = this.aiControllerTest;
+		// register AIs here
+		this.nnetArray = new AIControllerBase[4];
+		this.nnetArray[0] = this.aiBodyController;
+		this.nnetArray[1] = this.aiJumpController;
+		this.nnetArray[2] = this.aiLookController;
+		this.nnetArray[3] = this.aiMovementController;
 	}
 
 	@Nullable
