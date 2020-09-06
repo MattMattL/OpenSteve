@@ -27,23 +27,22 @@ import javax.annotation.Nullable;
 
 public abstract class BaseAIEntity extends MonsterEntity
 {
-	private DeepNNetBase globalNNet = new DeepNNetBase(8, 8, 8);
-	private int nnetOut = 0;
+	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
+
+	private DeepNNetBase globalNNet = new DeepNNetBase(8, 4, 3);
+	private int nnetOut;
 
 	private AIControllerBase nnetArray[];
-	protected AIControllerBase aiBodyController = new AIBodyController(8, 8, 8);
-	protected AIControllerBase aiJumpController = new AIJumpController(8, 8, 8);
-	protected AIControllerBase aiLookController = new AILookController(8, 8, 8);
-	protected AIControllerBase aiMovementController = new AIMovementController(8, 8, 8);
-
-	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
+	protected AIControllerBase aiBodyController = new AIBodyController(this);
+	protected AIControllerBase aiJumpController = new AIJumpController(this);
+	protected AIControllerBase aiLookController = new AILookController(this);
+	protected AIControllerBase aiMovementController = new AIMovementController(this);
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-		// register AIs here
 		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[0] = this.aiBodyController;
 		this.nnetArray[1] = this.aiJumpController;
@@ -70,7 +69,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		return MonsterEntity.func_234295_eP_()
 				.func_233815_a_(Attributes.field_233818_a_, 20.0D)
-				.func_233815_a_(Attributes.field_233821_d_, (double)0.23F)
+				.func_233815_a_(Attributes.field_233821_d_, 0.23F)
 				.func_233815_a_(Attributes.field_233823_f_, 2.0D)
 				.func_233814_a_(Attributes.field_233829_l_);
 	}
@@ -85,6 +84,21 @@ public abstract class BaseAIEntity extends MonsterEntity
 	/* Called to update the entity's behaviour */
 	public void livingTick()
 	{
+		// test NNet inputs
+		int iNNet = 0;
+		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
+		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
+		this.globalNNet.vectorIn[iNNet++] = this.getPosZ();
+		this.globalNNet.vectorIn[iNNet++] = this.getHealth();
+		this.globalNNet.vectorIn[iNNet++] = this.getBrightness();
+		this.globalNNet.vectorIn[iNNet++] = this.isAlex() ? 1 : -1;
+		this.globalNNet.vectorIn[iNNet++] = this.isWet() ? 1 : -1;
+		this.globalNNet.vectorIn[iNNet++] = this.isBurning() ? 1 : -1;
+
+		this.globalNNet.nnRunFeedForward();
+		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
+		this.nnetArray[this.nnetOut].runEntityAI();
+
 		super.livingTick();
 	}
 
