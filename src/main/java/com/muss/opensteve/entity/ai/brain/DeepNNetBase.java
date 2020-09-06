@@ -4,23 +4,23 @@ import java.util.Random;
 
 public class DeepNNetBase
 {
-	private final int NET_DEPTH;
-	private final int NET_MAX_WIDTH;
-	private final int NET_IN;
-	private final int NET_OUT;
+	public final int NET_DEPTH;
+	public final int NET_MAX_WIDTH;
+	public final int NET_IN;
+	public final int NET_OUT;
 
-	protected final int NET_WIDTH[];
+	private final int NET_WIDTH[];
 
 	public double vectorIn[];
 	public double vectorOut[];
-	public double desiredOut[];
+	public double vectorDesired[];
 
 	protected double weights[][][];
 	private double products[][];
 	private double sigmoid[][];
 	private double delta[][];
 
-	public Random random = new Random(System.currentTimeMillis());
+	private Random random = new Random(System.currentTimeMillis());
 
 	public DeepNNetBase(int netIn, int netOut, int netDepth)
 	{
@@ -39,7 +39,7 @@ public class DeepNNetBase
 	{
 		vectorIn = new double[NET_IN];
 		vectorOut = new double[NET_OUT];
-		desiredOut = new double[NET_OUT];
+		vectorDesired = new double[NET_OUT];
 
 		weights = new double[NET_DEPTH][NET_MAX_WIDTH][NET_MAX_WIDTH];
 		products = new double[NET_DEPTH][NET_MAX_WIDTH];
@@ -60,7 +60,7 @@ public class DeepNNetBase
 			vectorIn[i] = random.nextDouble();
 
 		for(int i=0; i<NET_OUT; i++)
-			 desiredOut[i] = random.nextDouble();
+			 vectorDesired[i] = random.nextDouble();
 
 		for(int l=0; l<NET_DEPTH; l++)
 		{
@@ -107,7 +107,7 @@ public class DeepNNetBase
 			delta[NET_DEPTH-1][out] = 0;
 
 		for(out=0; out<NET_OUT; out++)
-			delta[NET_DEPTH-1][out] += (desiredOut[out] - vectorOut[out]) * vectorOut[out] * (1 - vectorOut[out]);
+			delta[NET_DEPTH-1][out] += (vectorDesired[out] - vectorOut[out]) * vectorOut[out] * (1 - vectorOut[out]);
 
 		for(layer=NET_DEPTH - 2; layer>=0 ; layer--)
 		{
