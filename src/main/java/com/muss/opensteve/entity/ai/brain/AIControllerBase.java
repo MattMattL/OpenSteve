@@ -14,14 +14,21 @@ public abstract class AIControllerBase
 		this.deepNNet = new DeepNNetBase(netIn, netOut, netDepth);
 	}
 
+	public void runEntityAI()
+	{
+		this.setNNetInput();
+		this.runEntityBehavior();
+		this.fixEntityBehavior();
+	}
+
 	/* put entity's environmental factors as NNet inputs */
-	public abstract void setNNetInput();
+	protected abstract void setNNetInput();
 
 	/* execute tasks according to NNet outputs */
-	public abstract void runEntityBehavior();
+	protected abstract void runEntityBehavior();
 
 	/* evaluate the outcome and run back propagations */
-	public abstract void fixEntityBehavior();
+	protected abstract void fixEntityBehavior();
 
 
 	public void writeAdditional(CompoundNBT compound)

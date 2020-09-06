@@ -1,11 +1,30 @@
 package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.monster.BaseAIEntity;
 
 public class AIBodyController extends AIControllerBase
 {
-	public AIBodyController(int netIn, int netOut, int netDepth)
+	public AIBodyController(BaseAIEntity entityIn)
 	{
-		super(netIn, netOut, netDepth);
+		super(entityIn, 8, 8, 8);
+	}
+
+	@Override
+	protected void setNNetInput()
+	{
+
+	}
+
+	@Override
+	protected void runEntityBehavior()
+	{
+
+	}
+
+	@Override
+	protected void fixEntityBehavior()
+	{
+
 	}
 }
