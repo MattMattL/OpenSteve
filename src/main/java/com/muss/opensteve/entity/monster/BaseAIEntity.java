@@ -1,6 +1,7 @@
 package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
 import com.muss.opensteve.entity.ai.brain.NNetBase;
 import com.muss.opensteve.entity.ai.controller.AIControllerTest;
 import com.muss.opensteve.util.OpenSteveDataTable;
@@ -26,7 +27,7 @@ import javax.annotation.Nullable;
 
 public abstract class BaseAIEntity extends MonsterEntity
 {
-	private NNetBase globalNNet = new NNetBase(8, 4, 3);
+	private DeepNNetBase globalNNet = new DeepNNetBase(8, 4, 3);
 	private int nnetOut = 0;
 
 	private AIControllerBase nnetArray[];
@@ -39,9 +40,9 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-//		this.nnetArray = new AIControllerBase[4];
-
-//		this.nnetArray[0] = this.aiControllerTest;
+		// TODO: register entity AIs here
+		this.nnetArray = new AIControllerBase[1];
+		this.nnetArray[0] = this.aiControllerTest;
 	}
 
 	@Nullable
@@ -79,19 +80,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
-
-		// test
-		globalNNet.inputVector[0] = (int)(this.getPosX()) >> 2;
-		globalNNet.inputVector[1] = (int)(this.getPosY()) >> 2;
-		globalNNet.inputVector[2] = (int)(this.getPosZ()) >> 2;
-		globalNNet.inputVector[3] = this.isJumping? 1 : 0;
-		globalNNet.inputVector[4] = this.inWater? 1 : 0;
-		globalNNet.inputVector[5] = (int)(this.getLookVec().x) >> 2;
-		globalNNet.inputVector[6] = (int)(this.getLookVec().y) >> 2;
-		globalNNet.inputVector[7] = (int)(this.getLookVec().z) >> 2;
-
-		globalNNet.nnRunFeedforward();
-		nnetOut = globalNNet.nnGetMaxPerceptron();
 	}
 
 	/* Called when the entity is attacked. */
@@ -106,8 +94,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.writeAdditional(compound);
 
-//		for(int i=0; i<this.nnetArray.length; i++)
-//			this.nnetArray[i].writeAdditional(compound);
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].writeAdditional(compound);
 	}
 
 	@Override
@@ -115,8 +103,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.readAdditional(compound);
 
-//		for(int i=0; i<this.nnetArray.length; i++)
-//			this.nnetArray[i].readAdditional(compound);
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].readAdditional(compound);
 	}
 
 
@@ -169,13 +157,13 @@ public abstract class BaseAIEntity extends MonsterEntity
 	@Override
 	public CreatureAttribute getCreatureAttribute()
 	{
-		return CreatureAttribute.UNDEFINED;
+		return CreatureAttribute.UNDEAD;
 	}
 
 
 	protected ItemStack getSkullDrop()
 	{
-		return new ItemStack(Items.ZOMBIE_HEAD);
+		return new ItemStack(Items.PLAYER_HEAD);
 	}
 
 
