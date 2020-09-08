@@ -29,7 +29,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
-	private DeepNNetBase globalNNet = new DeepNNetBase(8, 4, 3);
+	private DeepNNetBase globalNNet = new DeepNNetBase(8, 3, 4);
 	private int nnetOut;
 
 	private AIControllerBase nnetArray[];

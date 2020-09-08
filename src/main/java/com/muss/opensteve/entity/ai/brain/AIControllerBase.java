@@ -8,10 +8,10 @@ public abstract class AIControllerBase
 	protected DeepNNetBase deepNNet;
 	protected BaseAIEntity entity;
 
-	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netOut, int netDepth)
+	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut)
 	{
 		this.entity = entityIn;
-		this.deepNNet = new DeepNNetBase(netIn, netOut, netDepth);
+		this.deepNNet = new DeepNNetBase(netIn, netDepth, netOut);
 	}
 
 	public void runEntityAI()

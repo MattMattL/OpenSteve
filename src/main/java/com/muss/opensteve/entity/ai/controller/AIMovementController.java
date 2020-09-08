@@ -7,7 +7,7 @@ public class AIMovementController extends AIControllerBase
 {
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 8, 8, 8);
+		super(entityIn, 25, 5, 4);
 	}
 
 	@Override

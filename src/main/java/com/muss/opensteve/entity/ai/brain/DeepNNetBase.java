@@ -22,7 +22,7 @@ public class DeepNNetBase
 
 	private Random random = new Random(System.currentTimeMillis());
 
-	public DeepNNetBase(int netIn, int netOut, int netDepth)
+	public DeepNNetBase(int netIn, int netDepth, int netOut)
 	{
 		this.NET_IN = netIn;
 		this.NET_OUT = netOut;
