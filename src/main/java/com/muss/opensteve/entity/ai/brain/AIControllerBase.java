@@ -16,10 +16,14 @@ public abstract class AIControllerBase
 
 	public void runEntityAI()
 	{
+		this.aiInitialise();
 		this.setNNetInput();
 		this.runEntityBehavior();
 		this.fixEntityBehavior();
 	}
+
+	/* save environmental factors for back propagations */
+	protected abstract void aiInitialise();
 
 	/* put entity's environmental factors as NNet inputs */
 	protected abstract void setNNetInput();

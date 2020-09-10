@@ -19,11 +19,15 @@ public class AIMovementController extends AIControllerBase
 	}
 
 	@Override
-	protected void setNNetInput()
+	protected void aiInitialise()
 	{
 		this.entityBlockPos = this.entity.func_233580_cy_();
 		this.prevHealth = this.entity.getHealth();
+	}
 
+	@Override
+	protected void setNNetInput()
+	{
 		int iNNet = 0;
 		Block block;
 

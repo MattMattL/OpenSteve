@@ -11,6 +11,12 @@ public class AIBodyController extends AIControllerBase
 	}
 
 	@Override
+	protected void aiInitialise()
+	{
+
+	}
+
+	@Override
 	protected void setNNetInput()
 	{
 

@@ -11,6 +11,12 @@ public class AILookController extends AIControllerBase
 	}
 
 	@Override
+	protected void aiInitialise()
+	{
+
+	}
+
+	@Override
 	protected void setNNetInput()
 	{
 
