@@ -134,11 +134,14 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		ItemStack itemstack = itemEntity.getItem();
 
-		this.func_233630_a_(itemEntity);
-		this.onItemPickup(itemEntity, itemstack.getCount());
+		if(this.inventory.getFreeInventorySpace(itemstack) > 0)
+		{
+			this.func_233630_a_(itemEntity);
+			this.onItemPickup(itemEntity, itemstack.getCount());
 
-		if(itemstack.getCount() <= 0)
-			itemEntity.remove();
+			if(itemstack.getCount() <= 0)
+				itemEntity.remove();
+		}
 	}
 
 	@Override
@@ -150,7 +153,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		{
 			ItemStack itemStack = ((ItemEntity)entityIn).getItem();
 
-			playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
+			this.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.75F, 1.0F);
 			this.inventory.addItemStackToInventory(itemStack);
 		}
 	}
