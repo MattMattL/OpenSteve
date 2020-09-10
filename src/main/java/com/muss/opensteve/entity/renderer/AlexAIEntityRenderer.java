@@ -2,11 +2,12 @@ package com.muss.opensteve.entity.renderer;
 
 import com.muss.opensteve.OpenSteve;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class AlexAIEntityRenderer extends MobRenderer<BaseAIEntity, BaseAIEntityModel<BaseAIEntity>>
+public class AlexAIEntityRenderer extends BipedRenderer<BaseAIEntity, BaseAIEntityModel<BaseAIEntity>>
 {
 	private static final ResourceLocation TEXTURE_ALEX_AI = new ResourceLocation(OpenSteve.MOD_ID, "textures/entity/alex_ai.png");
 
