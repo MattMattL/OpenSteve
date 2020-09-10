@@ -2,9 +2,8 @@ package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
-import com.muss.opensteve.entity.ai.brain.NNetBase;
 import com.muss.opensteve.entity.ai.controller.*;
-import com.muss.opensteve.util.OpenSteveDataTable;
+import com.muss.opensteve.entity.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.*;
