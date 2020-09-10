@@ -3,6 +3,7 @@ package com.muss.opensteve.entity.util;
 import com.google.common.collect.ImmutableList;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class AIInventory
 {
-	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(4, ItemStack.EMPTY);
+	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(8, ItemStack.EMPTY);
 	public final NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final List<NonNullList<ItemStack>> allInventories = ImmutableList.of(this.mainInventory, this.armorInventory);
 
@@ -35,7 +36,6 @@ public class AIInventory
 		return this.mainInventory.get(this.mainHandItem);
 	}
 
-
 	private boolean stackEqualExact(ItemStack stack1, ItemStack stack2)
 	{
 		return stack1.getItem() == stack2.getItem() && ItemStack.areItemStackTagsEqual(stack1, stack2);
@@ -43,7 +43,7 @@ public class AIInventory
 
 	public int getFirstEmptyStack()
 	{
-		for(int i=0; i<this.mainInventory.size(); ++i)
+		for(int i=0; i<this.mainInventory.size(); i++)
 		{
 			if(this.mainInventory.get(i).isEmpty())
 				return i;
@@ -55,7 +55,7 @@ public class AIInventory
 	@OnlyIn(Dist.CLIENT)
 	public int getSlotFor(ItemStack stack)
 	{
-		for(int i=0; i<this.mainInventory.size(); ++i)
+		for(int i=0; i<this.mainInventory.size(); i++)
 		{
 			if (!this.mainInventory.get(i).isEmpty() && this.stackEqualExact(stack, this.mainInventory.get(i)))
 				return i;
@@ -65,56 +65,58 @@ public class AIInventory
 	}
 
 
-
-	public int canPickUpItem(ItemStack stack)
+	public int getFreeInventorySpace(ItemStack stackIn)
 	{
-		if(stack.isEmpty())
+		if(stackIn.isEmpty())
 			return 0;
 
-		int capacity = 0;
+		int storable = 0;
 
 		for(int i=0; i<this.mainInventory.size(); i++)
 		{
-			if(this.mainInventory.get(i).isEmpty())
-			{
-				capacity += stack.getMaxStackSize();
-			}
-			else if(stackEqualExact(stack, this.mainInventory.get(i)))
-			{
-				capacity += stack.getMaxStackSize() - this.mainInventory.get(i).getCount();
-			}
+			ItemStack itemStack = this.mainInventory.get(i);
+
+			if(itemStack.isEmpty())
+				storable += stackIn.getMaxStackSize();
+			else if(stackEqualExact(itemStack, stackIn))
+				storable += stackIn.getMaxStackSize() - itemStack.getCount();
+
 		}
 
-		return Math.min(capacity, stack.getCount());
+		return storable;
+	}
+
+	private int getAvailableSlot(ItemStack stackIn)
+	{
+		int existingSlot = this.getSlotFor(stackIn);
+
+		return (existingSlot > -1) ? existingSlot : this.getFirstEmptyStack();
+
 	}
 
 	public void addItemStackToInventory(ItemStack stackIn)
 	{
-		// merge with an existing slot if possible
+		while(stackIn.getCount() > 0 && this.getAvailableSlot(stackIn) > -1)
+		{
+			int freeSlot = this.getAvailableSlot(stackIn);
+
+			if(freeSlot < 0)
+				break;
+
+			int stored = this.mainInventory.get(freeSlot).getCount();
+			int available = Math.min(stackIn.getCount(), stackIn.getMaxStackSize() - stored);
+			int leftover = stackIn.getCount() - available;
+
+			this.mainInventory.set(freeSlot, new ItemStack(stackIn.getItem(), stored + available));
+			stackIn.setCount(leftover);
+		}
+
 		for(int i=0; i<this.mainInventory.size(); i++)
 		{
-			ItemStack currentStack = this.mainInventory.get(i);
-
-			if(this.stackEqualExact(stackIn, currentStack) && currentStack.getCount() < currentStack.getMaxStackSize())
-			{
-				int slotCapacity = stackIn.getMaxStackSize() - currentStack.getCount();
-				int store = Math.min(slotCapacity, stackIn.getCount());
-
-				this.mainInventory.get(i).setCount(currentStack.getCount() + store);
-				stackIn.setCount(stackIn.getCount() - store);
-
-				break;
-			}
+			System.out.printf("[OpenSteve] [AIInventory] Slot %2d  %16s  %2d\n", i, this.mainInventory.get(i).getItem().getName().getString(), this.mainInventory.get(i).getCount());
 		}
 
-		// save the rest to empty slots
-		while(stackIn.getCount() > 0 && this.getFirstEmptyStack() > -1)
-		{
-			int store = Math.min(stackIn.getMaxStackSize(), stackIn.getCount());
-
-			this.mainInventory.set(this.getFirstEmptyStack(), new ItemStack(stackIn.getItem(), store));
-			stackIn.setCount(stackIn.getCount() - store);
-		}
+		System.out.printf("\n");
 
 		this.renderHeldItems();
 	}

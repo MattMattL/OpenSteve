@@ -91,7 +91,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		// test NNet inputs
-		int iNNet = 0;
+		/*int iNNet = 0;
 		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
 		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
 		this.globalNNet.vectorIn[iNNet++] = this.getPosZ();
@@ -103,7 +103,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		this.globalNNet.nnRunFeedForward();
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
-		this.nnetArray[this.nnetOut].runEntityAI();
+		this.nnetArray[this.nnetOut].runEntityAI();*/
 
 		super.livingTick();
 	}
@@ -114,27 +114,37 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return super.attackEntityFrom(source, amount);
 	}
 
-
 	@Override
+	public boolean canPickUpLoot()
+	{
+		return true;
+	}
+
+	/*@Override
 	public boolean canPickUpItem(ItemStack itemstackIn)
 	{
-		int pickUpAmount = this.inventory.canPickUpItem(itemstackIn);
+		System.out.printf("[OpenSteve] [BaseAIEntity] canPickUpItem\n");
+		return true;
+	}*/
 
-		if(pickUpAmount > 0)
-		{
-			itemstackIn.setCount(itemstackIn.getCount() - pickUpAmount);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	@Override
+	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
+	{
+		System.out.printf("[OpenSteve] [BaseAIEntity] updateEquipmentIfNeeded\n");
+
+		ItemStack itemstack = itemEntity.getItem();
+
+		this.func_233630_a_(itemEntity);
+		this.onItemPickup(itemEntity, itemstack.getCount());
+
+		if(itemstack.getCount() <= 0)
+			itemEntity.remove();
 	}
 
 	@Override
 	public void onItemPickup(Entity entityIn, int quantity)
 	{
-		super.onItemPickup(entityIn, quantity);
+		//super.onItemPickup(entityIn, quantity);
 
 		if(entityIn instanceof ItemEntity)
 		{
@@ -143,8 +153,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 			playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
 			this.inventory.addItemStackToInventory(itemStack);
 		}
-
-		this.setCanPickUpLoot(true);
 	}
 
 	@Override
