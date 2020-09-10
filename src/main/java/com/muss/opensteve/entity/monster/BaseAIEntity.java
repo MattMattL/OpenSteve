@@ -3,10 +3,12 @@ package com.muss.opensteve.entity.monster;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
 import com.muss.opensteve.entity.ai.controller.*;
+import com.muss.opensteve.entity.util.AIInventory;
 import com.muss.opensteve.entity.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,6 +20,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -37,10 +40,14 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected AIControllerBase aiLookController = new AILookController(this);
 	protected AIControllerBase aiMovementController = new AIMovementController(this);
 
+	public final AIInventory inventory = new AIInventory(this);
+
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 5;
+
+		this.setCanPickUpLoot(true);
 
 		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[0] = this.aiBodyController;
@@ -107,6 +114,38 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return super.attackEntityFrom(source, amount);
 	}
 
+
+	@Override
+	public boolean canPickUpItem(ItemStack itemstackIn)
+	{
+		int pickUpAmount = this.inventory.canPickUpItem(itemstackIn);
+
+		if(pickUpAmount > 0)
+		{
+			itemstackIn.setCount(itemstackIn.getCount() - pickUpAmount);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
+	public void onItemPickup(Entity entityIn, int quantity)
+	{
+		super.onItemPickup(entityIn, quantity);
+
+		if(entityIn instanceof ItemEntity)
+		{
+			ItemStack itemStack = ((ItemEntity)entityIn).getItem();
+
+			playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
+			this.inventory.addItemStackToInventory(itemStack);
+		}
+
+		this.setCanPickUpLoot(true);
+	}
 
 	@Override
 	public void writeAdditional(CompoundNBT compound)
