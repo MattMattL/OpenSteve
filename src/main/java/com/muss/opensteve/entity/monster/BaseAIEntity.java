@@ -152,8 +152,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.readAdditional(compound);
 
-		ListNBT listnbt = compound.getList("Inventory", 10);
-		this.inventory.read(listnbt);
+		this.inventory.read(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].readAdditional(compound);
@@ -164,7 +163,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.writeAdditional(compound);
 
-		compound.put("Inventory", this.inventory.write(new ListNBT()));
+		this.inventory.write(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].writeAdditional(compound);
