@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AIInventory
 {
-	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(36, ItemStack.EMPTY);
+	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	public final NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final List<NonNullList<ItemStack>> allInventories = ImmutableList.of(this.mainInventory, this.armorInventory);
 
@@ -39,7 +39,7 @@ public class AIInventory
 		return stack1.getItem() == stack2.getItem() && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	public int getFirstEmptyStack()
+	public int getFirstEmptySlot()
 	{
 		for(int i=0; i<this.mainInventory.size(); i++)
 		{
@@ -51,18 +51,22 @@ public class AIInventory
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public int getSlotFor(ItemStack stack)
+	public int getExistingSlotFor(ItemStack stackIn)
 	{
+		ItemStack currentStack;
+
 		for(int i=0; i<this.mainInventory.size(); i++)
 		{
-			if (!this.mainInventory.get(i).isEmpty() && this.stackEqualExact(stack, this.mainInventory.get(i)))
+			currentStack = this.mainInventory.get(i);
+
+			if(!currentStack.isEmpty() && this.stackEqualExact(stackIn, currentStack) && currentStack.getCount() < stackIn.getMaxStackSize())
 				return i;
 		}
 
 		return -1;
 	}
 
-	public int getFreeSpaceFor(ItemStack stackIn)
+	public int getAvailableSpaceFor(ItemStack stackIn)
 	{
 		if(stackIn.isEmpty())
 			return 0;
@@ -83,11 +87,11 @@ public class AIInventory
 		return storable;
 	}
 
-	private int getAvailableSlotFor(ItemStack stackIn)
+	public int getAvailableSlotFor(ItemStack stackIn)
 	{
-		int existingSlot = this.getSlotFor(stackIn);
+		int existingSlot = this.getExistingSlotFor(stackIn);
 
-		return (existingSlot > -1) ? existingSlot : this.getFirstEmptyStack();
+		return (existingSlot > -1) ? existingSlot : this.getFirstEmptySlot();
 	}
 
 	public void addItemStackToInventory(ItemStack stackIn)
@@ -96,18 +100,13 @@ public class AIInventory
 		{
 			int freeSlot = this.getAvailableSlotFor(stackIn);
 
-			if(freeSlot < 0)
-				break;
-
 			int stored = this.mainInventory.get(freeSlot).getCount();
-			int available = Math.min(stackIn.getCount(), stackIn.getMaxStackSize() - stored);
-			int leftover = stackIn.getCount() - available;
+			int storable = Math.min(stackIn.getCount(), stackIn.getMaxStackSize() - stored);
+			int leftover = stackIn.getCount() - storable;
 
-			this.mainInventory.set(freeSlot, new ItemStack(stackIn.getItem(), stored + available));
+			this.mainInventory.set(freeSlot, new ItemStack(stackIn.getItem(), stored + storable));
 			stackIn.setCount(leftover);
 		}
-
-		/* TEST */ this.debug();
 
 		this.updateMainHandItem();
 	}

@@ -105,7 +105,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 		this.nnetArray[this.nnetOut].runEntityAI();*/
 
-		this.nnetArray[3].runEntityAI();
+		//this.nnetArray[3].runEntityAI();
 
 		super.livingTick();
 	}
@@ -126,15 +126,20 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
 	{
 		ItemStack itemstack = itemEntity.getItem();
+		int storable = Math.min(itemstack.getCount(), this.inventory.getAvailableSpaceFor(itemstack));
 
-		if(this.inventory.getFreeSpaceFor(itemstack) > 0)
+		if(storable > 0)
 		{
 			this.func_233630_a_(itemEntity);
 			this.onItemPickup(itemEntity, itemstack.getCount());
-
-			if(itemstack.getCount() <= 0)
-				itemEntity.remove();
 		}
+
+		itemstack.setCount(itemstack.getCount() - storable);
+
+		if(itemstack.getCount() <= 0)
+			itemEntity.remove();
+
+		System.out.printf("\n");
 	}
 
 	@Override
