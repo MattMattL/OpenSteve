@@ -13,6 +13,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -20,7 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -105,6 +105,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 		this.nnetArray[this.nnetOut].runEntityAI();*/
 
+		this.nnetArray[3].runEntityAI();
+
 		super.livingTick();
 	}
 
@@ -120,21 +122,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return true;
 	}
 
-	/*@Override
-	public boolean canPickUpItem(ItemStack itemstackIn)
-	{
-		System.out.printf("[OpenSteve] [BaseAIEntity] canPickUpItem\n");
-		return true;
-	}*/
-
 	@Override
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
 	{
-		System.out.printf("[OpenSteve] [BaseAIEntity] updateEquipmentIfNeeded\n");
-
 		ItemStack itemstack = itemEntity.getItem();
 
-		if(this.inventory.getFreeInventorySpace(itemstack) > 0)
+		if(this.inventory.getFreeSpaceFor(itemstack) > 0)
 		{
 			this.func_233630_a_(itemEntity);
 			this.onItemPickup(itemEntity, itemstack.getCount());
@@ -159,21 +152,21 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT compound)
-	{
-		super.writeAdditional(compound);
-
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].writeAdditional(compound);
-	}
-
-	@Override
 	public void readAdditional(CompoundNBT compound)
 	{
 		super.readAdditional(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].readAdditional(compound);
+	}
+
+	@Override
+	public void writeAdditional(CompoundNBT compound)
+	{
+		super.writeAdditional(compound);
+
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].writeAdditional(compound);
 	}
 
 

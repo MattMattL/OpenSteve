@@ -2,9 +2,9 @@ package com.muss.opensteve.entity.util;
 
 import com.google.common.collect.ImmutableList;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AIInventory
 {
-	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(8, ItemStack.EMPTY);
+	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(36, ItemStack.EMPTY);
 	public final NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final List<NonNullList<ItemStack>> allInventories = ImmutableList.of(this.mainInventory, this.armorInventory);
 
@@ -23,8 +23,6 @@ public class AIInventory
 	private int mainHandItem = 0;
 	private int offHandItem = 0;
 	private final BaseAIEntity entity;
-
-	/* TEST */ PlayerInventory sampleInventory;
 
 	public AIInventory(BaseAIEntity entityIn)
 	{
@@ -64,8 +62,7 @@ public class AIInventory
 		return -1;
 	}
 
-
-	public int getFreeInventorySpace(ItemStack stackIn)
+	public int getFreeSpaceFor(ItemStack stackIn)
 	{
 		if(stackIn.isEmpty())
 			return 0;
@@ -86,19 +83,18 @@ public class AIInventory
 		return storable;
 	}
 
-	private int getAvailableSlot(ItemStack stackIn)
+	private int getAvailableSlotFor(ItemStack stackIn)
 	{
 		int existingSlot = this.getSlotFor(stackIn);
 
 		return (existingSlot > -1) ? existingSlot : this.getFirstEmptyStack();
-
 	}
 
 	public void addItemStackToInventory(ItemStack stackIn)
 	{
-		while(stackIn.getCount() > 0 && this.getAvailableSlot(stackIn) > -1)
+		while(stackIn.getCount() > 0 && this.getAvailableSlotFor(stackIn) > -1)
 		{
-			int freeSlot = this.getAvailableSlot(stackIn);
+			int freeSlot = this.getAvailableSlotFor(stackIn);
 
 			if(freeSlot < 0)
 				break;
@@ -111,19 +107,26 @@ public class AIInventory
 			stackIn.setCount(leftover);
 		}
 
-		for(int i=0; i<this.mainInventory.size(); i++)
-		{
-			System.out.printf("[OpenSteve] [AIInventory] Slot %2d  %16s  %2d\n", i, this.mainInventory.get(i).getItem().getName().getString(), this.mainInventory.get(i).getCount());
-		}
+		/* TEST */ this.debug();
 
-		System.out.printf("\n");
-
-		this.renderHeldItems();
+		this.updateMainHandItem();
 	}
 
-	public void renderHeldItems()
+	public void updateMainHandItem()
 	{
 		this.entity.setHeldItem(Hand.MAIN_HAND, this.mainInventory.get(this.mainHandItem));
 	}
 
+	public void debug()
+	{
+		for(int i=0; i<this.mainInventory.size(); i++)
+		{
+			String itemName = this.mainInventory.get(i).getItem().getName().getString();
+			int itemCount = this.mainInventory.get(i).getCount();
+
+			System.out.printf("[OpenSteve] [AIInventory] Slot %2d  %16s  %2d\n", i, itemName, itemCount);
+		}
+
+		System.out.printf("\n");
+	}
 }
