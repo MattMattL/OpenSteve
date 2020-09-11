@@ -3,6 +3,7 @@ package com.muss.opensteve.entity.monster;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
 import com.muss.opensteve.entity.ai.controller.*;
+import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
 import com.muss.opensteve.entity.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
@@ -31,8 +32,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
-	private DeepNNetBase globalNNet = new DeepNNetBase(8, 3, 4);
+	public final AIInventory inventory = new AIInventory(this);
+	public final AIFoodStats foodStats = new AIFoodStats();
 
+	private DeepNNetBase globalNNet = new DeepNNetBase(8, 3, 4);
 	private int nnetOut;
 
 	private AIControllerBase nnetArray[];
@@ -40,8 +43,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected AIControllerBase aiJumpController = new AIJumpController(this);
 	protected AIControllerBase aiLookController = new AILookController(this);
 	protected AIControllerBase aiMovementController = new AIMovementController(this);
-
-	public final AIInventory inventory = new AIInventory(this);
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
@@ -84,6 +85,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void tick()
 	{
 		super.tick();
+
+		if(!this.world.isRemote)
+		{
+			this.foodStats.tick(this);
+		}
 	}
 
 	/* Called to update the entity's behaviour */
@@ -147,6 +153,31 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.onItemPickup(entityIn, quantity);
 	}
 
+
+	public void addExhaustion(float exhaustion)
+	{
+		if(!this.world.isRemote)
+		{
+			this.foodStats.addExhaustion(exhaustion);
+		}
+	}
+
+	public AIFoodStats getFoodStats()
+	{
+		return this.foodStats;
+	}
+
+	public boolean canEat(boolean ignoreHunger)
+	{
+		return ignoreHunger || this.foodStats.needFood();
+	}
+
+	public boolean shouldHeal()
+	{
+		return this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth();
+	}
+
+
 	@Override
 	public void readAdditional(CompoundNBT compound)
 	{
@@ -154,6 +185,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		ListNBT listnbt = compound.getList("Inventory", 10);
 		this.inventory.read(listnbt);
+		this.foodStats.read(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].readAdditional(compound);
@@ -165,6 +197,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.writeAdditional(compound);
 
 		compound.put("Inventory", this.inventory.write(new ListNBT()));
+		this.foodStats.write(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].writeAdditional(compound);
