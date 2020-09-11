@@ -32,6 +32,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
 	private DeepNNetBase globalNNet = new DeepNNetBase(8, 3, 4);
+
 	private int nnetOut;
 
 	private AIControllerBase nnetArray[];
@@ -45,7 +46,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
-		this.experienceValue = 5;
+		this.experienceValue = 0;
 
 		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[0] = this.aiBodyController;
@@ -73,7 +74,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		return MonsterEntity.func_234295_eP_()
 				.func_233815_a_(Attributes.field_233818_a_, 20.0D)
-				.func_233815_a_(Attributes.field_233821_d_, 0.23F)
+				.func_233815_a_(Attributes.field_233821_d_, 1D)
 				.func_233815_a_(Attributes.field_233823_f_, 2.0D)
 				.func_233814_a_(Attributes.field_233829_l_);
 	}
@@ -88,6 +89,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	/* Called to update the entity's behaviour */
 	public void livingTick()
 	{
+		super.livingTick();
+
 		// test NNet inputs
 		/*int iNNet = 0;
 		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
@@ -100,12 +103,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.vectorIn[iNNet++] = this.isBurning() ? 1 : -1;
 
 		this.globalNNet.nnRunFeedForward();
+
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 		this.nnetArray[this.nnetOut].runEntityAI();*/
 
 		//this.nnetArray[3].runEntityAI();
 
-		super.livingTick();
 	}
 
 	/* Called when the entity is attacked. */
