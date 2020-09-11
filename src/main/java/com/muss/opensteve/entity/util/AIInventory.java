@@ -129,4 +129,58 @@ public class AIInventory
 
 		System.out.printf("\n");
 	}
+
+	public void read(ListNBT nbtTagListIn)
+	{
+		this.mainInventory.clear();
+		this.armorInventory.clear();
+
+		for(int i=0; i<nbtTagListIn.size(); i++)
+		{
+			CompoundNBT compoundnbt = nbtTagListIn.getCompound(i);
+			int j = compoundnbt.getByte("Slot") & 255;
+			ItemStack itemstack = ItemStack.read(compoundnbt);
+
+			if(!itemstack.isEmpty())
+			{
+				if(j >= 0 && j < this.mainInventory.size())
+				{
+					this.mainInventory.set(j, itemstack);
+				}
+				else if(j >= 100 && j < this.armorInventory.size() + 100)
+				{
+					this.armorInventory.set(j - 100, itemstack);
+				}
+			}
+		}
+	}
+
+	public ListNBT write(ListNBT nbtTagListIn)
+	{
+		for(int i=0; i<this.mainInventory.size(); i++)
+		{
+			if(!this.mainInventory.get(i).isEmpty())
+			{
+				CompoundNBT compoundMain = new CompoundNBT();
+
+				compoundMain.putByte("Slot", (byte)i);
+				this.mainInventory.get(i).write(compoundMain);
+				nbtTagListIn.add(compoundMain);
+			}
+		}
+
+		for(int j=0; j<this.armorInventory.size(); j++)
+		{
+			if(!this.armorInventory.get(j).isEmpty())
+			{
+				CompoundNBT compoundArmor = new CompoundNBT();
+
+				compoundArmor.putByte("Slot", (byte)(j+100));
+				this.armorInventory.get(j).write(compoundArmor);
+				nbtTagListIn.add(compoundArmor);
+			}
+		}
+
+		return nbtTagListIn;
+	}
 }
