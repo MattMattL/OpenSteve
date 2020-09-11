@@ -171,6 +171,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 
+	public abstract boolean isAlex();
+
+	public abstract boolean isSteve();
+
+
 	public boolean isChild()
 	{
 		return this.getDataManager().get(IS_CHILD);
@@ -228,9 +233,4 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		return new ItemStack(Items.PLAYER_HEAD);
 	}
-
-
-	public abstract boolean isAlex();
-
-	public abstract boolean isSteve();
 }

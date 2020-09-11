@@ -1,10 +1,10 @@
 package com.muss.opensteve.entity.monster;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
-public class AlexAIEntity extends BaseAIEntity implements IBaseAI
+public class AlexAIEntity extends BaseAIEntity
 {
 	public AlexAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
 	{
@@ -22,5 +22,17 @@ public class AlexAIEntity extends BaseAIEntity implements IBaseAI
 	public boolean isSteve()
 	{
 		return false;
+	}
+
+	@Override
+	public void readAdditional(CompoundNBT compound)
+	{
+		super.readAdditional(compound);
+	}
+
+	@Override
+	public void writeAdditional(CompoundNBT compound)
+	{
+		super.writeAdditional(compound);
 	}
 }
