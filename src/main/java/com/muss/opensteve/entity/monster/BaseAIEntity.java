@@ -47,8 +47,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super(type, worldIn);
 		this.experienceValue = 5;
 
-		this.setCanPickUpLoot(true);
-
 		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[0] = this.aiBodyController;
 		this.nnetArray[1] = this.aiJumpController;
@@ -116,6 +114,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return super.attackEntityFrom(source, amount);
 	}
 
+
 	@Override
 	public boolean canPickUpLoot()
 	{
@@ -123,37 +122,26 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 	@Override
+	public boolean canPickUpItem(ItemStack itemstackIn)
+	{
+		return super.canPickUpItem(itemstackIn);
+	}
+
+	/* Called when collides with item entities */
+	@Override
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
 	{
-		ItemStack itemstack = itemEntity.getItem();
-		int storable = Math.min(itemstack.getCount(), this.inventory.getAvailableSpaceFor(itemstack));
+		ItemStack itemStack = itemEntity.getItem();
+		int storable = Math.min(itemStack.getCount(), this.inventory.getAvailableSpaceFor(itemStack));
 
-		if(storable > 0)
-		{
-			this.func_233630_a_(itemEntity);
-			this.onItemPickup(itemEntity, itemstack.getCount());
-		}
-
-		itemstack.setCount(itemstack.getCount() - storable);
-
-		if(itemstack.getCount() <= 0)
-			itemEntity.remove();
-
-		System.out.printf("\n");
+		ItemStack splitStack = itemStack.split(storable);
+		this.inventory.addItemStackToInventory(splitStack);
 	}
 
 	@Override
 	public void onItemPickup(Entity entityIn, int quantity)
 	{
-		//super.onItemPickup(entityIn, quantity);
-
-		if(entityIn instanceof ItemEntity)
-		{
-			ItemStack itemStack = ((ItemEntity)entityIn).getItem();
-
-			this.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.75F, 1.0F);
-			this.inventory.addItemStackToInventory(itemStack);
-		}
+		super.onItemPickup(entityIn, quantity);
 	}
 
 	@Override

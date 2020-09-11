@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AIInventory
 {
-	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(4, ItemStack.EMPTY);
+	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(36, ItemStack.EMPTY);
 	public final NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final List<NonNullList<ItemStack>> allInventories = ImmutableList.of(this.mainInventory, this.armorInventory);
 
