@@ -90,25 +90,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
-
-		// test NNet inputs
-		/*int iNNet = 0;
-		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
-		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
-		this.globalNNet.vectorIn[iNNet++] = this.getPosZ();
-		this.globalNNet.vectorIn[iNNet++] = this.getHealth();
-		this.globalNNet.vectorIn[iNNet++] = this.getBrightness();
-		this.globalNNet.vectorIn[iNNet++] = this.isAlex() ? 1 : -1;
-		this.globalNNet.vectorIn[iNNet++] = this.isWet() ? 1 : -1;
-		this.globalNNet.vectorIn[iNNet++] = this.isBurning() ? 1 : -1;
-
-		this.globalNNet.nnRunFeedForward();
-
-		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
-		this.nnetArray[this.nnetOut].runEntityAI();*/
-
-		//this.nnetArray[3].runEntityAI();
-
 	}
 
 	/* Called when the entity is attacked. */
@@ -130,7 +111,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return super.canPickUpItem(itemstackIn);
 	}
 
-	/* Called when collides with item entities */
+	/* Called when the entity collides with item entities */
 	@Override
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
 	{
