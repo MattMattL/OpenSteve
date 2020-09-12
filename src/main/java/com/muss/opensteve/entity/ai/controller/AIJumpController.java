@@ -7,7 +7,7 @@ public class AIJumpController extends AIControllerBase
 {
 	public AIJumpController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 8, 8, 8);
+		super(entityIn, 8, 8, 8, "AIJumpController");
 	}
 
 	@Override

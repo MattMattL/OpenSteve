@@ -15,7 +15,7 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 27, 5, 4);
+		super(entityIn, 27, 5, 4, "AIMovementController");
 	}
 
 	@Override

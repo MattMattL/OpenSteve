@@ -8,10 +8,10 @@ public abstract class AIControllerBase
 	protected DeepNNetIO deepNNet;
 	protected BaseAIEntity entity;
 
-	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut)
+	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut, String compoundKey)
 	{
 		this.entity = entityIn;
-		this.deepNNet = new DeepNNetIO(netIn, netDepth, netOut);
+		this.deepNNet = new DeepNNetIO(netIn, netDepth, netOut, compoundKey);
 	}
 
 	public void runEntityAI()
@@ -34,14 +34,13 @@ public abstract class AIControllerBase
 	/* evaluate the outcome and run back propagations */
 	protected abstract void fixEntityBehavior();
 
+	public void readAdditional(CompoundNBT compound)
+	{
+		this.deepNNet.read(compound);
+	}
 
 	public void writeAdditional(CompoundNBT compound)
 	{
-
-	}
-
-	public void readAdditional(CompoundNBT compound)
-	{
-
+		this.deepNNet.write(compound);
 	}
 }

@@ -7,7 +7,7 @@ public class AILookController extends AIControllerBase
 {
 	public AILookController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 8, 8, 8);
+		super(entityIn, 8, 8, 8, "AILookController");
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
-	private DeepNNetIO globalNNet = new DeepNNetIO(8, 3, 4);
+	private DeepNNetIO globalNNet = new DeepNNetIO(8, 3, 4, "GlobalNNet");
 
 	private int nnetOut;
 
@@ -137,6 +137,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.readAdditional(compound);
 
 		this.inventory.read(compound);
+		this.globalNNet.read(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].readAdditional(compound);
@@ -148,6 +149,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.writeAdditional(compound);
 
 		this.inventory.write(compound);
+		this.globalNNet.write(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
 			this.nnetArray[i].writeAdditional(compound);
