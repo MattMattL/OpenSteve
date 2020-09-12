@@ -104,6 +104,22 @@ public class AIFoodStats
 
 	}
 
+	public void livingTick(BaseAIEntity entity)
+	{
+		if(entity.world.getDifficulty() == Difficulty.PEACEFUL && entity.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION))
+		{
+			if(entity.getHealth() < entity.getMaxHealth() && entity.ticksExisted % 20 == 0)
+			{
+				entity.heal(1.0F);
+			}
+
+			if(this.needFood() && entity.ticksExisted % 10 == 0)
+			{
+				this.setFoodLevel(this.getFoodLevel() + 1);
+			}
+      	}
+	}
+
 	public void read(CompoundNBT compound)
 	{
 		if(compound.contains("foodLevel", 99))

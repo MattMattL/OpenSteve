@@ -22,9 +22,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 
 import javax.annotation.Nullable;
 
@@ -96,6 +94,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
+
+		this.foodStats.livingTick(this);
 
 		// test NNet inputs
 		/*int iNNet = 0;
