@@ -19,16 +19,17 @@ public class DeepNNetBase
 	private double sigmoid[][];
 	private double delta[][];
 
-	private Random random = new Random(System.currentTimeMillis());
+	private Random random;
 
 	public DeepNNetBase(int netIn, int netDepth, int netOut)
 	{
+		this.random = new Random(System.currentTimeMillis());
+
 		this.NET_IN = netIn;
 		this.NET_OUT = netOut;
 		this.NET_DEPTH = netDepth;
 		this.NET_MAX_WIDTH = Math.max(this.NET_IN, this.NET_OUT);
-
-		NET_WIDTH = new int[NET_DEPTH + 1];
+		this.NET_WIDTH = new int[NET_DEPTH + 1];
 
 		memoryInit();
 		vectorInit();
