@@ -8,11 +8,10 @@ public class DeepNNetBase
 	public final int NET_MAX_WIDTH;
 	public final int NET_IN;
 	public final int NET_OUT;
-
 	private final int NET_WIDTH[];
 
 	public double vectorIn[];
-	public double vectorOut[];
+	protected double vectorOut[];
 	public double vectorDesired[];
 
 	protected double weights[][][];
@@ -126,19 +125,6 @@ public class DeepNNetBase
 				for(i=0; i<NET_WIDTH[layer]; i++)
 					weights[layer][i][j] += delta[layer][j] * sigmoid[layer][i];
 		}
-	}
-
-	public int nnGetMaxOutputIndex()
-	{
-		int iMax = 0;
-
-		for(int i=1; i<NET_OUT; i++)
-		{
-			if(vectorOut[i] > vectorOut[iMax])
-				iMax = i;
-		}
-
-		return iMax;
 	}
 }
 
