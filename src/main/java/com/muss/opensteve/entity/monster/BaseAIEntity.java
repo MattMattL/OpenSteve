@@ -140,7 +140,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.read(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].readAdditional(compound);
+			this.nnetArray[i].read(compound);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.write(compound);
 
 		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].writeAdditional(compound);
+			this.nnetArray[i].write(compound);
 	}
 
 

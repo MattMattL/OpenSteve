@@ -34,12 +34,12 @@ public abstract class AIControllerBase
 	/* evaluate the outcome and run back propagations */
 	protected abstract void fixEntityBehavior();
 
-	public void readAdditional(CompoundNBT compound)
+	public void read(CompoundNBT compound)
 	{
 		this.deepNNet.read(compound);
 	}
 
-	public void writeAdditional(CompoundNBT compound)
+	public void write(CompoundNBT compound)
 	{
 		this.deepNNet.write(compound);
 	}
