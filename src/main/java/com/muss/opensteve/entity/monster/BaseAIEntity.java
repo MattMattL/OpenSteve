@@ -1,19 +1,22 @@
 package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
-import com.muss.opensteve.entity.ai.brain.DeepNNetBase;
-import com.muss.opensteve.entity.ai.controller.*;
+import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
+import com.muss.opensteve.entity.ai.controller.AIBodyController;
+import com.muss.opensteve.entity.ai.controller.AIJumpController;
+import com.muss.opensteve.entity.ai.controller.AILookController;
+import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIInventory;
 import com.muss.opensteve.entity.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -31,7 +34,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
-	private DeepNNetBase globalNNet = new DeepNNetBase(8, 3, 4);
+	private DeepNNetIO globalNNet = new DeepNNetIO(8, 3, 4);
 
 	private int nnetOut;
 

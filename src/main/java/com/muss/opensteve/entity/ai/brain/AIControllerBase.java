@@ -5,13 +5,13 @@ import net.minecraft.nbt.CompoundNBT;
 
 public abstract class AIControllerBase
 {
-	protected DeepNNetBase deepNNet;
+	protected DeepNNetIO deepNNet;
 	protected BaseAIEntity entity;
 
 	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut)
 	{
 		this.entity = entityIn;
-		this.deepNNet = new DeepNNetBase(netIn, netDepth, netOut);
+		this.deepNNet = new DeepNNetIO(netIn, netDepth, netOut);
 	}
 
 	public void runEntityAI()
