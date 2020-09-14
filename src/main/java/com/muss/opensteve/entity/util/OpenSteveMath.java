@@ -1,0 +1,15 @@
+package com.muss.opensteve.entity.util;
+
+import net.minecraft.util.math.vector.Vector3d;
+
+public class OpenSteveMath
+{
+	public static double getDistance(Vector3d vector1, Vector3d vector2)
+	{
+		double distance = (vector2.x - vector1.x) * (vector2.x - vector1.x);
+		distance += (vector2.y - vector1.y) * (vector2.y - vector1.y);
+		distance += (vector2.z - vector1.z) * (vector2.z - vector1.z);
+
+		return Math.sqrt(distance);
+	}
+}
