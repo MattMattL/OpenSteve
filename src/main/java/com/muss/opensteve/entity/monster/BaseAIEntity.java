@@ -96,6 +96,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
+
 		this.aiTick();
 	}
 
@@ -121,7 +122,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.nnRunFeedForward();
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 
-		/* TEST */
 		this.nnetArray[2].runEntityAI();
 	}
 
