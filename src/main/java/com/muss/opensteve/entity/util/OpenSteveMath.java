@@ -4,6 +4,9 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class OpenSteveMath
 {
+	public static final double E = 2.7182818284590452354;
+    public static final double PI = 3.14159265358979323846;
+
 	public static double getDistance(Vector3d vector1, Vector3d vector2)
 	{
 		double distance = (vector2.x - vector1.x) * (vector2.x - vector1.x);
@@ -18,6 +21,7 @@ public class OpenSteveMath
 		public double r;
 		public double theta;
 		public double phi;
+		public boolean isRadian;
 
 		public PolarCoord()
 		{
