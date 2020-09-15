@@ -36,7 +36,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public final AIInventory inventory = new AIInventory(this);
 	public final AIFoodStats foodStats = new AIFoodStats();
 
-	private DeepNNetIO globalNNet = new DeepNNetIO(8, 3, 4, "GlobalNNet");
+	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
 	private AIControllerBase nnetArray[];
 	protected AIControllerBase aiBodyController = new AIBodyController(this);
@@ -96,6 +96,33 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void livingTick()
 	{
 		super.livingTick();
+		this.aiTick();
+	}
+
+	private void aiTick()
+	{
+		int iNNet = 0;
+
+		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
+		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
+		this.globalNNet.vectorIn[iNNet++] = this.getPosZ();
+		this.globalNNet.vectorIn[iNNet++] = this.getMaxHealth();
+		this.globalNNet.vectorIn[iNNet++] = this.getHealth();
+		
+		this.globalNNet.vectorIn[iNNet++] = this.foodStats.getFoodLevel();
+		this.globalNNet.vectorIn[iNNet++] = this.foodStats.getSaturationLevel();
+		this.globalNNet.vectorIn[iNNet++] = this.isAlex()? 1 : -1;
+		this.globalNNet.vectorIn[iNNet++] = this.isBurning()? 1 : -1;
+		this.globalNNet.vectorIn[iNNet++] = this.isInWater()? 1 : -1;
+
+		this.globalNNet.vectorIn[iNNet++] = this.isChild()? 1 : -1;
+		this.globalNNet.vectorIn[iNNet++] = this.isJumping? 1 : -1;
+
+		this.globalNNet.nnRunFeedForward();
+		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
+
+		/* TEST */
+		this.nnetArray[2].runEntityAI();
 	}
 
 	/* Called when the entity is attacked. */
