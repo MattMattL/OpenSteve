@@ -12,4 +12,25 @@ public class OpenSteveMath
 
 		return Math.sqrt(distance);
 	}
+
+	public class PolarCoord
+	{
+		public double r;
+		public double theta;
+		public double phi;
+
+		public PolarCoord()
+		{
+			this.r = 0;
+			this.theta = 0;
+			this.phi = 0;
+		}
+
+		public PolarCoord(double radiusIn, double thetaIn, double phiIn)
+		{
+			this.r = radiusIn;
+			this.theta = thetaIn;
+			this.phi = phiIn;
+		}
+	}
 }
