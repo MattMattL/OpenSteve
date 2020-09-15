@@ -2,32 +2,37 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.entity.util.OpenSteveMath;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
+import com.muss.opensteve.entity.util.math.OpenSteveMath;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class AILookController extends AIControllerBase
 {
-	private Vector3d prevLookPos;
-	private Vector3d lookPos;
-	private Vector3d deltaLookPos;
+	private Vector3d eyePosition;
+	private Vector3d lookPosition;
+
+	private Vector3d lookVector;
+	private PolarCoord polarCoord;
+	private PolarCoord deltaAngles;
 
 	private int nnetOut;
 	private float prevHealth;
 
 	public AILookController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 14, 4, 6, "AILookController");
+		super(entityIn, 17, 4, 4, "AILookController");
 
-		this.lookPos = new Vector3d((double)this.entity.func_233580_cy_().getX(), (double)this.entity.func_233580_cy_().getY() + 2, (double)this.entity.func_233580_cy_().getZ());
-		this.prevLookPos = this.lookPos;
+		this.lookPosition = new Vector3d(0, 0, 0);
+		this.polarCoord = new PolarCoord(1, 0, 0);
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
+		// calculate the look vector and normalise
+		this.eyePosition = this.entity.getEyePosition(1.0F);
+		this.lookVector = this.lookPosition.subtract(this.eyePosition);
+		this.lookVector = this.lookVector.normalize();
+
 		this.prevHealth = this.entity.getHealth();
 	}
 
@@ -36,21 +41,24 @@ public class AILookController extends AIControllerBase
 	{
 		int iNNet = 0;
 
-		this.deepNNet.vectorIn[iNNet++] = this.lookPos.x;
-		this.deepNNet.vectorIn[iNNet++] = this.lookPos.y;
-		this.deepNNet.vectorIn[iNNet++] = this.lookPos.z;
+		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.x;
+		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.y;
+		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.z;
+		this.deepNNet.vectorIn[iNNet++] = this.lookVector.x;
+		this.deepNNet.vectorIn[iNNet++] = this.lookVector.y;
+
+		this.deepNNet.vectorIn[iNNet++] = this.lookVector.z;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosX();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosY();
-
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosZ();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
+
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getFoodLevel();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getSaturationLevel();
-
-
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isAlex()? 1 : -1;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isBurning()? 1 : -1;
+
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isInWater()? 1 : -1;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isChild()? 1 : -1;
 	}
@@ -58,37 +66,43 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void runEntityBehavior()
 	{
+		double unitAngle = 3.14159265 / 12;
+
 		this.deepNNet.nnRunFeedForward();
 		this.nnetOut = this.deepNNet.nnGetMaxOutputIndex();
 
 		switch(this.nnetOut)
 		{
-			case 0: // East
-				this.deltaLookPos = new Vector3d(1, 0, 0);
+			case 0: // Up
+				this.deltaAngles = new PolarCoord(0, unitAngle, 0);
 				break;
-			case 1: // West
-				this.deltaLookPos = new Vector3d(-1, 0, 0);
+			case 1: // Down
+				this.deltaAngles = new PolarCoord(0, -unitAngle, 0);
 				break;
-			case 2: // Up
-				this.deltaLookPos = new Vector3d(0, 1, 0);
+			case 2: // E-N-W
+				this.deltaAngles = new PolarCoord(0, 0, unitAngle);
 				break;
-			case 3: // Down
-				this.deltaLookPos = new Vector3d(0, -1, 0);
-				break;
-			case 4: // South
-				this.deltaLookPos = new Vector3d(0, 0, 1);
-				break;
-			case 5: // North
-				this.deltaLookPos = new Vector3d(0, 0, -1);
+			case 3: // E-S-W
+				this.deltaAngles = new PolarCoord(0, 0, -unitAngle);
 				break;
 			default: // Stay
-				this.deltaLookPos = new Vector3d(0, 0, 0);
+				this.deltaAngles = new PolarCoord(0, 0, 0);
 				break;
 		}
 
-		this.prevLookPos = this.lookPos;
-		this.lookPos = this.prevLookPos.add(this.deltaLookPos);
-		this.entity.getLookController().setLookPosition(this.lookPos);
+		// translate to polar basis
+		this.polarCoord.setToPolarCoord(this.lookVector);
+
+		// perform transformation
+		this.polarCoord = this.polarCoord.add(this.deltaAngles);
+
+		// translate back to the original basis
+		this.lookVector = this.polarCoord.getCartesian();
+
+		// calculate absolute positions
+		this.lookPosition = this.lookVector.add(this.eyePosition);
+
+		this.entity.getLookController().setLookPosition(this.lookPosition.x, this.lookPosition.y, this.lookPosition.z);
 	}
 
 	@Override
@@ -102,18 +116,51 @@ public class AILookController extends AIControllerBase
 
 			this.deepNNet.nnRunBackprop();
 		}
+	}
 
-		// negative if the look direction is the same
-		Vector3d eyePos = new Vector3d(this.entity.getPosX(), this.entity.getPosYEye(), this.entity.getPosZ());
+	/* Polar coordinate but the axes aligned to the entity's head (XYZ -> ZXY) */
+	public class PolarCoord
+	{
+		public double r;
+		public double theta;
+		public double phi;
 
-		if(OpenSteveMath.getDistance(eyePos, prevLookPos) >= OpenSteveMath.getDistance(eyePos, lookPos) + 1)
+		public PolarCoord()
 		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut)? 0 : 1;
+			this.r = 1;
+			this.theta = 0;
+			this.phi = 0;
+		}
 
-			this.deepNNet.nnRunBackprop();
+		public PolarCoord(double radiusIn, double thetaIn, double phiIn)
+		{
+			this.r = radiusIn;
+			this.theta = thetaIn;
+			this.phi = phiIn;
+		}
+
+		public PolarCoord add(PolarCoord polar)
+		{
+			return new PolarCoord(this.r + polar.r, this.theta + polar.theta, this.phi + polar.phi);
+		}
+
+		public void setToPolarCoord(Vector3d vector)
+		{
+			this.r = Math.sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+			this.theta = Math.atan(Math.sqrt(vector.x * vector.x + vector.z * vector.z) / vector.y);
+			this.phi = Math.atan(vector.z / vector.x);
+		}
+
+		public Vector3d getCartesian()
+		{
+			double x = this.r * Math.sin(this.theta) * Math.cos(this.phi);
+			double y = this.r * Math.cos(this.theta);
+			double z = this.r * Math.sin(this.theta) * Math.sin(this.phi);
+
+			return new Vector3d(x, y, z);
 		}
 	}
+
 }
 
 
