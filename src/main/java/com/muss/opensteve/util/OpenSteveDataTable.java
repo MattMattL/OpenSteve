@@ -1,4 +1,4 @@
-package com.muss.opensteve.entity.util;
+package com.muss.opensteve.util;
 
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.util.text.ITextComponent;
