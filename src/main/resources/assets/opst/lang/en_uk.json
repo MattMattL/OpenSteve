@@ -3,5 +3,7 @@
 	"entity.opst.alex_ai": "AlexAI",
 
 	"item.opst.steve_spawn_egg": "Steve Spawn Egg",
-	"item.opst.alex_spawn_egg": "Alex Spawn Egg"
+	"item.opst.alex_spawn_egg": "Alex Spawn Egg",
+
+	"commands.opst.test": "Testing command functions"
 }
