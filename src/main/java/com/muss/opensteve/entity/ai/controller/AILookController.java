@@ -117,8 +117,10 @@ public class AILookController extends AIControllerBase
 		}
 	}
 
-	/* Polar coordinate but the axes aligned to the entity's head (XYZ -> ZXY) */
-	public class PolarCoord
+	/* Polar coordinate centred around the entity's head movement.
+	 * Arranged to ZX-Y instead of XY-Z to match the game's coordinate system
+	 */
+	private class PolarCoord
 	{
 		public double r;
 		public double theta;
