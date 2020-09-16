@@ -1,4 +1,4 @@
-package com.muss.opensteve.client;
+package com.muss.opensteve.setup;
 
 import com.muss.opensteve.item.ModSpawnEggItem;
 import com.muss.opensteve.OpenSteve;

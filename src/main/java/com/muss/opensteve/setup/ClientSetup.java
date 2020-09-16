@@ -1,4 +1,4 @@
-package com.muss.opensteve.client;
+package com.muss.opensteve.setup;
 
 import com.muss.opensteve.OpenSteve;
 import com.muss.opensteve.entity.renderer.AlexAIEntityRenderer;

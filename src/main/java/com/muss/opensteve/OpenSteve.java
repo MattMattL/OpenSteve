@@ -2,7 +2,7 @@ package com.muss.opensteve;
 
 import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
-import com.muss.opensteve.client.ClientSetup;
+import com.muss.opensteve.setup.ClientSetup;
 import com.muss.opensteve.init.ModEntityType;
 import com.muss.opensteve.init.ModItem;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
