@@ -2,7 +2,7 @@ package com.muss.opensteve;
 
 import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
-import com.muss.opensteve.init.ClientSetup;
+import com.muss.opensteve.client.ClientSetup;
 import com.muss.opensteve.init.ModEntityType;
 import com.muss.opensteve.init.ModItem;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -35,7 +35,6 @@ public class OpenSteve
 
 	public OpenSteve()
 	{
-		// TODO: merge registry methods into one class
 		ModEntityType.register();
 		ModItem.register();
 
