@@ -1,6 +1,5 @@
-package com.muss.opensteve.entity.util.math;
+package com.muss.opensteve.util;
 
-import com.muss.opensteve.entity.ai.controller.AILookController;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class OpenSteveMath
