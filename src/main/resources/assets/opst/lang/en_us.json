@@ -5,5 +5,7 @@
 	"item.opst.steve_spawn_egg": "Steve Spawn Egg",
 	"item.opst.alex_spawn_egg": "Alex Spawn Egg",
 
-	"commands.opst.test": "Testing command functions"
+	"commands.opst.print": "Testing command functions",
+	"commands.opst.greet": "Hello there",
+	"commands.opst.greet.dev": "Hello %s"
 }
