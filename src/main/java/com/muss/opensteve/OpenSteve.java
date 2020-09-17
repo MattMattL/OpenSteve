@@ -1,5 +1,6 @@
 package com.muss.opensteve;
 
+import com.muss.opensteve.command.OpenSteveCommands;
 import com.muss.opensteve.entity.monster.AlexAIEntity;
 import com.muss.opensteve.entity.monster.SteveAIEntity;
 import com.muss.opensteve.setup.ClientSetup;
@@ -42,6 +43,7 @@ public class OpenSteve
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
 
+		MinecraftForge.EVENT_BUS.addListener(OpenSteveCommands::registerCommands);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
