@@ -25,7 +25,7 @@ public class KillCommand
 			OpenSteveDataTable.aiEntityList.remove(0);
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.creator.kill.all"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all"), true);
 		return 1;
 	}
 
@@ -48,7 +48,7 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.creator.kill.alex"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex"), true);
 		return 1;
 	}
 
@@ -71,7 +71,7 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.creator.kill.steve"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve"), true);
 		return 1;
 	}
 }
