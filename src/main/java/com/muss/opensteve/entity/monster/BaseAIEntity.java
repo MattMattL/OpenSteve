@@ -54,6 +54,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetArray[1] = this.aiJumpController;
 		this.nnetArray[2] = this.aiLookController;
 		this.nnetArray[3] = this.aiMovementController;
+
+		if(!this.world.isRemote)
+		{
+			OpenSteveDataTable.aiEntityList.add(this);
+		}
 	}
 
 	@Nullable

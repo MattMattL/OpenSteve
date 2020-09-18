@@ -3,8 +3,15 @@ package com.muss.opensteve.util;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.util.text.ITextComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OpenSteveDataTable
 {
+	/* A List of Server-Side AIs */
+	public static List<BaseAIEntity> aiEntityList = new ArrayList<BaseAIEntity>();
+
+	/* Random Entity Names */
 	public static final String namesForSteve[] = {
 			"M (TM)", "G_Cat", "G_Omg", "Racoon", "BGM",
 			"Mr O", "DummyData", "newbigbird", "Mr Song", "skyblue_6_",
