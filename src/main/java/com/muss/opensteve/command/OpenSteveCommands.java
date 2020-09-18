@@ -24,6 +24,7 @@ public class OpenSteveCommands
 				.register(Commands.literal("creator").requires(context -> { return context.hasPermissionLevel(2); })
 						.then(PrintCommand.register())
 						.then(GreetingCommand.register())
+						.then(KillCommand.register())
 						/* add commands here */
 				);
     }
