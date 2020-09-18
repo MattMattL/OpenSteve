@@ -15,7 +15,7 @@ public class PrintCommand
 
 	private static int printTestMsg(CommandSource source)
 	{
-		source.sendFeedback(new TranslationTextComponent("commands.opst.print"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.creator.print"), true);
 		return 1;
 	}
 }

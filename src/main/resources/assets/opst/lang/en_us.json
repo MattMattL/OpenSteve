@@ -5,11 +5,13 @@
 	"item.opst.steve_spawn_egg": "Steve Spawn Egg",
 	"item.opst.alex_spawn_egg": "Alex Spawn Egg",
 
-	"commands.opst.opensteve": "try /creator",
-	"commands.opst.print": "Testing command functions",
-	"commands.opst.greet": "Hello there",
-	"commands.opst.greet.dev": "Hello %s",
-	"commands.opst.kill.all": "Killing all the AIs...",
-	"commands.opst.kill.alex": "Killing all the Alex...",
-	"commands.opst.kill.steve": "Killing all the Steve..."
+	"commands.opensteve": "try /creator",
+	"commands.creator.print": "Testing command functions",
+	"commands.creator.greet": "Hello there",
+	"commands.creator.greet.dev": "Hello %s",
+	"commands.creator.kill.all": "Removed all AIs",
+	"commands.creator.kill.alex": "Removed all Alex AIs",
+	"commands.creator.kill.steve": "Removed all Steve AIs",
+	"commands.creator.kill.adult": "Removed all adult AIs",
+	"commands.creator.kill.child": "Removed all child AIs"
 }

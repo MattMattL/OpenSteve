@@ -31,7 +31,7 @@ public class OpenSteveCommands
 
     private static int instructions(CommandSource source)
 	{
-		source.sendFeedback(new TranslationTextComponent("commands.opst.opensteve"), false);
+		source.sendFeedback(new TranslationTextComponent("commands.opensteve"), false);
 		return 1;
 	}
 }

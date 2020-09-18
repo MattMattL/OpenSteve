@@ -16,13 +16,13 @@ public class GreetingCommand
 
 	private static int printHelloMsg(CommandSource source)
 	{
-		source.sendFeedback(new TranslationTextComponent("commands.opst.greet", source.getName()), true);
+		source.sendFeedback(new TranslationTextComponent("commands.creator.greet", source.getName()), true);
 		return 1;
 	}
 
 	private static int printGreetMsg(CommandSource source)
 	{
-		source.sendFeedback(new TranslationTextComponent("commands.opst.greet.dev", source.getEntity().getName().getString()), true);
+		source.sendFeedback(new TranslationTextComponent("commands.creator.greet.Dev", source.getEntity().getName().getString()), true);
 		return 1;
 	}
 }
