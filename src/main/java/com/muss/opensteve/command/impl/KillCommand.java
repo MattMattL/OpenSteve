@@ -31,7 +31,7 @@ public class KillCommand
 
 	private static int killAlexAIEntity(CommandSource source)
 	{
-		int i=0;
+		int i = 0;
 
 		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
@@ -54,7 +54,7 @@ public class KillCommand
 
 	private static int killSteveAIEntity(CommandSource source)
 	{
-		int i=0;
+		int i = 0;
 
 		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
