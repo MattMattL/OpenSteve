@@ -15,7 +15,7 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 27, 5, 4, "AIMovementController");
+		super(entityIn, 75, 5, 5, "AIMovementController");
 	}
 
 	@Override
@@ -28,16 +28,17 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void setNNetInput()
 	{
+		int visionXZ = 2, visionY = 1;
 		int iNNet = 0;
 		Block block;
 
-		for(int x=-1; x<=1; x++)
+		for(int x=-visionXZ; x<=visionXZ; x++)
 		{
-			for(int y=-1; y<=1; y++)
+			for(int y=-visionY; y<=visionY; y++)
 			{
-				for(int z=-1; z<=1; z++)
+				for(int z=-visionXZ; z<=visionXZ; z++)
 				{
-					block = this.entity.world.getBlockState(entityBlockPos.add(x, y, z)).getBlock();
+					block = this.entity.world.getBlockState(entityBlockPos.add(x, y-1, z)).getBlock();
 					this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(block.asItem());
 				}
 			}
@@ -64,8 +65,10 @@ public class AIMovementController extends AIControllerBase
 			case 3:
 				this.targetBlockPos = this.entityBlockPos.north();
 				break;
-			default:
+			case 4:
 				this.targetBlockPos = this.entityBlockPos;
+				break;
+			default:
 				break;
 		}
 
