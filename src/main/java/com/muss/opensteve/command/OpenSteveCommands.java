@@ -13,7 +13,7 @@ public class OpenSteveCommands
 	public static void registerCommands(RegisterCommandsEvent event)
 	{
         event.getDispatcher()
-				.register(Commands.literal("opst").requires(context -> {return context.hasPermissionLevel(2);})
+				.register(Commands.literal("creator").requires(context -> {return context.hasPermissionLevel(2);})
 						.then(PrintCommand.register())
 						.then(GreetingCommand.register())
 						/* add commands here */
