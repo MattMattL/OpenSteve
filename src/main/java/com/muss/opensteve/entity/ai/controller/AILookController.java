@@ -6,8 +6,8 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class AILookController extends AIControllerBase
 {
-	private Vector3d eyePosition;
-	private Vector3d lookPosition;
+	public Vector3d eyePosition;
+	public Vector3d lookPosition;
 
 	private Vector3d lookVector;
 	private PolarCoord polarCoord;

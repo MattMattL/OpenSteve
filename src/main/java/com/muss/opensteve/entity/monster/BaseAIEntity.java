@@ -2,6 +2,7 @@ package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
+import com.muss.opensteve.entity.ai.controller.AIHandController;
 import com.muss.opensteve.entity.ai.controller.AIInventoryController;
 import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
@@ -40,9 +41,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
 	private AIControllerBase nnetArray[];
-	protected AIControllerBase aiMovementController = new AIMovementController(this);
-	protected AIControllerBase aiLookController = new AILookController(this);
-	protected AIControllerBase aiInventoryController = new AIInventoryController(this);
+	public AIControllerBase aiMovementController = new AIMovementController(this);
+	public AIControllerBase aiLookController = new AILookController(this);
+	public AIControllerBase aiInventoryController = new AIInventoryController(this);
+	public AIControllerBase aiHandController = new AIHandController(this);
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
@@ -50,10 +52,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.experienceValue = 0;
 
 		int iNNet = 0;
-		this.nnetArray = new AIControllerBase[3];
+		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[iNNet++] = this.aiMovementController;
 		this.nnetArray[iNNet++] = this.aiLookController;
 		this.nnetArray[iNNet++] = this.aiInventoryController;
+		this.nnetArray[iNNet++] = this.aiHandController;
+
 
 		if(!this.world.isRemote)
 		{
@@ -127,7 +131,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.nnRunFeedForward();
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 
-		this.nnetArray[2].runEntityAI();
+		this.nnetArray[3].runEntityAI();
 	}
 
 	/* Called when the entity is attacked. */
