@@ -2,8 +2,7 @@ package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
-import com.muss.opensteve.entity.ai.controller.AIBodyController;
-import com.muss.opensteve.entity.ai.controller.AIJumpController;
+import com.muss.opensteve.entity.ai.controller.AIInventoryController;
 import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
@@ -25,7 +24,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -39,21 +40,20 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
 	private AIControllerBase nnetArray[];
-	protected AIControllerBase aiBodyController = new AIBodyController(this);
-	protected AIControllerBase aiJumpController = new AIJumpController(this);
-	protected AIControllerBase aiLookController = new AILookController(this);
 	protected AIControllerBase aiMovementController = new AIMovementController(this);
+	protected AIControllerBase aiLookController = new AILookController(this);
+	protected AIControllerBase aiInventoryController = new AIInventoryController(this);
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 0;
 
-		this.nnetArray = new AIControllerBase[4];
-		this.nnetArray[0] = this.aiBodyController;
-		this.nnetArray[1] = this.aiJumpController;
-		this.nnetArray[2] = this.aiLookController;
-		this.nnetArray[3] = this.aiMovementController;
+		int iNNet = 0;
+		this.nnetArray = new AIControllerBase[3];
+		this.nnetArray[iNNet++] = this.aiMovementController;
+		this.nnetArray[iNNet++] = this.aiLookController;
+		this.nnetArray[iNNet++] = this.aiInventoryController;
 
 		if(!this.world.isRemote)
 		{

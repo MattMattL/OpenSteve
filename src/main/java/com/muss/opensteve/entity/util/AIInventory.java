@@ -14,14 +14,14 @@ import java.util.List;
 
 public class AIInventory
 {
-	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(36, ItemStack.EMPTY);
+	public final NonNullList<ItemStack> mainInventory = NonNullList.withSize(8, ItemStack.EMPTY);
 	public final NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final List<NonNullList<ItemStack>> allInventories = ImmutableList.of(this.mainInventory, this.armorInventory);
 
 	public final int inventoryStackLimit = 64;
 
-	private int mainHandItem = 0;
-	private int offHandItem = 0;
+	public int mainHandIndex = 0;
+	public int offHandIndex = 0;
 	private final BaseAIEntity entity;
 
 	public AIInventory(BaseAIEntity entityIn)
@@ -31,8 +31,54 @@ public class AIInventory
 
 	public ItemStack getCurrentItem()
 	{
-		return this.mainInventory.get(this.mainHandItem);
+		return this.mainInventory.get(this.mainHandIndex);
 	}
+
+	public ItemStack getItemAt(int index)
+	{
+		index = this.boundHandIndex(index);
+
+		if(0 <= index && index < this.mainInventory.size())
+		{
+			return this.mainInventory.get(index);
+		}
+		else
+		{
+			/* DEBUG */
+			System.out.printf("[OpenSteve] [AIInventory::getItemAt] Index out of boundary: %2d out of %2d\n", index, this.mainInventory.size());
+			return getCurrentItem();
+		}
+	}
+
+	public void setMainHandIndex(int index)
+	{
+		index = this.boundHandIndex(index);
+
+		if(0 <= index && index < this.mainInventory.size())
+		{
+			this.mainHandIndex = index;
+		}
+		else
+		{
+			/* DEBUG */
+			System.out.printf("[OpenSteve] [AIInventory::setMainHandIndex] Index out of boundary: %2d out of %2d\n", index, this.mainInventory.size());
+		}
+
+		this.renderHeldItem();
+	}
+
+	private int boundHandIndex(int index)
+	{
+//		return (index + this.mainInventory.size()) % this.mainInventory.size();
+
+		if(index < 0)
+		{
+			index = this.mainInventory.size() - Math.abs(index);
+		}
+
+		return index % this.mainInventory.size();
+	}
+
 
 	private boolean stackEqualExact(ItemStack stack1, ItemStack stack2)
 	{
@@ -108,12 +154,12 @@ public class AIInventory
 			stackIn.setCount(leftover);
 		}
 
-		this.updateMainHandItem();
+		this.renderHeldItem();
 	}
 
-	public void updateMainHandItem()
+	public void renderHeldItem()
 	{
-		this.entity.setHeldItem(Hand.MAIN_HAND, this.mainInventory.get(this.mainHandItem));
+		this.entity.setHeldItem(Hand.MAIN_HAND, this.mainInventory.get(this.mainHandIndex));
 	}
 
 	public void debug()
@@ -128,6 +174,7 @@ public class AIInventory
 
 		System.out.printf("\n");
 	}
+
 
 	public void read(CompoundNBT compound)
 	{
