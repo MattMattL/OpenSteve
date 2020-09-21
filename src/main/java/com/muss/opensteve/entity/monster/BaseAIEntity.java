@@ -25,6 +25,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -45,6 +46,9 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public AIControllerBase aiLookController = new AILookController(this);
 	public AIControllerBase aiInventoryController = new AIInventoryController(this);
 	public AIControllerBase aiHandController = new AIHandController(this);
+
+	public Vector3d eyePos;
+	public Vector3d lookPos;
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{

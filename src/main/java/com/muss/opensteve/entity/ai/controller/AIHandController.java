@@ -8,7 +8,6 @@ import net.minecraft.util.math.RayTraceContext;
 
 public class AIHandController extends AIControllerBase
 {
-	private AILookController vision;
 	private RayTraceContext rayTraceContext;
 	private BlockRayTraceResult targetBlock;
 	private BlockPos blockPos;
@@ -17,14 +16,12 @@ public class AIHandController extends AIControllerBase
 	public AIHandController(BaseAIEntity entityIn)
 	{
 		super(entityIn, 4, 4, 4, "AIHandController");
-
-		this.vision = (AILookController)(this.entity.aiLookController);
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
-		this.rayTraceContext = new RayTraceContext(this.vision.eyePosition, this.vision.lookPosition, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.SOURCE_ONLY, this.entity);
+		this.rayTraceContext = new RayTraceContext(this.entity.eyePos, this.entity.lookPos, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.SOURCE_ONLY, this.entity);
 		this.targetBlock = this.entity.world.rayTraceBlocks(this.rayTraceContext);
 		this.blockPos = this.targetBlock.getPos();
 	}
