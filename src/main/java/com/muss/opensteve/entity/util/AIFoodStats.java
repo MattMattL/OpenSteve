@@ -6,8 +6,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -30,12 +33,13 @@ public class AIFoodStats
 		this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float)foodLevelIn * foodSaturationModifier * 2.0F, (float)this.foodLevel);
 	}
 
-	public void consume(Item maybeFood, ItemStack stack)
+	public void consume(BaseAIEntity entity, Item maybeFood, ItemStack stack)
 	{
 		if(maybeFood.isFood())
 		{
 			Food food = maybeFood.getFood();
 			this.addStats(food.getHealing(), food.getSaturation());
+			entity.world.playSound(entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.HOSTILE, 0.5F, entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
 		}
 	}
 
