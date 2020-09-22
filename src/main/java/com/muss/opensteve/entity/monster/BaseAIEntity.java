@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -290,12 +291,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public SoundCategory getSoundCategory()
 	{
 		return SoundCategory.HOSTILE;
-	}
-
-	public void playSound(SoundEvent sound, float volume, float pitch)
-	{
-		this.world.playSound(this.getPosX(), this.getPosY() + 0.5, this.getPosZ(), sound, this.getSoundCategory(), volume, pitch, false);
-
 	}
 
 
