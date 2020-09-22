@@ -12,6 +12,6 @@
 	"commands.opst.creator.kill.all": "Removed %d AIs",
 	"commands.opst.creator.kill.alex": "Removed %d Alex AIs",
 	"commands.opst.creator.kill.steve": "Removed %d Steve AIs",
-	"commands.opst.creator.kill.adult": "Removed %d adult AIs",
+	"commands.opst.creator.kill.adult": "Removed %d grown-up AIs",
 	"commands.opst.creator.kill.child": "Removed %d child AIs"
 }

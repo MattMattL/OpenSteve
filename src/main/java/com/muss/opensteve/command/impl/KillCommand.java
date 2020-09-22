@@ -13,9 +13,11 @@ public class KillCommand
 	public static ArgumentBuilder<CommandSource, ?> register()
 	{
 		return Commands.literal("kill")
-				.then(Commands.literal("all").executes(source-> { return killAIEntity(source.getSource()); }))
-				.then(Commands.literal("alex").executes(source-> { return killEntityByType(source.getSource(), AIEntityType.ALEX); }))
-				.then(Commands.literal("steve").executes(source-> { return killEntityByType(source.getSource(), AIEntityType.STEVE); }));
+				.then(Commands.literal("all").executes(source -> { return killAIEntity(source.getSource()); }))
+				.then(Commands.literal("alex").executes(source -> { return killEntityByType(source.getSource(), AIEntityType.ALEX); }))
+				.then(Commands.literal("steve").executes(source -> { return killEntityByType(source.getSource(), AIEntityType.STEVE); }))
+				.then(Commands.literal("adult").executes(source -> { return killEntityByAge(source.getSource(), AIEntityType.ADULT); }))
+				.then(Commands.literal("child").executes(source -> { return killEntityByAge(source.getSource(), AIEntityType.CHILD); }));
 	}
 
 	private static int killAIEntity(CommandSource source)
@@ -67,8 +69,37 @@ public class KillCommand
 		return 1;
 	}
 
-	private static int killEntityByAge(CommandSource source)
+	private static int killEntityByAge(CommandSource source, AIEntityType type)
 	{
+		int i = 0;
+		int removed = 0;
+
+		while(i<OpenSteveDataTable.aiEntityList.size())
+		{
+			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
+
+			if((type == AIEntityType.ADULT && !entity.isChild()) || (type == AIEntityType.CHILD && entity.isChild()))
+			{
+				entity.onKillCommand();
+				OpenSteveDataTable.aiEntityList.remove(i);
+				removed++;
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		switch(type)
+		{
+			case ADULT:
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.adult", removed), true);
+				break;
+			case CHILD:
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.child", removed), true);
+				break;
+		}
+
 		return 1;
 	}
 }
