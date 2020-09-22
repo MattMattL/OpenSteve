@@ -9,9 +9,9 @@
 	"commands.opst.creator.print": "Testing command functions",
 	"commands.opst.creator.greet": "Hello there",
 	"commands.opst.creator.greet.Dev": "Hello %s",
-	"commands.opst.creator.kill.all": "Removed all AIs",
-	"commands.opst.creator.kill.alex": "Removed all Alex AIs",
-	"commands.opst.creator.kill.steve": "Removed all Steve AIs",
-	"commands.opst.creator.kill.adult": "Removed all adult AIs",
-	"commands.opst.creator.kill.child": "Removed all child AIs"
+	"commands.opst.creator.kill.all": "Removed %d AIs",
+	"commands.opst.creator.kill.alex": "Removed %d Alex AIs",
+	"commands.opst.creator.kill.steve": "Removed %d Steve AIs",
+	"commands.opst.creator.kill.adult": "Removed %d adult AIs",
+	"commands.opst.creator.kill.child": "Removed %d child AIs"
 }

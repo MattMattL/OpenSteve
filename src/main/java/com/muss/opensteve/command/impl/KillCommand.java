@@ -19,19 +19,24 @@ public class KillCommand
 
 	private static int killAIEntity(CommandSource source)
 	{
+		int removed = 0;
+
 		while(OpenSteveDataTable.aiEntityList.size() > 0)
 		{
 			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
 			OpenSteveDataTable.aiEntityList.remove(0);
+
+			removed++;
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all", removed), true);
 		return 1;
 	}
 
 	private static int killAlexAIEntity(CommandSource source)
 	{
 		int i = 0;
+		int removed = 0;
 
 		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
@@ -41,6 +46,8 @@ public class KillCommand
 			{
 				entity.onKillCommand();
 				OpenSteveDataTable.aiEntityList.remove(i);
+
+				removed++;
 			}
 			else
 			{
@@ -48,13 +55,14 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", removed), true);
 		return 1;
 	}
 
 	private static int killSteveAIEntity(CommandSource source)
 	{
 		int i = 0;
+		int removed = 0;
 
 		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
@@ -64,6 +72,8 @@ public class KillCommand
 			{
 				entity.onKillCommand();
 				OpenSteveDataTable.aiEntityList.remove(i);
+
+				removed++;
 			}
 			else
 			{
@@ -71,7 +81,7 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", removed), true);
 		return 1;
 	}
 }
