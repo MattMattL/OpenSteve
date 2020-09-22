@@ -6,21 +6,26 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AIFoodStats
 {
+	BaseAIEntity entity;
 	private int foodLevel = 20;
 	private float foodSaturationLevel;
 	private float foodExhaustionLevel;
 	private int foodTimer;
 	private int prevFoodLevel = 20;
 
-	public AIFoodStats()
+	public AIFoodStats(BaseAIEntity entityIn)
 	{
+		this.entity = entityIn;
 		this.foodSaturationLevel = 5.0F;
 	}
 
@@ -36,10 +41,11 @@ public class AIFoodStats
 		{
 			Food food = maybeFood.getFood();
 			this.addStats(food.getHealing(), food.getSaturation());
+			this.entity.world.playSound(this.entity.getPosX(), this.entity.getPosY(), this.entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.HOSTILE, 0.5F, this.entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
 		}
 	}
 
-	public void tick(BaseAIEntity entity)
+	public void tick()
 	{
 		Difficulty difficulty = entity.world.getDifficulty();
 		this.prevFoodLevel = this.foodLevel;

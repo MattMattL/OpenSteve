@@ -6,9 +6,6 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class AILookController extends AIControllerBase
 {
-	private Vector3d eyePosition;
-	private Vector3d lookPosition;
-
 	private Vector3d lookVector;
 	private PolarCoord polarCoord;
 	private PolarCoord deltaAngles;
@@ -20,7 +17,7 @@ public class AILookController extends AIControllerBase
 	{
 		super(entityIn, 17, 4, 4, "AILookController");
 
-		this.lookPosition = new Vector3d(0, 0, 0);
+		this.entity.lookPos = new Vector3d(0, 0, 0);
 		this.polarCoord = new PolarCoord(1, 0, 0);
 	}
 
@@ -28,8 +25,8 @@ public class AILookController extends AIControllerBase
 	protected void aiInitialise()
 	{
 		// calculate the look vector and normalise
-		this.eyePosition = this.entity.getEyePosition(1.0F);
-		this.lookVector = this.lookPosition.subtract(this.eyePosition);
+		this.entity.eyePos = this.entity.getEyePosition(1.0F);
+		this.lookVector = this.entity.lookPos.subtract(this.entity.eyePos);
 		this.lookVector = this.lookVector.normalize();
 
 		this.prevHealth = this.entity.getHealth();
@@ -40,9 +37,9 @@ public class AILookController extends AIControllerBase
 	{
 		int iNNet = 0;
 
-		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.x;
-		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.y;
-		this.deepNNet.vectorIn[iNNet++] = this.lookPosition.z;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.x;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.y;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.z;
 		this.deepNNet.vectorIn[iNNet++] = this.lookVector.x;
 		this.deepNNet.vectorIn[iNNet++] = this.lookVector.y;
 
@@ -99,9 +96,9 @@ public class AILookController extends AIControllerBase
 		this.lookVector = this.polarCoord.getCartesian();
 
 		// calculate absolute positions
-		this.lookPosition = this.lookVector.add(this.eyePosition);
+		this.entity.lookPos = this.lookVector.add(this.entity.eyePos);
 
-		this.entity.getLookController().setLookPosition(this.lookPosition.x, this.lookPosition.y, this.lookPosition.z);
+		this.entity.getLookController().setLookPosition(this.entity.lookPos.x, this.entity.lookPos.y, this.entity.lookPos.z);
 	}
 
 	@Override

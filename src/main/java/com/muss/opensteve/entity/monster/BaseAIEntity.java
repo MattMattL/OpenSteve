@@ -2,6 +2,7 @@ package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
+import com.muss.opensteve.entity.ai.controller.AIHandController;
 import com.muss.opensteve.entity.ai.controller.AIInventoryController;
 import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
@@ -25,6 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -36,14 +38,20 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
 	public final AIInventory inventory = new AIInventory(this);
-	public final AIFoodStats foodStats = new AIFoodStats();
+	public final AIFoodStats foodStats = new AIFoodStats(this);
+	public final double maxReachRange = 4;
 
 	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
 	private AIControllerBase nnetArray[];
-	protected AIControllerBase aiMovementController = new AIMovementController(this);
-	protected AIControllerBase aiLookController = new AILookController(this);
-	protected AIControllerBase aiInventoryController = new AIInventoryController(this);
+	public AIControllerBase aiMovementController = new AIMovementController(this);
+	public AIControllerBase aiLookController = new AILookController(this);
+	public AIControllerBase aiInventoryController = new AIInventoryController(this);
+	public AIControllerBase aiHandController = new AIHandController(this);
+
+	public Vector3d eyePos;
+	public Vector3d lookPos;
+	public BlockPos targetBlock;
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
@@ -51,10 +59,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.experienceValue = 0;
 
 		int iNNet = 0;
-		this.nnetArray = new AIControllerBase[3];
+		this.nnetArray = new AIControllerBase[4];
 		this.nnetArray[iNNet++] = this.aiMovementController;
 		this.nnetArray[iNNet++] = this.aiLookController;
 		this.nnetArray[iNNet++] = this.aiInventoryController;
+		this.nnetArray[iNNet++] = this.aiHandController;
+
 
 		if(!this.world.isRemote)
 		{
@@ -94,7 +104,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		if(!this.world.isRemote)
 		{
-			this.foodStats.tick(this);
+			this.foodStats.tick();
 		}
 	}
 
@@ -128,7 +138,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.nnRunFeedForward();
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 
+		/* TEST */
+		this.nnetArray[1].runEntityAI();
 		this.nnetArray[2].runEntityAI();
+		this.nnetArray[3].runEntityAI();
+
 	}
 
 	/* Called when the entity is attacked. */
