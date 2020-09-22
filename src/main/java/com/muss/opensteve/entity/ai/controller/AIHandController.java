@@ -83,8 +83,6 @@ public class AIHandController extends AIControllerBase
 
 			this.deepNNet.nnRunBackprop();
 		}
-
-		System.out.printf("\n");
 	}
 
 
@@ -128,8 +126,6 @@ public class AIHandController extends AIControllerBase
 
 	private void onLeftClick()
 	{
-		System.out.printf("[OpenSteve] onLeftClick\n");
-
 		// if weapon
 
 		// if tool

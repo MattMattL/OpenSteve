@@ -238,10 +238,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 
-	@Deprecated
 	public abstract boolean isAlex();
 
-	@Deprecated
 	public abstract boolean isSteve();
 
 
@@ -265,6 +263,13 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return this.isChild() ? 0.0D : -0.45D;
 	}
 
+	@Override
+	public void onDeath(DamageSource cause)
+	{
+		super.onDeath(cause);
+
+		// TODO: delete this entity from the static list
+	}
 
 	@Override
 	protected SoundEvent getAmbientSound()

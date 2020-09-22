@@ -24,7 +24,7 @@ public class KillCommand
 	{
 		int removed = 0;
 
-		while(OpenSteveDataTable.aiEntityList.size()>0)
+		while(OpenSteveDataTable.aiEntityList.size() > 0)
 		{
 			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
 			OpenSteveDataTable.aiEntityList.remove(0);
@@ -40,7 +40,7 @@ public class KillCommand
 		int i = 0;
 		int removed = 0;
 
-		while(i<OpenSteveDataTable.aiEntityList.size())
+		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
 			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
 
@@ -74,7 +74,7 @@ public class KillCommand
 		int i = 0;
 		int removed = 0;
 
-		while(i<OpenSteveDataTable.aiEntityList.size())
+		while(i < OpenSteveDataTable.aiEntityList.size())
 		{
 			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
 

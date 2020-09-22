@@ -9,7 +9,7 @@ import java.util.List;
 public class OpenSteveDataTable
 {
 	/* A List of Server-Side AIs */
-	public static List<BaseAIEntity> aiEntityList = new ArrayList<BaseAIEntity>();
+	public static List<BaseAIEntity> aiEntityList = new ArrayList<>();
 
 	/* Random Entity Names */
 	public static final String namesForSteve[] = {
