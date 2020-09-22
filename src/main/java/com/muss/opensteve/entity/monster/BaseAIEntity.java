@@ -8,6 +8,7 @@ import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
+import com.muss.opensteve.util.AIEntityType;
 import com.muss.opensteve.util.AIEntityTypes;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
@@ -262,6 +263,13 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return this.isChild() ? 0.0D : -0.45D;
 	}
 
+	@Override
+	public void onDeath(DamageSource cause)
+	{
+		super.onDeath(cause);
+
+		// TODO: delete this entity from the static list
+	}
 
 	@Override
 	protected SoundEvent getAmbientSound()
