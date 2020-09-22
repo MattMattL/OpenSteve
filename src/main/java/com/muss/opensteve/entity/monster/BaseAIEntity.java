@@ -21,6 +21,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -266,6 +267,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected void playStepSound(BlockPos pos, BlockState blockIn)
 	{
 		super.playStepSound(pos, blockIn);
+	}
+
+	public SoundCategory getSoundCategory()
+	{
+		return SoundCategory.HOSTILE;
 	}
 
 
