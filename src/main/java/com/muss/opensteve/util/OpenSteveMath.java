@@ -1,6 +1,8 @@
 package com.muss.opensteve.util;
 
+import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 
 public class OpenSteveMath
 {
@@ -14,5 +16,17 @@ public class OpenSteveMath
 		distance += (vector2.z - vector1.z) * (vector2.z - vector1.z);
 
 		return Math.sqrt(distance);
+	}
+
+	public static boolean isInReach(Vector3d entityPos, Vector3i blockCoord, double reach)
+	{
+		Vector3d blockPos = new Vector3d((double)blockCoord.getX(), (double)blockCoord.getY(), (double)blockCoord.getZ());
+
+		return (OpenSteveMath.getDistance(entityPos, blockPos) <= reach) ? true : false;
+	}
+
+	public static boolean isInReach(Vector3d entityPos, Vector3d blockPos, double reach)
+	{
+		return (OpenSteveMath.getDistance(entityPos, blockPos) <= reach) ? true : false;
 	}
 }
