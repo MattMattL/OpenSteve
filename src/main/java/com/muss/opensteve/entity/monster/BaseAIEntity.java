@@ -286,9 +286,16 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.playStepSound(pos, blockIn);
 	}
 
+	@Override
 	public SoundCategory getSoundCategory()
 	{
 		return SoundCategory.HOSTILE;
+	}
+
+	public void playSound(SoundEvent sound, float volume, float pitch)
+	{
+		this.world.playSound(this.getPosX(), this.getPosY() + 0.5, this.getPosZ(), sound, this.getSoundCategory(), volume, pitch, false);
+
 	}
 
 

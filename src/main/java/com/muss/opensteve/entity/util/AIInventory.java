@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -156,7 +155,7 @@ public class AIInventory
 			stackIn.setCount(leftover);
 		}
 
-		this.entity.world.playSound(this.entity.getPosX(), this.entity.getPosY() + 0.5, this.entity.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, this.entity.getSoundCategory(), 0.2F, ((this.entity.world.rand.nextFloat() - this.entity.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F, false);
+		this.entity.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((this.entity.world.rand.nextFloat() - this.entity.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 		this.renderHeldItem();
 	}
 
