@@ -45,8 +45,6 @@ public class AIInventoryController extends AIControllerBase
 		this.deepNNet.nnRunFeedForward();
 		this.nnetOut = this.deepNNet.nnGetMaxOutputIndex();
 
-		System.out.printf("[OpenSteve] current slot = %2d\n", this.currentSlot);
-
 		switch(this.nnetOut)
 		{
 			case 0:
@@ -58,8 +56,6 @@ public class AIInventoryController extends AIControllerBase
 			case 2:
 				break;
 		}
-
-		System.out.printf("[OpenSteve]     new slot = %2d\n\n", this.currentSlot);
 	}
 
 	@Override
