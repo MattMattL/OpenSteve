@@ -41,7 +41,7 @@ public class AIFoodStats
 		{
 			Food food = maybeFood.getFood();
 			this.addStats(food.getHealing(), food.getSaturation());
-			this.entity.world.playSound(this.entity.getPosX(), this.entity.getPosY(), this.entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.HOSTILE, 0.5F, this.entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
+			this.entity.world.playSound(this.entity.getPosX(), this.entity.getPosY(), this.entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, this.entity.getSoundCategory(), 0.5F, this.entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
 		}
 	}
 
