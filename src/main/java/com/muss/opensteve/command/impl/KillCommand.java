@@ -11,17 +11,23 @@ public class KillCommand
 {
 	public static ArgumentBuilder<CommandSource, ?> register()
 	{
-		return Commands.literal("kill")
-				.then(Commands.literal("all").executes(source -> { return killAIEntity(source.getSource()); }))
-				.then(Commands.literal("alex").executes(source -> { return killAlexAIEntity(source.getSource()); }))
-				.then(Commands.literal("steve").executes(source -> { return killSteveAIEntity(source.getSource()); }));
+		return Commands.literal("kill").then(Commands.literal("all").executes(source->
+		{
+			return killAIEntity(source.getSource());
+		})).then(Commands.literal("alex").executes(source->
+		{
+			return killEntityByType(source.getSource(), "alex");
+		})).then(Commands.literal("steve").executes(source->
+		{
+			return killEntityByType(source.getSource(), "steve");
+		}));
 	}
 
 	private static int killAIEntity(CommandSource source)
 	{
 		int removed = 0;
 
-		while(OpenSteveDataTable.aiEntityList.size() > 0)
+		while(OpenSteveDataTable.aiEntityList.size()>0)
 		{
 			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
 			OpenSteveDataTable.aiEntityList.remove(0);
@@ -33,16 +39,16 @@ public class KillCommand
 		return 1;
 	}
 
-	private static int killAlexAIEntity(CommandSource source)
+	private static int killEntityByType(CommandSource source, String type)
 	{
 		int i = 0;
 		int removed = 0;
 
-		while(i < OpenSteveDataTable.aiEntityList.size())
+		while(i<OpenSteveDataTable.aiEntityList.size())
 		{
 			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
 
-			if(entity.isAlex())
+			if((type == "alex" && entity.isAlex()) || (type == "steve" && entity.isSteve()))
 			{
 				entity.onKillCommand();
 				OpenSteveDataTable.aiEntityList.remove(i);
@@ -55,33 +61,21 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", removed), true);
+		switch(type)
+		{
+			case "alex":
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", removed), true);
+				break;
+			case "steve":
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", removed), true);
+				break;
+		}
+
 		return 1;
 	}
 
-	private static int killSteveAIEntity(CommandSource source)
+	private static int killEntityByAge(CommandSource source)
 	{
-		int i = 0;
-		int removed = 0;
-
-		while(i < OpenSteveDataTable.aiEntityList.size())
-		{
-			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
-
-			if(entity.isSteve())
-			{
-				entity.onKillCommand();
-				OpenSteveDataTable.aiEntityList.remove(i);
-
-				removed++;
-			}
-			else
-			{
-				i++;
-			}
-		}
-
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", removed), true);
 		return 1;
 	}
 }
