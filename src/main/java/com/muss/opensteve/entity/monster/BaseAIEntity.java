@@ -113,7 +113,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.livingTick();
 
-		this.aiTick();
+		if(!this.world.isRemote)
+		{
+			this.aiTick();
+		}
 	}
 
 	private void aiTick()
