@@ -16,14 +16,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AIFoodStats
 {
+	BaseAIEntity entity;
 	private int foodLevel = 20;
 	private float foodSaturationLevel;
 	private float foodExhaustionLevel;
 	private int foodTimer;
 	private int prevFoodLevel = 20;
 
-	public AIFoodStats()
+	public AIFoodStats(BaseAIEntity entityIn)
 	{
+		this.entity = entityIn;
 		this.foodSaturationLevel = 5.0F;
 	}
 
@@ -33,17 +35,17 @@ public class AIFoodStats
 		this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float)foodLevelIn * foodSaturationModifier * 2.0F, (float)this.foodLevel);
 	}
 
-	public void consume(BaseAIEntity entity, Item maybeFood, ItemStack stack)
+	public void consume(Item maybeFood, ItemStack stack)
 	{
 		if(maybeFood.isFood())
 		{
 			Food food = maybeFood.getFood();
 			this.addStats(food.getHealing(), food.getSaturation());
-			entity.world.playSound(entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.HOSTILE, 0.5F, entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
+			this.entity.world.playSound(this.entity.getPosX(), this.entity.getPosY(), this.entity.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.HOSTILE, 0.5F, this.entity.world.rand.nextFloat() * 0.1F + 0.9F, false);
 		}
 	}
 
-	public void tick(BaseAIEntity entity)
+	public void tick()
 	{
 		Difficulty difficulty = entity.world.getDifficulty();
 		this.prevFoodLevel = this.foodLevel;

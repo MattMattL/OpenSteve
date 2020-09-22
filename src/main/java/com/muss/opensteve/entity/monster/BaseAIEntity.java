@@ -37,7 +37,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
 
 	public final AIInventory inventory = new AIInventory(this);
-	public final AIFoodStats foodStats = new AIFoodStats();
+	public final AIFoodStats foodStats = new AIFoodStats(this);
+	public final double maxReachRange = 4;
 
 	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
@@ -49,6 +50,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 	public Vector3d eyePos;
 	public Vector3d lookPos;
+	public BlockPos targetBlock;
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
@@ -101,7 +103,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		if(!this.world.isRemote)
 		{
-			this.foodStats.tick(this);
+			this.foodStats.tick();
 		}
 	}
 
@@ -135,7 +137,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.nnRunFeedForward();
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 
+		/* TEST */
+		this.nnetArray[1].runEntityAI();
+		this.nnetArray[2].runEntityAI();
 		this.nnetArray[3].runEntityAI();
+
 	}
 
 	/* Called when the entity is attacked. */
