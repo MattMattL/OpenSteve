@@ -1,5 +1,6 @@
 package com.muss.opensteve.entity.monster;
 
+import com.muss.opensteve.util.AIEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
@@ -9,7 +10,8 @@ public class SteveAIEntity extends BaseAIEntity
 	public SteveAIEntity(EntityType<? extends BaseAIEntity> type, World worldIn)
 	{
 		super(type, worldIn);
-		this.experienceValue = 5;
+
+		this.entityTypes.add(AIEntityType.STEVE);
 	}
 
 	@Override
