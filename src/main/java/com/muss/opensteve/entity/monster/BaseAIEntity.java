@@ -8,6 +8,7 @@ import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
+import com.muss.opensteve.util.AIEntityTypes;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -15,7 +16,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
+	public AIEntityTypes entityTypes = new AIEntityTypes();
 
 	public final AIInventory inventory = new AIInventory(this);
 	public final AIFoodStats foodStats = new AIFoodStats(this);
@@ -65,7 +66,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetArray[iNNet++] = this.aiLookController;
 		this.nnetArray[iNNet++] = this.aiInventoryController;
 		this.nnetArray[iNNet++] = this.aiHandController;
-
 
 		if(!this.world.isRemote)
 		{
