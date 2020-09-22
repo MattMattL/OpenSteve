@@ -2,6 +2,7 @@ package com.muss.opensteve.command.impl;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
+import com.muss.opensteve.util.AIEntityType;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -11,16 +12,10 @@ public class KillCommand
 {
 	public static ArgumentBuilder<CommandSource, ?> register()
 	{
-		return Commands.literal("kill").then(Commands.literal("all").executes(source->
-		{
-			return killAIEntity(source.getSource());
-		})).then(Commands.literal("alex").executes(source->
-		{
-			return killEntityByType(source.getSource(), "alex");
-		})).then(Commands.literal("steve").executes(source->
-		{
-			return killEntityByType(source.getSource(), "steve");
-		}));
+		return Commands.literal("kill")
+				.then(Commands.literal("all").executes(source-> { return killAIEntity(source.getSource()); }))
+				.then(Commands.literal("alex").executes(source-> { return killEntityByType(source.getSource(), AIEntityType.ALEX); }))
+				.then(Commands.literal("steve").executes(source-> { return killEntityByType(source.getSource(), AIEntityType.STEVE); }));
 	}
 
 	private static int killAIEntity(CommandSource source)
@@ -31,7 +26,6 @@ public class KillCommand
 		{
 			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
 			OpenSteveDataTable.aiEntityList.remove(0);
-
 			removed++;
 		}
 
@@ -39,7 +33,7 @@ public class KillCommand
 		return 1;
 	}
 
-	private static int killEntityByType(CommandSource source, String type)
+	private static int killEntityByType(CommandSource source, AIEntityType type)
 	{
 		int i = 0;
 		int removed = 0;
@@ -48,11 +42,10 @@ public class KillCommand
 		{
 			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
 
-			if((type == "alex" && entity.isAlex()) || (type == "steve" && entity.isSteve()))
+			if((type == AIEntityType.ALEX && entity.isAlex()) || (type == AIEntityType.STEVE && entity.isSteve()))
 			{
 				entity.onKillCommand();
 				OpenSteveDataTable.aiEntityList.remove(i);
-
 				removed++;
 			}
 			else
@@ -63,10 +56,10 @@ public class KillCommand
 
 		switch(type)
 		{
-			case "alex":
+			case ALEX:
 				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", removed), true);
 				break;
-			case "steve":
+			case STEVE:
 				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", removed), true);
 				break;
 		}
