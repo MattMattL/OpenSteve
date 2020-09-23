@@ -1,6 +1,7 @@
 package com.muss.opensteve.command;
 
 import com.muss.opensteve.OpenSteve;
+import com.muss.opensteve.command.impl.ClearCommand;
 import com.muss.opensteve.command.impl.GreetingCommand;
 import com.muss.opensteve.command.impl.KillCommand;
 import com.muss.opensteve.command.impl.PrintCommand;
@@ -25,6 +26,7 @@ public class OpenSteveCommands
 						.then(PrintCommand.register())
 						.then(GreetingCommand.register())
 						.then(KillCommand.register())
+						.then(ClearCommand.register())
 						/* add commands here */
 				);
     }
