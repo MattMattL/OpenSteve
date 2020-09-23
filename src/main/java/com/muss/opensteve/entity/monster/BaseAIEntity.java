@@ -264,11 +264,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 	@Override
-	public void onDeath(DamageSource cause)
+	public void onKillCommand()
 	{
-		super.onDeath(cause);
+		super.onKillCommand();
 
-		// TODO: delete this entity from the static list
+		this.dead = true;
+		this.remove(true);
 	}
 
 	@Override
