@@ -22,47 +22,45 @@ public class KillCommand
 
 	private static int killAIEntity(CommandSource source)
 	{
-		int removed = 0;
+		int count = 0;
 
-		while(OpenSteveDataTable.aiEntityList.size() > 0)
+		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
 		{
-			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
-			OpenSteveDataTable.aiEntityList.remove(0);
-			removed++;
+			if(entity.isAlive())
+			{
+				entity.onKillCommand();
+				count++;
+			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all", removed), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all", count), true);
 		return 1;
 	}
 
 	private static int killEntityByType(CommandSource source, AIEntityType type)
 	{
 		int i = 0;
-		int removed = 0;
+		int count = 0;
 
-		while(i < OpenSteveDataTable.aiEntityList.size())
+		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
 		{
-			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
-
-			if((type == AIEntityType.ALEX && entity.isAlex()) || (type == AIEntityType.STEVE && entity.isSteve()))
+			if(entity.isAlive())
 			{
-				entity.onKillCommand();
-				OpenSteveDataTable.aiEntityList.remove(i);
-				removed++;
-			}
-			else
-			{
-				i++;
+				if((type == AIEntityType.ALEX && entity.isAlex()) || (type == AIEntityType.STEVE && entity.isSteve()))
+				{
+					entity.onKillCommand();
+					count++;
+				}
 			}
 		}
 
 		switch(type)
 		{
 			case ALEX:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", removed), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", count), true);
 				break;
 			case STEVE:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", removed), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", count), true);
 				break;
 		}
 
@@ -72,31 +70,27 @@ public class KillCommand
 	private static int killEntityByAge(CommandSource source, AIEntityType type)
 	{
 		int i = 0;
-		int removed = 0;
+		int count = 0;
 
-		while(i < OpenSteveDataTable.aiEntityList.size())
+		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
 		{
-			BaseAIEntity entity = OpenSteveDataTable.aiEntityList.get(i);
-
-			if((type == AIEntityType.ADULT && !entity.isChild()) || (type == AIEntityType.CHILD && entity.isChild()))
+			if(entity.isAlive())
 			{
-				entity.onKillCommand();
-				OpenSteveDataTable.aiEntityList.remove(i);
-				removed++;
-			}
-			else
-			{
-				i++;
+				if((type == AIEntityType.ADULT && !entity.isChild()) || (type == AIEntityType.CHILD && entity.isChild()))
+				{
+					entity.onKillCommand();
+					count++;
+				}
 			}
 		}
 
 		switch(type)
 		{
 			case ADULT:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.adult", removed), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.adult", count), true);
 				break;
 			case CHILD:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.child", removed), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.child", count), true);
 				break;
 		}
 

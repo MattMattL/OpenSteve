@@ -269,8 +269,14 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.onKillCommand();
 
 		this.dead = true;
-		this.remove(true);
 	}
+
+	@Override
+	public boolean isAlive()
+	{
+		return !this.dead;
+	}
+
 
 	@Override
 	protected SoundEvent getAmbientSound()
