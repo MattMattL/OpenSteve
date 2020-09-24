@@ -5,12 +5,11 @@ import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 
 public class AIMovementController extends AIControllerBase
 {
-	private BlockPos entityBlockPos;
-	private BlockPos targetBlockPos;
+	private BlockPos entityPos;
+	private BlockPos targetPos;
 	private float prevHealth;
 	private int nnetOut;
 
@@ -22,7 +21,7 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void aiInitialise()
 	{
-		this.entityBlockPos = this.entity.func_233580_cy_();
+		this.entityPos = this.entity.func_233580_cy_();
 		this.prevHealth = this.entity.getHealth();
 	}
 
@@ -38,7 +37,7 @@ public class AIMovementController extends AIControllerBase
 			{
 				for(int z = -2; z <= 2; z++)
 				{
-					block = this.entity.world.getBlockState(entityBlockPos.add(x, y, z)).getBlock();
+					block = this.entity.world.getBlockState(entityPos.add(x, y, z)).getBlock();
 					this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(block.asItem());
 				}
 			}
@@ -53,26 +52,24 @@ public class AIMovementController extends AIControllerBase
 
 		switch(this.nnetOut)
 		{
-			case 0:
-				this.targetBlockPos = this.entityBlockPos.east();
+			case 0: // East
+				this.targetPos = this.entityPos.east();
 				break;
-			case 1:
-				this.targetBlockPos = this.entityBlockPos.west();
+			case 1: // West
+				this.targetPos = this.entityPos.west();
 				break;
-			case 2:
-				this.targetBlockPos = this.entityBlockPos.south();
+			case 2: // South
+				this.targetPos = this.entityPos.south();
 				break;
-			case 3:
-				this.targetBlockPos = this.entityBlockPos.north();
+			case 3: // North
+				this.targetPos = this.entityPos.north();
 				break;
-			case 4:
-				this.targetBlockPos = this.entityBlockPos;
-				break;
-			default:
+			case 4: // Stay
+				this.targetPos = this.entityPos;
 				break;
 		}
 
-		this.entity.getMoveHelper().setMoveTo((double)this.targetBlockPos.getX(), (double)this.targetBlockPos.getY(), (double)this.targetBlockPos.getZ(), (double)0.5);
+		this.entity.getMoveHelper().setMoveTo((double)this.targetPos.getX(), (double)this.targetPos.getY(), (double)this.targetPos.getZ(), (double)0.5);
 	}
 
 	@Override
