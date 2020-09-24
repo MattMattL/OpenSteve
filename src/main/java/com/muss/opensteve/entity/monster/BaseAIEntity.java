@@ -160,12 +160,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		return true;
 	}
 
-	@Override
-	public boolean canPickUpItem(ItemStack itemstackIn)
-	{
-		return super.canPickUpItem(itemstackIn);
-	}
-
 	/* Called when the entity collides with item entities */
 	@Override
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity)
@@ -173,8 +167,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 		ItemStack itemStack = itemEntity.getItem();
 		int storable = Math.min(itemStack.getCount(), this.inventory.getAvailableSpaceFor(itemStack));
 
-		ItemStack splitStack = itemStack.split(storable);
-		this.inventory.addItemStackToInventory(splitStack);
+		if(storable > 0)
+		{
+			ItemStack splitStack = itemStack.split(storable);
+			this.inventory.addItemStackToInventory(splitStack);
+		}
 	}
 
 	@Override
