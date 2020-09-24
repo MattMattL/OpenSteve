@@ -5,6 +5,7 @@ import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class AIMovementController extends AIControllerBase
 {
@@ -15,7 +16,7 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 75, 5, 5, "AIMovementController");
+		super(entityIn, 100, 5, 5, "AIMovementController");
 	}
 
 	@Override
@@ -28,17 +29,16 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void setNNetInput()
 	{
-		int visionXZ = 2, visionY = 1;
 		int iNNet = 0;
 		Block block;
 
-		for(int x=-visionXZ; x<=visionXZ; x++)
+		for(int x = -2; x <= 2; x++)
 		{
-			for(int y=-visionY; y<=visionY; y++)
+			for(int y = -2; y <= 1; y++)
 			{
-				for(int z=-visionXZ; z<=visionXZ; z++)
+				for(int z = -2; z <= 2; z++)
 				{
-					block = this.entity.world.getBlockState(entityBlockPos.add(x, y-1, z)).getBlock();
+					block = this.entity.world.getBlockState(entityBlockPos.add(x, y, z)).getBlock();
 					this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(block.asItem());
 				}
 			}
@@ -72,7 +72,7 @@ public class AIMovementController extends AIControllerBase
 				break;
 		}
 
-		this.entity.getNavigator().tryMoveToXYZ((double)((float)this.targetBlockPos.getX()) + 0.5D, (double)(this.targetBlockPos.getY() + 1), (double)((float)this.targetBlockPos.getZ()) + 0.5D, 1.0D);
+		this.entity.getMoveHelper().setMoveTo((double)this.targetBlockPos.getX(), (double)this.targetBlockPos.getY(), (double)this.targetBlockPos.getZ(), (double)0.5);
 	}
 
 	@Override
