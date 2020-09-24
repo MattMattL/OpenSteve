@@ -144,10 +144,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
 
 		/* TEST */
-		this.nnetArray[1].runEntityAI();
-		this.nnetArray[2].runEntityAI();
-		this.nnetArray[3].runEntityAI();
-
+		this.nnetArray[this.nnetOut++].runEntityAI();
 	}
 
 	/* Called when the entity is attacked. */
@@ -268,6 +265,11 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.onKillCommand();
 
+		this.dead = true;
+	}
+
+	public void setDead()
+	{
 		this.dead = true;
 	}
 

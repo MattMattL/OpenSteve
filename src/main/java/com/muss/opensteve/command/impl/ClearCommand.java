@@ -19,8 +19,8 @@ public class ClearCommand
 	{
 		while(OpenSteveDataTable.aiEntityList.size() > 0)
 		{
+			OpenSteveDataTable.aiEntityList.get(0).setDead();
 			OpenSteveDataTable.aiEntityList.get(0).remove();
-			OpenSteveDataTable.aiEntityList.get(0).onKillCommand();
 			OpenSteveDataTable.aiEntityList.remove(0);
 		}
 
