@@ -16,19 +16,17 @@ public class OpenSteveCommands
 {
 	public static void registerCommands(RegisterCommandsEvent event)
 	{
-		event.getDispatcher()
-				.register(Commands.literal("opensteve").requires(context -> { return context.hasPermissionLevel(2); })
-						.executes(source -> { return instructions(source.getSource()); })
-				);
+		event.getDispatcher().register(Commands.literal("opensteve").requires(context -> { return context.hasPermissionLevel(2); })
+				.executes(source -> { return instructions(source.getSource()); })
+		);
 
-        event.getDispatcher()
-				.register(Commands.literal("creator").requires(context -> { return context.hasPermissionLevel(2); })
-						.then(PrintCommand.register())
-						.then(GreetingCommand.register())
-						.then(KillCommand.register())
-						.then(ClearCommand.register())
-						/* add commands here */
-				);
+        event.getDispatcher().register(Commands.literal("creator").requires(context -> { return context.hasPermissionLevel(2); })
+				.then(PrintCommand.register())
+				.then(GreetingCommand.register())
+				.then(KillCommand.register())
+				.then(ClearCommand.register())
+				/* add commands here */
+		);
     }
 
     private static int instructions(CommandSource source)
