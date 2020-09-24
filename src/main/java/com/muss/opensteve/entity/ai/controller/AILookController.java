@@ -6,9 +6,9 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class AILookController extends AIControllerBase
 {
-	private Vector3d lookVector;
+	private Vector3d lookVec;
 	private PolarCoord polarCoord;
-	private PolarCoord deltaAngles;
+	private PolarCoord deltaAngle;
 
 	private int nnetOut;
 	private float prevHealth;
@@ -24,10 +24,10 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void aiInitialise()
 	{
-		// calculate the look vector and normalise
+		// calculate look vector and normalise
 		this.entity.eyePos = this.entity.getEyePosition(1.0F);
-		this.lookVector = this.entity.lookPos.subtract(this.entity.eyePos);
-		this.lookVector = this.lookVector.normalize();
+		this.lookVec = this.entity.lookPos.subtract(this.entity.eyePos);
+		this.lookVec = this.lookVec.normalize();
 
 		this.prevHealth = this.entity.getHealth();
 	}
@@ -40,21 +40,20 @@ public class AILookController extends AIControllerBase
 		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.x;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.y;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.lookPos.z;
-		this.deepNNet.vectorIn[iNNet++] = this.lookVector.x;
-		this.deepNNet.vectorIn[iNNet++] = this.lookVector.y;
-
-		this.deepNNet.vectorIn[iNNet++] = this.lookVector.z;
+		this.deepNNet.vectorIn[iNNet++] = this.lookVec.x;
+		this.deepNNet.vectorIn[iNNet++] = this.lookVec.y;
+		this.deepNNet.vectorIn[iNNet++] = this.lookVec.z;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosX();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosY();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosZ();
-		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
 
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getFoodLevel();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getSaturationLevel();
+
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isAlex()? 1 : -1;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isBurning()? 1 : -1;
-
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isInWater()? 1 : -1;
 		this.deepNNet.vectorIn[iNNet++] = this.entity.isChild()? 1 : -1;
 	}
@@ -62,7 +61,7 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void runEntityBehavior()
 	{
-		double unitAngle = 3.14159265 / 12;
+		final double unitAngle = 3.14159265 / 12;
 
 		this.deepNNet.nnRunFeedForward();
 		this.nnetOut = this.deepNNet.nnGetMaxOutputIndex();
@@ -70,33 +69,33 @@ public class AILookController extends AIControllerBase
 		switch(this.nnetOut)
 		{
 			case 0: // Up
-				this.deltaAngles = new PolarCoord(0, unitAngle, 0);
+				this.deltaAngle = new PolarCoord(0, unitAngle, 0);
 				break;
 			case 1: // Down
-				this.deltaAngles = new PolarCoord(0, -unitAngle, 0);
+				this.deltaAngle = new PolarCoord(0, -unitAngle, 0);
 				break;
 			case 2: // E-N-W
-				this.deltaAngles = new PolarCoord(0, 0, unitAngle);
+				this.deltaAngle = new PolarCoord(0, 0, unitAngle);
 				break;
 			case 3: // E-S-W
-				this.deltaAngles = new PolarCoord(0, 0, -unitAngle);
+				this.deltaAngle = new PolarCoord(0, 0, -unitAngle);
 				break;
 			default: // Stay
-				this.deltaAngles = new PolarCoord(0, 0, 0);
+				this.deltaAngle = new PolarCoord(0, 0, 0);
 				break;
 		}
 
 		// translate to polar basis
-		this.polarCoord.setToPolarCoord(this.lookVector);
+		this.polarCoord.setToPolarCoord(this.lookVec);
 
 		// perform transformation
-		this.polarCoord = this.polarCoord.add(this.deltaAngles);
+		this.polarCoord = this.polarCoord.add(this.deltaAngle);
 
 		// translate back to the original basis
-		this.lookVector = this.polarCoord.getCartesian();
+		this.lookVec = this.polarCoord.getCartesian();
 
 		// calculate absolute positions
-		this.entity.lookPos = this.lookVector.add(this.entity.eyePos);
+		this.entity.lookPos = this.lookVec.add(this.entity.eyePos);
 
 		this.entity.getLookController().setLookPosition(this.entity.lookPos.x, this.entity.lookPos.y, this.entity.lookPos.z);
 	}
@@ -104,7 +103,6 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		// negative if health drops
 		if(this.entity.getHealth() < this.prevHealth)
 		{
 			for(int i=0; i<this.deepNNet.NET_OUT; i++)
@@ -160,34 +158,3 @@ public class AILookController extends AIControllerBase
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
