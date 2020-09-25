@@ -13,7 +13,7 @@ public class AIInventoryController extends AIControllerBase
 
 	public AIInventoryController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 6, 4, 3, "AIInventoryController");
+		super(entityIn, 11, 4, 3, "AIInventoryController");
 
 		this.inventory = this.entity.inventory;
 	}
@@ -29,14 +29,21 @@ public class AIInventoryController extends AIControllerBase
 	{
 		int iNNet = 0;
 
-		this.deepNNet.vectorIn[iNNet] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot - 1).getItem());
-		this.deepNNet.vectorIn[iNNet] = this.inventory.getItemAt(this.currentSlot - 1).getCount();
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot - 2).getItem());
+		this.deepNNet.vectorIn[iNNet++] = this.inventory.getItemAt(this.currentSlot - 2).getCount();
 
-		this.deepNNet.vectorIn[iNNet] = Item.getIdFromItem(this.inventory.getCurrentItem().getItem());
-		this.deepNNet.vectorIn[iNNet] = this.inventory.getCurrentItem().getCount();
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot - 1).getItem());
+		this.deepNNet.vectorIn[iNNet++] = this.inventory.getItemAt(this.currentSlot - 1).getCount();
 
-		this.deepNNet.vectorIn[iNNet] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot + 1).getItem());
-		this.deepNNet.vectorIn[iNNet] = this.inventory.getItemAt(this.currentSlot + 1).getCount();
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getCurrentItem().getItem());
+		this.deepNNet.vectorIn[iNNet++] = this.inventory.getCurrentItem().getCount();
+		this.deepNNet.vectorIn[iNNet++] = this.currentSlot;
+
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot + 1).getItem());
+		this.deepNNet.vectorIn[iNNet++] = this.inventory.getItemAt(this.currentSlot + 1).getCount();
+
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot + 2).getItem());
+		this.deepNNet.vectorIn[iNNet++] = this.inventory.getItemAt(this.currentSlot + 2).getCount();
 	}
 
 	@Override
