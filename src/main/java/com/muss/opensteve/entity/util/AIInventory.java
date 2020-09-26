@@ -57,6 +57,11 @@ public class AIInventory
 	}
 
 
+	public float getDestroySpeed(BlockState state)
+	{
+		return this.mainInventory.get(this.mainHandIndex).getDestroySpeed(state);
+	}
+
 	public void dropAllItems()
 	{
 		System.out.printf("[OpenSteve] dropping all items...\n");

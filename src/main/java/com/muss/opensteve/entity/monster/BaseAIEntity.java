@@ -234,6 +234,52 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 
+	public float getDigSpeed(BlockState state, @Nullable BlockPos pos)
+	{
+		float speed = this.inventory.getDestroySpeed(state);
+
+		if(speed > 1.0F)
+		{
+			int i = EnchantmentHelper.getEfficiencyModifier(this);
+			ItemStack itemstack = this.getHeldItemMainhand();
+
+			if(i > 0 && !itemstack.isEmpty())
+				speed += (float)(i * i + 1);
+		}
+
+		if(EffectUtils.hasMiningSpeedup(this))
+			speed *= 1.0F + (float)(EffectUtils.getMiningSpeedup(this) + 1) * 0.2F;
+
+		if(this.isPotionActive(Effects.MINING_FATIGUE))
+		{
+			switch(this.getActivePotionEffect(Effects.MINING_FATIGUE).getAmplifier())
+			{
+				case 0:
+					speed *= 0.3F;
+					break;
+				case 1:
+					speed *= 0.09F;
+					break;
+				case 2:
+					speed *= 0.0027F;
+					break;
+				case 3:
+				default:
+					speed *= 8.1E-4F;
+			}
+		}
+
+		if(this.areEyesInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this))
+			speed /= 5.0F;
+
+		if(!this.onGround)
+			speed /= 5.0F;
+
+		// speed = net.minecraftforge.event.ForgeEventFactory.getBreakSpeed(this, state, speed, pos);
+		return speed;
+	}
+
+
 	public void addExhaustion(float exhaustion)
 	{
 		if(!this.world.isRemote)
