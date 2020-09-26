@@ -21,7 +21,7 @@ public class OpenSteveDataTable
 			"J (TM)",
 		};
 
-	public static void setRandomCustomName(BaseAIEntity entity)
+	public static void setRandomName(BaseAIEntity entity)
 	{
 		final int CUSTOM_NAME_CHANCE = 10;
 		boolean giveCustomName = ((int)(Math.random() * (CUSTOM_NAME_CHANCE - 1)) == 0)? true : false;

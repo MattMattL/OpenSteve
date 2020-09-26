@@ -8,7 +8,6 @@ import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
-import com.muss.opensteve.util.AIEntityType;
 import com.muss.opensteve.util.AIEntityTypes;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
@@ -77,7 +76,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	@Nullable
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
-		OpenSteveDataTable.setRandomCustomName(this);
+		OpenSteveDataTable.setRandomName(this);
 		this.enablePersistence();
 
 		return spawnDataIn;
@@ -123,7 +122,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 	private void aiTick()
 	{
-		int iNNet = 0;
+		/*int iNNet = 0;
 
 		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
 		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
@@ -141,10 +140,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalNNet.vectorIn[iNNet++] = this.isJumping? 1 : -1;
 
 		this.globalNNet.nnRunFeedForward();
-		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();
+		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();*/
 
 		/* TEST */
 		this.nnetArray[this.nnetOut++].runEntityAI();
+
+		this.nnetOut %= this.nnetArray.length;
 	}
 
 	/* Called when the entity is attacked. */
