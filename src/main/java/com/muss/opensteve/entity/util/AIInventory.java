@@ -64,8 +64,6 @@ public class AIInventory
 
 	public void dropAllItems()
 	{
-		System.out.printf("[OpenSteve] dropping all items...\n");
-
 		for(List<ItemStack> list : this.allInventories)
 		{
 			for(int i=0; i<list.size(); i++)
@@ -74,8 +72,6 @@ public class AIInventory
 
 				if (!itemstack.isEmpty())
 				{
-					System.out.printf("  %s\n", itemstack.getItem().getName().getString());
-
 					this.entity.dropItem(itemstack, true, false);
 					list.set(i, ItemStack.EMPTY);
 				}
@@ -159,7 +155,6 @@ public class AIInventory
 
 		this.entity.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((this.entity.world.rand.nextFloat() - this.entity.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 		this.renderHeldItem();
-		this.debug();
 	}
 
 	public void renderHeldItem()

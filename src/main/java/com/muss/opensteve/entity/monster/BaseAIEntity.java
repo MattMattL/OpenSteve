@@ -180,8 +180,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 	public ItemEntity dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem)
 	{
-		System.out.printf("[OpenSteve] dropItem called\n");
-
 		if(droppedItem.isEmpty())
 			return null;
 
@@ -221,12 +219,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.dropInventory();
 
-		System.out.printf("[OpenSteve] dropInventory called\n");
-
 		if (!this.world.getGameRules().getBoolean(GameRules.KEEP_INVENTORY))
 		{
-			System.out.printf("[OpenSteve] set to drop all items\n");
-
 			//this.destroyVanishingCursedItems();
 			this.inventory.dropAllItems();
 		}
@@ -338,7 +332,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		System.out.printf("[OpenSteve] attackEntityFrom\n");
 
 		return super.attackEntityFrom(source, amount);
 	}
