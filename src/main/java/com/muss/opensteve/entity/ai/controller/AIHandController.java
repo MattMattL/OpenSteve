@@ -56,7 +56,7 @@ public class AIHandController extends AIControllerBase
 			case 2: // throw held item
 				if(this.heldItem.getCount() > 0)
 				{
-					this.entity.entityDropItem(this.heldItem, (float)this.entity.getYOffset());
+					this.entity.dropItem(this.heldItem, false, false);
 					this.heldItem.shrink(1);
 				}
 
