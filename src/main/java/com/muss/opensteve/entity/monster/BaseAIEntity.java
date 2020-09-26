@@ -11,6 +11,7 @@ import com.muss.opensteve.entity.util.AIInventory;
 import com.muss.opensteve.util.AIEntityTypes;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -22,13 +23,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.potion.Effects;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
@@ -148,12 +151,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetOut %= this.nnetArray.length;
 	}
 
-	/* Called when the entity is attacked. */
-	public boolean attackEntityFrom(DamageSource source, float amount)
-	{
-		return super.attackEntityFrom(source, amount);
-	}
-
 
 	@Override
 	public boolean canPickUpLoot()
@@ -179,6 +176,61 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public void onItemPickup(Entity entityIn, int quantity)
 	{
 		super.onItemPickup(entityIn, quantity);
+	}
+
+	public ItemEntity dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem)
+	{
+		System.out.printf("[OpenSteve] dropItem called\n");
+
+		if(droppedItem.isEmpty())
+			return null;
+
+		if(this.world.isRemote)
+			this.swingArm(Hand.MAIN_HAND);
+
+		double d0 = this.getPosYEye() - (double)0.3F;
+		ItemEntity itemEntity = new ItemEntity(this.world, this.getPosX(), d0, this.getPosZ(), droppedItem);
+		itemEntity.setPickupDelay(40);
+
+		if(traceItem)
+			itemEntity.setThrowerId(this.getUniqueID());
+
+		if(dropAround)
+		{
+			float f = this.rand.nextFloat() * 0.5F;
+			float f1 = this.rand.nextFloat() * ((float)Math.PI * 2F);
+			itemEntity.setMotion((double)(-MathHelper.sin(f1) * f), (double)0.2F, (double)(MathHelper.cos(f1) * f));
+		}
+		else
+		{
+			float f7 = 0.3F;
+			float f8 = MathHelper.sin(this.rotationPitch * ((float)Math.PI / 180F));
+			float f2 = MathHelper.cos(this.rotationPitch * ((float)Math.PI / 180F));
+			float f3 = MathHelper.sin(this.rotationYaw * ((float)Math.PI / 180F));
+			float f4 = MathHelper.cos(this.rotationYaw * ((float)Math.PI / 180F));
+			float f5 = this.rand.nextFloat() * ((float)Math.PI * 2F);
+			float f6 = 0.02F * this.rand.nextFloat();
+			itemEntity.setMotion((double)(-f3 * f2 * 0.3F) + Math.cos((double)f5) * (double)f6, (double)(-f8 * 0.3F + 0.1F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F), (double)(f4 * f2 * 0.3F) + Math.sin((double)f5) * (double)f6);
+		}
+
+		this.world.addEntity(itemEntity);
+		return itemEntity;
+	}
+
+	protected void dropInventory()
+	{
+		super.dropInventory();
+
+		System.out.printf("[OpenSteve] dropInventory called\n");
+
+		if (!this.world.getGameRules().getBoolean(GameRules.KEEP_INVENTORY))
+		{
+			System.out.printf("[OpenSteve] set to drop all items\n");
+
+			//this.destroyVanishingCursedItems();
+			this.inventory.dropAllItems();
+		}
+
 	}
 
 
@@ -238,6 +290,39 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public abstract boolean isSteve();
 
 
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		System.out.printf("[OpenSteve] attackEntityFrom\n");
+
+		return super.attackEntityFrom(source, amount);
+	}
+
+	@Override
+	public boolean isAlive()
+	{
+		return !this.dead;
+	}
+
+	public void setDead()
+	{
+		this.dead = true;
+	}
+
+	@Override
+	public void onDeath(DamageSource cause)
+	{
+		super.onDeath(cause);
+	}
+
+	@Override
+	public void onKillCommand()
+	{
+		super.onKillCommand();
+
+		this.dead = true;
+	}
+
+
 	public boolean isChild()
 	{
 		return this.getDataManager().get(IS_CHILD);
@@ -256,25 +341,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public double getYOffset()
 	{
 		return this.isChild() ? 0.0D : -0.45D;
-	}
-
-	@Override
-	public void onKillCommand()
-	{
-		super.onKillCommand();
-
-		this.dead = true;
-	}
-
-	public void setDead()
-	{
-		this.dead = true;
-	}
-
-	@Override
-	public boolean isAlive()
-	{
-		return !this.dead;
 	}
 
 
