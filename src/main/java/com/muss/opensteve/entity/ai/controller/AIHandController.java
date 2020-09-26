@@ -3,6 +3,7 @@ package com.muss.opensteve.entity.ai.controller;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.OpenSteveMath;
+import net.minecraft.block.AirBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -10,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.common.extensions.IForgeBlockState;
 
 public class AIHandController extends AIControllerBase
 {
@@ -56,7 +58,7 @@ public class AIHandController extends AIControllerBase
 			case 2: // throw held item
 				if(this.heldItem.getCount() > 0)
 				{
-					this.entity.entityDropItem(this.heldItem, (float)this.entity.getYOffset());
+					this.entity.dropItem(this.heldItem, false, false);
 					this.heldItem.shrink(1);
 				}
 
@@ -108,11 +110,15 @@ public class AIHandController extends AIControllerBase
 					this.entity.targetBlock = this.rayTraceTarget.getPos();
 					this.placeablePos = this.entity.targetBlock.add(this.rayTraceTarget.getFace().getDirectionVec());
 
-					if(OpenSteveMath.isInReach(this.entity.eyePos, this.entity.targetBlock, this.entity.maxReachRange))
+					if(this.entity.world.getBlockState(this.placeablePos).isAir())
 					{
-						this.entity.world.setBlockState(this.placeablePos, ((BlockItem)this.heldItem.getItem()).getBlock().getDefaultState());
-						this.heldItem.shrink(1);
+						if(OpenSteveMath.isInReach(this.entity.eyePos, this.entity.targetBlock, this.entity.maxReachRange))
+						{
+							this.entity.world.setBlockState(this.placeablePos, ((BlockItem)this.heldItem.getItem()).getBlock().getDefaultState());
+							this.heldItem.shrink(1);
+						}
 					}
+
 					break;
 
 				case ENTITY:

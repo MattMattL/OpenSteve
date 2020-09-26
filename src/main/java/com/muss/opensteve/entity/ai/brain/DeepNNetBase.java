@@ -19,7 +19,7 @@ public class DeepNNetBase
 	private double sigmoid[][];
 	private double delta[][];
 
-	private Random random;
+	private final Random random;
 
 	public DeepNNetBase(int netIn, int netDepth, int netOut)
 	{
@@ -51,7 +51,7 @@ public class DeepNNetBase
 		NET_WIDTH[NET_DEPTH] = NET_OUT;
 
 		for(int l=1; l<NET_DEPTH; l++)
-			NET_WIDTH[l] = NET_MAX_WIDTH; // temporary initialisation method
+			NET_WIDTH[l] = (this.NET_IN + this.NET_OUT) / 2; // temporary initialisation method
 	}
 
 	private void vectorInit()
@@ -100,7 +100,7 @@ public class DeepNNetBase
 
 	public void nnRunBackprop()
 	{
-		int layer, in, out, l, i, j, k;
+		int layer, out, i, j, k;
 
 		// calculate delta
 		for(out=0; out<NET_OUT; out++)

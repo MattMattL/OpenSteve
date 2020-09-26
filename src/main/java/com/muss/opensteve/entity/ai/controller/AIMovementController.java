@@ -2,43 +2,47 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
+import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class AIMovementController extends AIControllerBase
 {
-	private BlockPos entityBlockPos;
-	private BlockPos targetBlockPos;
+	private Vector3d prevPos;
+	private Vector3d entityPos;
+	private Vector3d targetPos;
 	private float prevHealth;
 	private int nnetOut;
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 75, 5, 5, "AIMovementController");
+		super(entityIn, 100, 5, 5, "AIMovementController");
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
-		this.entityBlockPos = this.entity.func_233580_cy_();
+		this.entityPos = this.entity.getPositionVec();
+		this.prevPos = this.entityPos;
 		this.prevHealth = this.entity.getHealth();
 	}
 
 	@Override
 	protected void setNNetInput()
 	{
-		int visionXZ = 2, visionY = 1;
 		int iNNet = 0;
 		Block block;
+		BlockPos origin = new BlockPos(this.entityPos.x, this.entityPos.y, this.entityPos.z);
 
-		for(int x=-visionXZ; x<=visionXZ; x++)
+		for(int x = -2; x <= 2; x++)
 		{
-			for(int y=-visionY; y<=visionY; y++)
+			for(int y = -2; y <= 1; y++)
 			{
-				for(int z=-visionXZ; z<=visionXZ; z++)
+				for(int z = -2; z <= 2; z++)
 				{
-					block = this.entity.world.getBlockState(entityBlockPos.add(x, y-1, z)).getBlock();
+					block = this.entity.world.getBlockState(origin.add(x, y, z)).getBlock();
 					this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(block.asItem());
 				}
 			}
@@ -53,26 +57,24 @@ public class AIMovementController extends AIControllerBase
 
 		switch(this.nnetOut)
 		{
-			case 0:
-				this.targetBlockPos = this.entityBlockPos.east();
+			case 0: // East
+				this.targetPos = this.entityPos.add(1, 0, 0);
 				break;
-			case 1:
-				this.targetBlockPos = this.entityBlockPos.west();
+			case 1: // West
+				this.targetPos = this.entityPos.add(-1, 0, 0);
 				break;
-			case 2:
-				this.targetBlockPos = this.entityBlockPos.south();
+			case 2: // South
+				this.targetPos = this.entityPos.add(0, 0, 1);
 				break;
-			case 3:
-				this.targetBlockPos = this.entityBlockPos.north();
+			case 3: // North
+				this.targetPos = this.entityPos.add(0, 0, -1);
 				break;
-			case 4:
-				this.targetBlockPos = this.entityBlockPos;
-				break;
-			default:
+			case 4: // Stay
+				this.targetPos = this.entityPos;
 				break;
 		}
 
-		this.entity.getNavigator().tryMoveToXYZ((double)((float)this.targetBlockPos.getX()) + 0.5D, (double)(this.targetBlockPos.getY() + 1), (double)((float)this.targetBlockPos.getZ()) + 0.5D, 1.0D);
+		this.entity.getMoveHelper().setMoveTo(this.targetPos.x, this.targetPos.y, this.targetPos.z, 0.5D);
 	}
 
 	@Override
@@ -86,8 +88,5 @@ public class AIMovementController extends AIControllerBase
 
 			this.deepNNet.nnRunBackprop();
 		}
-
-		// train positive outcomes
-
 	}
 }

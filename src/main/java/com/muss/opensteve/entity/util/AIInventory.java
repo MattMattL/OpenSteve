@@ -2,6 +2,7 @@ package com.muss.opensteve.entity.util;
 
 import com.google.common.collect.ImmutableList;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -39,45 +40,43 @@ public class AIInventory
 	{
 		index = this.boundHandIndex(index);
 
-		if(0 <= index && index < this.mainInventory.size())
-		{
-			return this.mainInventory.get(index);
-		}
-		else
-		{
-			/* DEBUG */
-			System.out.printf("[OpenSteve] [AIInventory::getItemAt] Index out of boundary: %2d out of %2d\n", index, this.mainInventory.size());
-			return getCurrentItem();
-		}
+		return this.mainInventory.get(index);
 	}
 
 	public void setMainHandIndex(int index)
 	{
-		index = this.boundHandIndex(index);
-
-		if(0 <= index && index < this.mainInventory.size())
-		{
-			this.mainHandIndex = index;
-		}
-		else
-		{
-			/* DEBUG */
-			System.out.printf("[OpenSteve] [AIInventory::setMainHandIndex] Index out of boundary: %2d out of %2d\n", index, this.mainInventory.size());
-		}
-
+		this.mainHandIndex = this.boundHandIndex(index);
 		this.renderHeldItem();
 	}
 
 	private int boundHandIndex(int index)
 	{
-//		return (index + this.mainInventory.size()) % this.mainInventory.size();
+		int max = this.mainInventory.size();
 
-		if(index < 0)
+		return (index >= 0) ? index %= max : (index % max) + max;
+	}
+
+
+	public float getDestroySpeed(BlockState state)
+	{
+		return this.mainInventory.get(this.mainHandIndex).getDestroySpeed(state);
+	}
+
+	public void dropAllItems()
+	{
+		for(List<ItemStack> list : this.allInventories)
 		{
-			index = this.mainInventory.size() - Math.abs(index);
-		}
+			for(int i=0; i<list.size(); i++)
+			{
+				ItemStack itemstack = list.get(i);
 
-		return index % this.mainInventory.size();
+				if (!itemstack.isEmpty())
+				{
+					this.entity.dropItem(itemstack, true, false);
+					list.set(i, ItemStack.EMPTY);
+				}
+			}
+		}
 	}
 
 
@@ -128,13 +127,12 @@ public class AIInventory
 				storable += stackIn.getMaxStackSize();
 			else if(stackEqualExact(itemStack, stackIn))
 				storable += stackIn.getMaxStackSize() - itemStack.getCount();
-
 		}
 
 		return storable;
 	}
 
-	public int getAvailableSlotFor(ItemStack stackIn)
+	public int getSlotFor(ItemStack stackIn)
 	{
 		int existingSlot = this.getExistingSlotFor(stackIn);
 
@@ -143,9 +141,9 @@ public class AIInventory
 
 	public void addItemStackToInventory(ItemStack stackIn)
 	{
-		while(stackIn.getCount() > 0 && this.getAvailableSlotFor(stackIn) > -1)
+		while(stackIn.getCount() > 0 && this.getSlotFor(stackIn) > -1)
 		{
-			int freeSlot = this.getAvailableSlotFor(stackIn);
+			int freeSlot = this.getSlotFor(stackIn);
 
 			int stored = this.mainInventory.get(freeSlot).getCount();
 			int storable = Math.min(stackIn.getCount(), stackIn.getMaxStackSize() - stored);
@@ -161,7 +159,7 @@ public class AIInventory
 
 	public void renderHeldItem()
 	{
-		this.entity.setHeldItem(Hand.MAIN_HAND, this.mainInventory.get(this.mainHandIndex));
+		this.entity.setHeldItem(Hand.MAIN_HAND, this.getCurrentItem());
 	}
 
 	public void debug()
@@ -171,7 +169,7 @@ public class AIInventory
 			String itemName = this.mainInventory.get(i).getItem().getName().getString();
 			int itemCount = this.mainInventory.get(i).getCount();
 
-			System.out.printf("[OpenSteve] [AIInventory] Slot %2d  %16s  %2d\n", i, itemName, itemCount);
+			System.out.printf("[OpenSteve] [AIInventory::debug] Slot %2d  %16s  %2d\n", i, itemName, itemCount);
 		}
 
 		System.out.printf("\n");
