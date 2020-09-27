@@ -12,15 +12,15 @@ import java.util.List;
 
 public class AIGameRules
 {
-	public static List<Rule> gameRuleList = new ArrayList<>();
+	public static List<AIGameRules.Rule> gameRuleList = new ArrayList<>();
 
-	public static final Rule<Boolean> KEEP_INVENTORY = register("keepInventory", BoolType.setDefault(false));
-	public static final Rule<Double> TEST_DOUBLE = register("testDouble", DoubleType.setDefault(0.5D));
+	public static final AIGameRules.Rule<Boolean> KEEP_INVENTORY = register("keepInventory", AIGameRules.BoolType.setDefault(false));
+	public static final AIGameRules.Rule<Double> TEST_DOUBLE = register("testDouble", AIGameRules.DoubleType.setDefault(0.5D));
 
-	public static Rule register(String literal, DataType defaultValue)
+	public static AIGameRules.Rule register(String literal, AIGameRules.DataType defaultValue)
 	{
-		Rule newRule = new Rule(literal, defaultValue);
-		gameRuleList.add(newRule);
+		AIGameRules.Rule newRule = new AIGameRules.Rule(literal, defaultValue);
+		AIGameRules.gameRuleList.add(newRule);
 
 		return newRule;
 	}
@@ -31,14 +31,14 @@ public class AIGameRules
 		public abstract ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule);
 	}
 
-	public static class BoolType<T> extends DataType<Boolean>
+	public static class BoolType<T> extends AIGameRules.DataType<Boolean>
 	{
 		public BoolType(boolean valueIn)
 		{
 			this.value = valueIn;
 		}
 
-		public static DataType setDefault(boolean valueIn)
+		public static AIGameRules.DataType setDefault(boolean valueIn)
 		{
 			return new BoolType(valueIn);
 		}
@@ -62,14 +62,14 @@ public class AIGameRules
 		}
 	}
 
-	public static class DoubleType<T> extends DataType<Double>
+	public static class DoubleType<T> extends AIGameRules.DataType<Double>
 	{
 		public DoubleType(double valueIn)
 		{
 			this.value = valueIn;
 		}
 
-		public static DataType setDefault(double valueIn)
+		public static AIGameRules.DataType setDefault(double valueIn)
 		{
 			return new DoubleType(valueIn);
 		}
@@ -94,9 +94,9 @@ public class AIGameRules
 	public static class Rule<T>
 	{
 		public final String literal;
-		public DataType<T> dataType;
+		public AIGameRules.DataType<T> dataType;
 
-		public Rule(String literalIn, DataType valueIn)
+		public Rule(String literalIn, AIGameRules.DataType valueIn)
 		{
 			this.literal = literalIn;
 			this.dataType = valueIn;
@@ -120,7 +120,7 @@ public class AIGameRules
 
 	public static ArgumentBuilder<CommandSource, ?> registerCommands(ArgumentBuilder arguments)
 	{
-		for(Rule rule : gameRuleList)
+		for(AIGameRules.Rule rule : AIGameRules.gameRuleList)
 		{
 			ArgumentBuilder<CommandSource, ?> subArguments = Commands.literal(rule.getLiteral());
 			rule.registerArguments(subArguments);
