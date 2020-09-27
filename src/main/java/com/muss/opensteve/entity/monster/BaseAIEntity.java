@@ -9,6 +9,7 @@ import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
 import com.muss.opensteve.util.AIEntityTypes;
+import com.muss.opensteve.util.AIGameRules;
 import com.muss.opensteve.util.OpenSteveDataTable;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -219,7 +220,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.dropInventory();
 
-		if (!this.world.getGameRules().getBoolean(GameRules.KEEP_INVENTORY))
+		if (!AIGameRules.KEEP_INVENTORY.getValue())
 		{
 			//this.destroyVanishingCursedItems();
 			this.inventory.dropAllItems();

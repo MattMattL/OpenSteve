@@ -1,10 +1,7 @@
 package com.muss.opensteve.command;
 
 import com.muss.opensteve.OpenSteve;
-import com.muss.opensteve.command.impl.ClearCommand;
-import com.muss.opensteve.command.impl.GreetingCommand;
-import com.muss.opensteve.command.impl.KillCommand;
-import com.muss.opensteve.command.impl.PrintCommand;
+import com.muss.opensteve.command.impl.*;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,10 +18,11 @@ public class OpenSteveCommands
 		);
 
         event.getDispatcher().register(Commands.literal("creator").requires(context -> { return context.hasPermissionLevel(2); })
-				.then(PrintCommand.register())
-				.then(GreetingCommand.register())
+				// .then(PrintCommand.register())
+				// .then(GreetingCommand.register())
 				.then(KillCommand.register())
 				.then(ClearCommand.register())
+				.then(GameruleCommand.register())
 				/* add commands here */
 		);
     }
