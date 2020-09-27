@@ -17,5 +17,8 @@
 	"commands.opst.creator.kill.adult": "Removed %d grown-up AIs",
 	"commands.opst.creator.kill.child": "Removed %d child AIs",
 
-	"commands.opst.creator.clear.entityList": "Reset AI entity list"
+	"commands.opst.creator.clear.entityList": "Reset AI entity list",
+
+	"commands.opst.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
+	"commands.opst.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f"
 }
