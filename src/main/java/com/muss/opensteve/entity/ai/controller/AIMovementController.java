@@ -99,16 +99,5 @@ public class AIMovementController extends AIControllerBase
 
 			this.deepNNet.nnRunBackprop();
 		}
-
-		this.prevDist = OpenSteveMath.distance(this.entityPos, this.targetPos);
-		System.out.printf("%16.8f\n", this.prevPrevDist - OpenSteveMath.distance(this.entityPos, this.targetPos));
-
-		if(OpenSteveMath.distance(this.entityPos, this.targetPos) >= this.prevPrevDist)
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0  : 1;
-
-			this.deepNNet.nnRunBackprop();
-		}
 	}
 }
