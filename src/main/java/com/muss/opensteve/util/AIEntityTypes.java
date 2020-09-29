@@ -5,35 +5,68 @@ import java.util.List;
 
 public class AIEntityTypes
 {
-	private List<AIEntityType> types = new ArrayList<AIEntityType>();
+	private List<AIEntityType> entityTypeList = new ArrayList<AIEntityType>();
 
 	public AIEntityTypes()
 	{
 
 	}
 
-	public void add(AIEntityType typeIn)
+	public void add(AIEntityType type)
 	{
-		if(!this.is(typeIn))
+		if(!this.has(type))
 		{
-			this.types.add(typeIn);
+			this.entityTypeList.add(type);
+		}
+
+		this.removeIncompatibles(type);
+	}
+
+	private void removeIncompatibles(AIEntityType type)
+	{
+		int i = 0;
+
+		while(i < this.entityTypeList.size())
+		{
+			AIEntityType element = this.entityTypeList.get(i);
+
+			if(!element.compatibleWith(type) && element != type)
+			{
+				this.entityTypeList.remove(i);
+			}
+			else
+			{
+				i++;
+			}
 		}
 	}
 
-	public void delete(AIEntityType typeIn)
+	public void delete(AIEntityType type)
 	{
-		this.types.remove(typeIn);
+		this.entityTypeList.remove(type);
 	}
 
-	public boolean is(AIEntityType typeIn)
+	public boolean has(AIEntityType type)
 	{
-		if(this.types.contains(typeIn))
+		return (this.entityTypeList.contains(type)) ? true : false;
+	}
+
+	/* DEBUG */
+	public void printAllTypes()
+	{
+		this.printAllTypes("");
+	}
+
+	/* DEBUG */
+	public void printAllTypes(String message)
+	{
+		System.out.printf("[OpenSteve] %s\n", message);
+
+		for(AIEntityType type : this.entityTypeList)
 		{
-			return true;
+			System.out.printf("  %s\n", type.getString());
 		}
-		else
-		{
-			return false;
-		}
+
+		System.out.printf("\n");
 	}
 }

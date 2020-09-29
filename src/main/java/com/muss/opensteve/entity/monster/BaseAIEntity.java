@@ -8,6 +8,7 @@ import com.muss.opensteve.entity.ai.controller.AILookController;
 import com.muss.opensteve.entity.ai.controller.AIMovementController;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
+import com.muss.opensteve.util.AIEntityType;
 import com.muss.opensteve.util.AIEntityTypes;
 import com.muss.opensteve.util.AIGameRules;
 import com.muss.opensteve.util.OpenSteveDataTable;
@@ -32,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 public abstract class BaseAIEntity extends MonsterEntity
 {
 	private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(BaseAIEntity.class, DataSerializers.BOOLEAN);
-	public AIEntityTypes entityTypes = new AIEntityTypes();
+	public AIEntityTypes entityTypes;
 
 	public final AIInventory inventory = new AIInventory(this);
 	public final AIFoodStats foodStats = new AIFoodStats(this);
@@ -89,6 +89,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected void registerData()
 	{
 		super.registerData();
+
+		this.entityTypes = new AIEntityTypes();
+		//this.entityTypes.add(AIEntityType.ADULT);
+
 		this.getDataManager().register(IS_CHILD, false);
 	}
 
