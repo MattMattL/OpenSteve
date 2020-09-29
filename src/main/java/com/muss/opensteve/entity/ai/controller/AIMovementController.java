@@ -21,7 +21,7 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 100, 5, 5, "AIMovementController");
+		super(entityIn, 100, 5, 9, "AIMovementController");
 
 		this.prevHealth = this.entity.getHealth();
 		this.prevPrevHealth = this.entity.getHealth();
@@ -78,7 +78,19 @@ public class AIMovementController extends AIControllerBase
 			case 3: // North
 				this.targetPos = this.entityPos.add(0, 0, -1);
 				break;
-			case 4: // Stay
+			case 4: // South-East
+				this.targetPos = this.entityPos.add(1, 0, 1);
+				break;
+			case 5: // North-East
+				this.targetPos = this.entityPos.add(1, 0, -1);
+				break;
+			case 6: // South-West
+				this.targetPos = this.entityPos.add(-1, 0, 1);
+				break;
+			case 7: // North-West
+				this.targetPos = this.entityPos.add(-1, 0, -1);
+				break;
+			case 8: // Stay
 				this.targetPos = this.entityPos;
 				break;
 		}
