@@ -8,10 +8,14 @@ import java.util.List;
 
 public class OpenSteveDataTable
 {
+
 	/* A List of Server-Side AIs */
+
 	public static List<BaseAIEntity> aiEntityList = new ArrayList<>();
 
+
 	/* Random Entity Names */
+
 	public static final String namesForSteve[] = {
 			"M (TM)", "G_Cat", "G_Omg", "Racoon", "BGM",
 			"Mr O", "DummyData", "newbigbird", "Mr Song", "skyblue_6_",
@@ -47,5 +51,18 @@ public class OpenSteveDataTable
 		}
 
 		entity.setCustomName(ITextComponent.func_244388_a(entityName));
+	}
+
+
+	/* Debugging Helpers */
+
+	public static void print(String message)
+	{
+		System.out.printf("[OpenSteve] %s\n", message);
+	}
+
+	public static void print(String method, String message)
+	{
+		System.out.printf("[OpenSteve] [%s] %s\n", method, message);
 	}
 }
