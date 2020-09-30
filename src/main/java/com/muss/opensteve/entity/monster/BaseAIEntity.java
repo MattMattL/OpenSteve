@@ -339,6 +339,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 	@Override
+	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vector, Hand hand)
+	{
+		return AIPlayerInteraction.getResult(this, player, vector, hand);
+	}
+
+	@Override
 	public boolean isAlive()
 	{
 		return !this.dead;
