@@ -2,16 +2,10 @@ package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
-import com.muss.opensteve.entity.ai.controller.AIHandController;
-import com.muss.opensteve.entity.ai.controller.AIInventoryController;
-import com.muss.opensteve.entity.ai.controller.AILookController;
-import com.muss.opensteve.entity.ai.controller.AIMovementController;
+import com.muss.opensteve.entity.ai.controller.*;
 import com.muss.opensteve.entity.util.AIFoodStats;
 import com.muss.opensteve.entity.util.AIInventory;
-import com.muss.opensteve.util.AIEntityType;
-import com.muss.opensteve.util.AIEntityTypes;
-import com.muss.opensteve.util.AIGameRules;
-import com.muss.opensteve.util.OpenSteveDataTable;
+import com.muss.opensteve.util.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -19,6 +13,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -50,6 +45,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
 	private int nnetOut;
 	private AIControllerBase nnetArray[];
+	public AIControllerBase aiMotionController = new AIMotionController(this);
 	public AIControllerBase aiMovementController = new AIMovementController(this);
 	public AIControllerBase aiLookController = new AILookController(this);
 	public AIControllerBase aiInventoryController = new AIInventoryController(this);
@@ -65,7 +61,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.experienceValue = 0;
 
 		int iNNet = 0;
-		this.nnetArray = new AIControllerBase[4];
+		this.nnetArray = new AIControllerBase[5];
+		this.nnetArray[iNNet++] = this.aiMotionController;
 		this.nnetArray[iNNet++] = this.aiMovementController;
 		this.nnetArray[iNNet++] = this.aiLookController;
 		this.nnetArray[iNNet++] = this.aiInventoryController;
@@ -335,9 +332,9 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public abstract boolean isSteve();
 
 
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-
 		return super.attackEntityFrom(source, amount);
 	}
 
