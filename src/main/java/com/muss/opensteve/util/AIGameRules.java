@@ -25,13 +25,13 @@ public class AIGameRules
 		return newRule;
 	}
 
-	public abstract static class DataType<T>
+	private abstract static class DataType<T>
 	{
 		public T value;
 		public abstract ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule);
 	}
 
-	public static class BoolType<T> extends DataType<Boolean>
+	private static class BoolType<T> extends DataType<Boolean>
 	{
 		public BoolType(boolean valueIn)
 		{
@@ -62,7 +62,7 @@ public class AIGameRules
 		}
 	}
 
-	public static class DoubleType<T> extends DataType<Double>
+	private static class DoubleType<T> extends DataType<Double>
 	{
 		public DoubleType(double valueIn)
 		{
