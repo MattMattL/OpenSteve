@@ -2,7 +2,7 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.util.OpenSteveMath;
+import com.muss.opensteve.util.BackPropHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -14,28 +14,20 @@ public class AIMovementController extends AIControllerBase
 	private Vector3d targetPos;
 	private int nnetOut;
 
-	private float prevHealth;
-	private float prevPrevHealth;
-	private double prevDist;
-	private double prevPrevDist;
+	private BackPropHelper backProp;
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
 		super(entityIn, 100, 5, 9, "AIMovementController");
 
-		this.prevHealth = this.entity.getHealth();
-		this.prevPrevHealth = this.entity.getHealth();
-		this.prevDist = 0;
-		this.prevPrevDist = 0;
+		this.entityPos = new Vector3d(0, 0, 0);
+		this.targetPos = new Vector3d(0, 0, 0);
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
 		this.entityPos = this.entity.getPositionVec();
-
-		this.prevPrevDist = this.prevDist;
-		this.prevPrevHealth = this.prevHealth;
 	}
 
 	@Override
@@ -101,15 +93,6 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		this.prevHealth = this.entity.getHealth();
 
-		// train negative outcomes
-		if(this.prevPrevHealth > this.entity.getHealth())
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0  : 1;
-
-			this.deepNNet.nnRunBackprop();
-		}
 	}
 }
