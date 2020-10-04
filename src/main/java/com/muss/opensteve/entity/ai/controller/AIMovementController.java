@@ -2,7 +2,7 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.util.BackPropHelper;
+import com.muss.opensteve.entity.ai.brain.BackPropHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;

@@ -1,4 +1,4 @@
-package com.muss.opensteve.util;
+package com.muss.opensteve.entity.ai.brain;
 
 import java.util.ArrayList;
 import java.util.List;
