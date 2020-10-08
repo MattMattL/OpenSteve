@@ -221,7 +221,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	{
 		super.dropInventory();
 
-		if (!AIGameRules.KEEP_INVENTORY.getValue())
+		if (!OpenSteveGameRules.KEEP_INVENTORY.getValue())
 		{
 			//this.destroyVanishingCursedItems();
 			this.inventory.dropAllItems();

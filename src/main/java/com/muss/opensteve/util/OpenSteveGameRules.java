@@ -10,7 +10,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AIGameRules
+public class OpenSteveGameRules
 {
 	public static List<Rule> gameRuleList = new ArrayList<>();
 
