@@ -14,7 +14,7 @@ public class AIMovementController extends AIControllerBase
 	private Vector3d targetPos;
 	private int nnetOut;
 
-	private BackPropHelper backProp;
+	private BackPropHelper backProp = new BackPropHelper();
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
@@ -22,12 +22,25 @@ public class AIMovementController extends AIControllerBase
 
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
+
+		this.backProp.create("Health", 10);
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
 		this.entityPos = this.entity.getPositionVec();
+
+		this.backProp.tick();
+		this.backProp.getKey("Health").at().setValue(this.entity.getHealth());
+
+		/* DEBUG */
+		this.backProp.getKey("Health").debug();
+
+		for(int i = 0; i<this.backProp.getKey("Health").length; i++)
+			System.out.printf("  %6.2f\n", this.backProp.getKey("Health").at().value());
+
+		System.out.printf("\n");
 	}
 
 	@Override
@@ -93,6 +106,13 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
+		// if the entity's health decreased
+		if(this.backProp.getKey("Health").at(0).value() < this.backProp.getKey("Health").at(-1).value())
+		{
+			for(int i=0; i<this.deepNNet.NET_OUT; i++)
+				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
 
+			this.deepNNet.nnRunBackprop();
+		}
 	}
 }
