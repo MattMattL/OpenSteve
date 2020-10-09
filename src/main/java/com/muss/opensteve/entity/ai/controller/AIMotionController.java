@@ -46,25 +46,21 @@ public class AIMotionController extends AIControllerBase
 		switch(this.nnetOut)
 		{
 			case 0:
-				OpenSteveDataTable.print("[OpenSteve] case 0\n");
 				this.resetMotion();
 				this.entity.setSprinting(true);
 				break;
 
 			case 1:
-				OpenSteveDataTable.print("[OpenSteve] case 1\n");
 				this.resetMotion();
 				this.entity.setSneaking(true);
 				break;
 
 			case 2:
-				OpenSteveDataTable.print("[OpenSteve] case 2\n");
 				this.resetMotion();
 				this.entity.setSwimming(true);
 				break;
 
 			case 3:
-				OpenSteveDataTable.print("[OpenSteve] case 3\n");
 				this.resetMotion();
 				break;
 		}
