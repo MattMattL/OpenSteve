@@ -23,12 +23,9 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void aiInitialise()
 	{
-		// calculate look vector and normalise
 		this.entity.eyePos = this.entity.getEyePosition(1.0F);
 		this.lookVec = this.entity.lookPos.subtract(this.entity.eyePos);
 		this.lookVec = this.lookVec.normalize();
-
-		this.prevHealth = this.entity.getHealth();
 	}
 
 	@Override
@@ -102,16 +99,11 @@ public class AILookController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		if(this.entity.getHealth() < this.prevHealth)
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut)? 0 : 1;
 
-			this.deepNNet.nnRunBackprop();
-		}
 	}
 
-	/* Polar coordinate centred around the entity's head movement.
+	/*
+	 * Polar coordinate centred around the entity's head movement.
 	 * Arranged to ZX-Y instead of XY-Z to match the game's coordinate system
 	 */
 	private class PolarCoord

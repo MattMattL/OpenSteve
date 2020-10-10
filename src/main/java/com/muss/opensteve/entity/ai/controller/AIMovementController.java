@@ -21,7 +21,6 @@ public class AIMovementController extends AIControllerBase
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
 
-		this.backProp.create("Health", 10);
 		this.backProp.create("Distance", 10);
 	}
 
@@ -31,7 +30,6 @@ public class AIMovementController extends AIControllerBase
 		this.entityPos = this.entity.getPositionVec();
 
 		this.backProp.tick();
-		this.backProp.getKey("Health").at().setValue(this.entity.getHealth());
 		this.backProp.getKey("Distance").at().setValue(OpenSteveMath.distance(this.entityPos, this.targetPos));
 	}
 
@@ -98,31 +96,12 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		// negative if the entity's health decreased
-		if(this.backProp.getKey("Health").at(0).value() < this.backProp.getKey("Health").at(-1).value())
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
-
-			this.deepNNet.nnRunBackprop();
-		}
-
 		// negative if the entity is walking farther from the target
 		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
-
-			this.deepNNet.nnRunBackprop();
-		}
+			this.trainNegative();
 
 		// positive if the entity is getting closer to the target
 		if(this.backProp.getKey("Distance").at(0).value() > this.backProp.getKey("Distance").at(-1).value())
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 1 : 0;
-
-			this.deepNNet.nnRunBackprop();
-		}
+			this.trainPositive();
 	}
 }

@@ -5,6 +5,7 @@ import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.AirBlock;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -21,19 +22,15 @@ public class AIHandController extends AIControllerBase
 	private BlockPos placeablePos;
 	private ItemStack heldItem;
 
-	private float prevHealth;
-
-
 	public AIHandController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 4, 4, 3, "AIHandController");
+		super(entityIn, 11-3, 4, 3, "AIHandController");
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
 		this.heldItem = this.entity.inventory.getCurrentItem();
-		this.prevHealth = this.entity.getHealth();
 
 		this.actionResult = ActionResultType.PASS;
 	}
@@ -41,7 +38,22 @@ public class AIHandController extends AIControllerBase
 	@Override
 	protected void setNNetInput()
 	{
+		int iNNet = 0;
 
+//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getX();
+//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getY();
+//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getZ();
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getFoodLevel();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getSaturationLevel();
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isAlex()? 1 : -1;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isBurning()? 1 : -1;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isInWater()? 1 : -1;
+
+		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.heldItem.getItem());
 	}
 
 	@Override
@@ -72,25 +84,12 @@ public class AIHandController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		// train negative cases
-		if(this.prevHealth > this.entity.getHealth())
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
-
-			this.deepNNet.nnRunBackprop();
-		}
-
 		if(this.nnetOut == 2 && this.heldItem.getCount() <= 0)
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; i++)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
+			this.trainNegative();
 
-			this.deepNNet.nnRunBackprop();
-		}
+		if(!this.actionResult.isSuccessOrConsume())
+			this.trainNegative();
 	}
-
-
 
 	private void onRightClick()
 	{
@@ -141,13 +140,6 @@ public class AIHandController extends AIControllerBase
 
 	private void onLeftClick()
 	{
-		// negative if the click action failed
-		if(this.actionResult == ActionResultType.FAIL)
-		{
-			for(int i=0; i<this.deepNNet.NET_OUT; ++i)
-				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
 
-			this.deepNNet.nnRunBackprop();
-		}
 	}
 }

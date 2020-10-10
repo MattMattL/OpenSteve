@@ -12,7 +12,7 @@ public class AIInventoryController extends AIControllerBase
 
 	public AIInventoryController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 11, 4, 3, "AIInventoryController");
+		super(entityIn, 21, 4, 3, "AIInventoryController");
 
 		this.inventory = this.entity.inventory;
 	}
@@ -27,6 +27,19 @@ public class AIInventoryController extends AIControllerBase
 	protected void setNNetInput()
 	{
 		int iNNet = 0;
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosX();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosY();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosZ();
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getFoodLevel();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.foodStats.getSaturationLevel();
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isAlex()? 1 : -1;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isBurning()? 1 : -1;
+		this.deepNNet.vectorIn[iNNet++] = this.entity.isInWater()? 1 : -1;
 
 		this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(this.inventory.getItemAt(this.currentSlot - 2).getItem());
 		this.deepNNet.vectorIn[iNNet++] = this.inventory.getItemAt(this.currentSlot - 2).getCount();
