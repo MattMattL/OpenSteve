@@ -1,6 +1,7 @@
 package com.muss.opensteve.entity.monster;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.ai.brain.BackPropHelper;
 import com.muss.opensteve.entity.ai.brain.DeepNNetIO;
 import com.muss.opensteve.entity.ai.controller.*;
 import com.muss.opensteve.entity.util.AIFoodStats;
@@ -50,6 +51,7 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public AIControllerBase aiLookController = new AILookController(this);
 	public AIControllerBase aiInventoryController = new AIInventoryController(this);
 	public AIControllerBase aiHandController = new AIHandController(this);
+	private BackPropHelper globalBackProp = new BackPropHelper();
 
 	public Vector3d eyePos;
 	public Vector3d lookPos;
@@ -67,6 +69,9 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetArray[iNNet++] = this.aiLookController;
 		this.nnetArray[iNNet++] = this.aiInventoryController;
 		this.nnetArray[iNNet++] = this.aiHandController;
+
+		this.globalBackProp.create("Health", 10);
+		this.globalBackProp.create("FoodLevel", 10);
 
 		if(!this.world.isRemote)
 		{
@@ -127,6 +132,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 	private void aiTick()
 	{
+		this.globalBackProp.tick();
+		this.globalBackProp.getKey("Health").at().setValue(this.getHealth());
+		this.globalBackProp.getKey("FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
+
 		/*int iNNet = 0;
 
 		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
@@ -432,5 +441,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected ItemStack getSkullDrop()
 	{
 		return new ItemStack(Items.PLAYER_HEAD);
+	}
+
+	public double getBackPropData(String key, int index)
+	{
+		return this.globalBackProp.getKey(key).at(index).value();
 	}
 }
