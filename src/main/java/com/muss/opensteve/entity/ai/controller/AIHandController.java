@@ -6,6 +6,7 @@ import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.AirBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -21,7 +22,9 @@ public class AIHandController extends AIControllerBase
 
 	private ItemStack heldItem;
 	private int nnetOut;
+
 	private float prevHealth;
+	private ActionResultType actionResult;
 
 	public AIHandController(BaseAIEntity entityIn)
 	{
@@ -33,6 +36,8 @@ public class AIHandController extends AIControllerBase
 	{
 		this.heldItem = this.entity.inventory.getCurrentItem();
 		this.prevHealth = this.entity.getHealth();
+
+		this.actionResult = ActionResultType.PASS;
 	}
 
 	@Override
@@ -88,6 +93,7 @@ public class AIHandController extends AIControllerBase
 	}
 
 
+
 	private void onRightClick()
 	{
 		if(this.heldItem.getItem().isFood()) // eat food
@@ -97,6 +103,8 @@ public class AIHandController extends AIControllerBase
 				this.entity.setActiveHand(Hand.MAIN_HAND);
 				this.entity.foodStats.consume(this.heldItem.getItem(), this.heldItem);
 				this.heldItem.shrink(1);
+
+				this.actionResult = ActionResultType.SUCCESS;
 			}
 		}
 		else if(this.heldItem.getItem() instanceof BlockItem) // place block
@@ -119,12 +127,15 @@ public class AIHandController extends AIControllerBase
 						}
 					}
 
+					this.actionResult = ActionResultType.SUCCESS;
 					break;
 
 				case ENTITY:
+					this.actionResult = ActionResultType.PASS; // edit later
 					break;
 
 				case MISS:
+					this.actionResult = ActionResultType.FAIL;
 					break;
 			}
 		}
@@ -132,8 +143,13 @@ public class AIHandController extends AIControllerBase
 
 	private void onLeftClick()
 	{
-		// if weapon
+		// negative if the click action failed
+		if(this.actionResult == ActionResultType.FAIL)
+		{
+			for(int i=0; i<this.deepNNet.NET_OUT; ++i)
+				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
 
-		// if tool
+			this.deepNNet.nnRunBackprop();
+		}
 	}
 }
