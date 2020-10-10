@@ -9,8 +9,6 @@ public class BackPropHelper
 {
 	private List<Factor> factorList = new ArrayList<>();
 
-	private Factor onlyFactor;
-
 	@Deprecated
 	public void create(String key, int length, Type type)
 	{
@@ -54,48 +52,6 @@ public class BackPropHelper
 		DOUBLE,
 		BOOLEAN;
 	}
-
-	/*public static class Data<E extends AbstractData<?>>
-	{
-		E element;
-	}
-
-	public static abstract class AbstractData<T>
-	{
-		protected T value;
-		public abstract void setValue(T valueIn);
-		public abstract T getValue();
-	}
-
-	public static class FloatType extends AbstractData<Float>
-	{
-		@Override
-		public void setValue(Float valueIn)
-		{
-			this.value = valueIn;
-		}
-
-		@Override
-		public Float getValue()
-		{
-			return this.value;
-		}
-	}
-
-	public static class DoubleType extends AbstractData<Double>
-	{
-		@Override
-		public void setValue(Double valueIn)
-		{
-			this.value = valueIn;
-		}
-
-		@Override
-		public Double getValue()
-		{
-			return this.value;
-		}
-	}*/
 
 	public class Data
 	{
@@ -157,14 +113,6 @@ public class BackPropHelper
 			index = (index < 0) ? index % this.length + this.length : index % this.length;
 
 			return this.data.get(index);
-		}
-
-		public void debug()
-		{
-			System.out.printf("[OpenSteve] %s:\n", this.key);
-			System.out.printf("  length = %d\n", this.length);
-			System.out.printf("  offset = %d\n", this.offset);
-			System.out.printf("\n");
 		}
 	}
 }
