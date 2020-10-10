@@ -3,6 +3,7 @@ package com.muss.opensteve.entity.ai.controller;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.entity.ai.brain.BackPropHelper;
+import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -24,6 +25,7 @@ public class AIMovementController extends AIControllerBase
 		this.targetPos = new Vector3d(0, 0, 0);
 
 		this.backProp.create("Health", 10);
+		this.backProp.create("Distance", 10);
 	}
 
 	@Override
@@ -33,14 +35,7 @@ public class AIMovementController extends AIControllerBase
 
 		this.backProp.tick();
 		this.backProp.getKey("Health").at().setValue(this.entity.getHealth());
-
-		/* DEBUG */
-		this.backProp.getKey("Health").debug();
-
-		for(int i = 0; i<this.backProp.getKey("Health").length; i++)
-			System.out.printf("  %6.2f\n", this.backProp.getKey("Health").at().value());
-
-		System.out.printf("\n");
+		this.backProp.getKey("Distance").at().setValue(OpenSteveMath.distance(this.entityPos, this.targetPos));
 	}
 
 	@Override
@@ -106,11 +101,29 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		// if the entity's health decreased
+		// negative if the entity's health decreased
 		if(this.backProp.getKey("Health").at(0).value() < this.backProp.getKey("Health").at(-1).value())
 		{
 			for(int i=0; i<this.deepNNet.NET_OUT; i++)
 				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
+
+			this.deepNNet.nnRunBackprop();
+		}
+
+		// negative if the entity is walking farther from the target
+		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
+		{
+			for(int i=0; i<this.deepNNet.NET_OUT; i++)
+				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
+
+			this.deepNNet.nnRunBackprop();
+		}
+
+		// positive if the entity is getting closer to the target
+		if(this.backProp.getKey("Distance").at(0).value() > this.backProp.getKey("Distance").at(-1).value())
+		{
+			for(int i=0; i<this.deepNNet.NET_OUT; i++)
+				this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 1 : 0;
 
 			this.deepNNet.nnRunBackprop();
 		}
