@@ -70,8 +70,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.nnetArray[iNNet++] = this.aiInventoryController;
 		this.nnetArray[iNNet++] = this.aiHandController;
 
-		this.globalBackProp.create("Health", 10);
-		this.globalBackProp.create("FoodLevel", 10);
+		this.globalBackProp.create("Global_Health", 10);
+		this.globalBackProp.create("Global_FoodLevel", 10);
 
 		if(!this.world.isRemote)
 		{
@@ -133,8 +133,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	private void aiTick()
 	{
 		this.globalBackProp.tick();
-		this.globalBackProp.getKey("Health").at().setValue(this.getHealth());
-		this.globalBackProp.getKey("FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
+		this.globalBackProp.getKey("Global_Health").at().setValue(this.getHealth());
+		this.globalBackProp.getKey("Global_FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
 
 		/*int iNNet = 0;
 
