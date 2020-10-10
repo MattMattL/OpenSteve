@@ -19,12 +19,10 @@ public class AIHandController extends AIControllerBase
 	private RayTraceContext rayTraceContext;
 	private BlockRayTraceResult rayTraceTarget;
 	private BlockPos placeablePos;
-
 	private ItemStack heldItem;
-	private int nnetOut;
 
 	private float prevHealth;
-	private ActionResultType actionResult;
+
 
 	public AIHandController(BaseAIEntity entityIn)
 	{

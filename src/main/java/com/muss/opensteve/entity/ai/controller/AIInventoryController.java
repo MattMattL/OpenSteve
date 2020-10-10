@@ -7,9 +7,8 @@ import net.minecraft.item.Item;
 
 public class AIInventoryController extends AIControllerBase
 {
-	AIInventory inventory;
-	int nnetOut;
-	int currentSlot;
+	private AIInventory inventory;
+	private int currentSlot;
 
 	public AIInventoryController(BaseAIEntity entityIn)
 	{

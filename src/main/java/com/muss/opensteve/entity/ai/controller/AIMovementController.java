@@ -13,9 +13,6 @@ public class AIMovementController extends AIControllerBase
 {
 	private Vector3d entityPos;
 	private Vector3d targetPos;
-	private int nnetOut;
-
-	private BackPropHelper backProp = new BackPropHelper();
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{

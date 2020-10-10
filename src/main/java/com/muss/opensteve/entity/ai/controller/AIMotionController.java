@@ -6,8 +6,6 @@ import com.muss.opensteve.util.OpenSteveDataTable;
 
 public class AIMotionController extends AIControllerBase
 {
-	private int nnetOut;
-
 	public AIMotionController(BaseAIEntity entityIn)
 	{
 		super(entityIn, 10, 4, 4, "AIMotionController");

@@ -10,7 +10,6 @@ public class AILookController extends AIControllerBase
 	private PolarCoord polarCoord;
 	private PolarCoord deltaAngle;
 
-	private int nnetOut;
 	private float prevHealth;
 
 	public AILookController(BaseAIEntity entityIn)

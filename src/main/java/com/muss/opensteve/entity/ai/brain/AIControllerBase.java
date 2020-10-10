@@ -2,11 +2,15 @@ package com.muss.opensteve.entity.ai.brain;
 
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
 
 public abstract class AIControllerBase
 {
-	protected DeepNNetIO deepNNet;
 	protected BaseAIEntity entity;
+	protected DeepNNetIO deepNNet;
+	protected int nnetOut;
+	protected ActionResultType actionResult;
+	protected BackPropHelper backProp = new BackPropHelper();
 
 	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut, String compoundKey)
 	{
