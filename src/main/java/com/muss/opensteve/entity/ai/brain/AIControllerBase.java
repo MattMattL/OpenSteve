@@ -38,6 +38,22 @@ public abstract class AIControllerBase
 	/* evaluate the outcome and run back propagations */
 	protected abstract void fixEntityBehavior();
 
+	protected void trainPositive()
+	{
+		for(int i=0; i<this.deepNNet.NET_OUT; i++)
+			this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 1 : 0;
+
+		this.deepNNet.nnRunBackprop();
+	}
+
+	protected void trainNegative()
+	{
+		for(int i=0; i<this.deepNNet.NET_OUT; i++)
+			this.deepNNet.vectorDesired[i] = (i == this.nnetOut) ? 0 : 1;
+
+		this.deepNNet.nnRunBackprop();
+	}
+
 	public void read(CompoundNBT compound)
 	{
 		this.deepNNet.read(compound);
