@@ -5,20 +5,18 @@
 	"item.opst.steve_spawn_egg": "Steve Spawn Egg",
 	"item.opst.alex_spawn_egg": "Alex Spawn Egg",
 
-
 	"commands.opst.opensteve": "try /creator",
 	"commands.opst.creator.print": "Testing command functions",
 	"commands.opst.creator.greet": "Hello there",
 	"commands.opst.creator.greet.Dev": "Hello %s",
-
 	"commands.opst.creator.kill.all": "Removed %d AIs",
 	"commands.opst.creator.kill.alex": "Removed %d Alex AIs",
 	"commands.opst.creator.kill.steve": "Removed %d Steve AIs",
 	"commands.opst.creator.kill.adult": "Removed %d grown-up AIs",
 	"commands.opst.creator.kill.child": "Removed %d child AIs",
-
 	"commands.opst.creator.clear.entityList": "Reset AI entity list",
-
 	"commands.opst.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
-	"commands.opst.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f"
+	"commands.opst.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f",
+
+	"interaction.opst.onChestAction": "%s"
 }
