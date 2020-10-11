@@ -1,6 +1,7 @@
 package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.ai.brain.BackPropLog;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.entity.ai.brain.BackPropHelper;
 import com.muss.opensteve.util.OpenSteveMath;
@@ -14,12 +15,16 @@ public class AIMovementController extends AIControllerBase
 	private Vector3d entityPos;
 	private Vector3d targetPos;
 
+	private BackPropLog backPropLog;
+
 	public AIMovementController(BaseAIEntity entityIn)
 	{
 		super(entityIn, 100, 5, 9, "AIMovementController");
 
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
+
+		this.backPropLog = new BackPropLog(10, 100, 9);
 
 		this.backProp.create("Distance", 10);
 	}
@@ -91,6 +96,9 @@ public class AIMovementController extends AIControllerBase
 		}
 
 		this.entity.getMoveHelper().setMoveTo(this.targetPos.x, this.targetPos.y, this.targetPos.z, 0.5D);
+
+		this.backPropLog.tick();
+		this.backPropLog.copy(this.deepNNet.vectorIn, this.deepNNet.vectorOut);
 	}
 
 	@Override
@@ -98,10 +106,18 @@ public class AIMovementController extends AIControllerBase
 	{
 		// negative if the entity is walking farther from the target
 		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
+		{
+			this.deepNNet.vectorIn = this.backPropLog.getInputVec();
+			this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
 			this.trainNegative();
+		}
 
 		// positive if the entity is getting closer to the target
 		if(this.backProp.getKey("Distance").at(0).value() > this.backProp.getKey("Distance").at(-1).value())
+		{
+			this.deepNNet.vectorIn = this.backPropLog.getInputVec();
+			this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
 			this.trainPositive();
+		}
 	}
 }
