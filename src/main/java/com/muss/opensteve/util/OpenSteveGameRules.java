@@ -12,15 +12,15 @@ import java.util.List;
 
 public class OpenSteveGameRules
 {
-	public static List<Rule> gameRuleList = new ArrayList<>();
+	public static List<OpenSteveGameRules.Rule> gameRuleList = new ArrayList<>();
 
-	public static final Rule<Boolean> KEEP_INVENTORY = register("keepInventory", BoolType.setDefault(false));
-	public static final Rule<Double> TEST_DOUBLE = register("testDouble", DoubleType.setDefault(0.5D));
+	public static final OpenSteveGameRules.Rule<Boolean> KEEP_INVENTORY = register("keepInventory", OpenSteveGameRules.BoolType.setDefault(false));
+	public static final OpenSteveGameRules.Rule<Double> TEST_DOUBLE = register("testDouble", OpenSteveGameRules.DoubleType.setDefault(0.5D));
 
-	public static Rule register(String literal, DataType defaultValue)
+	public static OpenSteveGameRules.Rule register(String literal, OpenSteveGameRules.DataType defaultValue)
 	{
-		Rule newRule = new Rule(literal, defaultValue);
-		gameRuleList.add(newRule);
+		OpenSteveGameRules.Rule newRule = new OpenSteveGameRules.Rule(literal, defaultValue);
+		OpenSteveGameRules.gameRuleList.add(newRule);
 
 		return newRule;
 	}
@@ -31,14 +31,14 @@ public class OpenSteveGameRules
 		public abstract ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule);
 	}
 
-	private static class BoolType<T> extends DataType<Boolean>
+	public static class BoolType<T> extends OpenSteveGameRules.DataType<Boolean>
 	{
 		public BoolType(boolean valueIn)
 		{
 			this.value = valueIn;
 		}
 
-		public static DataType setDefault(boolean valueIn)
+		public static OpenSteveGameRules.DataType setDefault(boolean valueIn)
 		{
 			return new BoolType(valueIn);
 		}
@@ -62,14 +62,14 @@ public class OpenSteveGameRules
 		}
 	}
 
-	private static class DoubleType<T> extends DataType<Double>
+	public static class DoubleType<T> extends OpenSteveGameRules.DataType<Double>
 	{
 		public DoubleType(double valueIn)
 		{
 			this.value = valueIn;
 		}
 
-		public static DataType setDefault(double valueIn)
+		public static OpenSteveGameRules.DataType setDefault(double valueIn)
 		{
 			return new DoubleType(valueIn);
 		}
@@ -94,9 +94,9 @@ public class OpenSteveGameRules
 	public static class Rule<T>
 	{
 		public final String literal;
-		public DataType<T> dataType;
+		public OpenSteveGameRules.DataType<T> dataType;
 
-		public Rule(String literalIn, DataType valueIn)
+		public Rule(String literalIn, OpenSteveGameRules.DataType valueIn)
 		{
 			this.literal = literalIn;
 			this.dataType = valueIn;
@@ -120,7 +120,7 @@ public class OpenSteveGameRules
 
 	public static ArgumentBuilder<CommandSource, ?> registerCommands(ArgumentBuilder arguments)
 	{
-		for(Rule rule : gameRuleList)
+		for(OpenSteveGameRules.Rule rule : OpenSteveGameRules.gameRuleList)
 		{
 			ArgumentBuilder<CommandSource, ?> subArguments = Commands.literal(rule.getLiteral());
 			rule.registerArguments(subArguments);
