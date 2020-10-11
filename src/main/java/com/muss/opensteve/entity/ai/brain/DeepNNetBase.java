@@ -11,7 +11,7 @@ public class DeepNNetBase
 	private final int NET_WIDTH[];
 
 	public double vectorIn[];
-	protected double vectorOut[];
+	public double vectorOut[];
 	public double vectorDesired[];
 
 	protected double weights[][][];
