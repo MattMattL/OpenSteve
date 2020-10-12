@@ -55,6 +55,31 @@ public class OpenSteveStatics
 	}
 
 
+	/* String Formatter */
+
+	public static class MultiLines
+	{
+		private String formatted;
+
+		public MultiLines(@Nonnull String format, Object... args)
+		{
+			this.formatted = String.format(format + "\n", args);
+		}
+
+		public MultiLines newline(String format, Object... args)
+		{
+			this.formatted = String.format(this.formatted + format + "\n", args);
+
+			return this;
+		}
+
+		public String getString()
+		{
+			return this.formatted;
+		}
+	}
+
+
 	/* Debugging Helpers */
 
 	public static void print(String message)

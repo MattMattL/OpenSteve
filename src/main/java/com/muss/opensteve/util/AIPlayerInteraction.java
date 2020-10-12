@@ -2,7 +2,6 @@ package com.muss.opensteve.util;
 
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.*;
@@ -16,8 +15,11 @@ public class AIPlayerInteraction
 		if(player.getHeldItemMainhand().getItem() == Items.STICK)
 			return AIPlayerInteraction.onStickAction(entity);
 
-		if(player.getHeldItemMainhand().getItem() == Items.CHEST)
+		if(player.getHeldItemMainhand().getItem() == Items.CHEST && entity.shouldReceiveFeedback())
 			return AIPlayerInteraction.onChestAction(entity, player);
+
+		if(player.getHeldItemMainhand().getItem() == Items.APPLE && entity.shouldReceiveFeedback())
+			return AIPlayerInteraction.onAppleAction(entity, player);
 
 		return ActionResultType.PASS;
 	}
@@ -33,16 +35,26 @@ public class AIPlayerInteraction
 
 	private static ActionResultType onChestAction(BaseAIEntity entity, PlayerEntity player)
 	{
-		if(!entity.shouldReceiveFeedback())
-			return ActionResultType.PASS;
-
 		player.sendMessage(new TranslationTextComponent("text.opensteve.printString", "[Inventory]"), Util.field_240973_b_);
 
 		for(ItemStack itemStack : entity.inventory.mainInventory)
 		{
-			String formatted = String.format("%3d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
+			String formatted = String.format("  %2d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
 			player.sendMessage(new TranslationTextComponent("interaction.opensteve.onChestAction", formatted), Util.field_240973_b_);
 		}
+
+		return ActionResultType.SUCCESS;
+	}
+
+	private static ActionResultType onAppleAction(BaseAIEntity entity, PlayerEntity player)
+	{
+		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("[Stats]")
+				.newline("  Health: %5.2f", entity.getHealth())
+				.newline("  FoodLevel: %2d", entity.getFoodStats().getFoodLevel())
+				.newline("  Saturation: %5.2f", entity.getFoodStats().getSaturationLevel())
+				.newline("  Exhaustion: %5.2f", entity.getFoodStats().getFoodExhaustionLevel());
+
+		player.sendMessage(new TranslationTextComponent("text.opensteve.printString", formatted.getString()), Util.field_240973_b_);
 
 		return ActionResultType.SUCCESS;
 	}
