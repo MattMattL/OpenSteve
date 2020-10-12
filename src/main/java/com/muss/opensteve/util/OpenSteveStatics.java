@@ -66,14 +66,14 @@ public class OpenSteveStatics
 			this.formatted = String.format(format + "\n", args);
 		}
 
-		public MultiLines newline(String format, Object... args)
+		public MultiLines newline(@Nonnull String format, Object... args)
 		{
 			this.formatted = String.format(this.formatted + format + "\n", args);
 
 			return this;
 		}
 
-		public MultiLines endline(String format, Object... args)
+		public MultiLines endline(@Nonnull String format, Object... args)
 		{
 			this.formatted = String.format(this.formatted + format, args);
 
