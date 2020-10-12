@@ -2,7 +2,6 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.util.OpenSteveDataTable;
 
 public class AIMotionController extends AIControllerBase
 {

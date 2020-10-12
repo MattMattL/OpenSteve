@@ -1,8 +1,7 @@
 package com.muss.opensteve.command.impl;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.util.OpenSteveDataTable;
+import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -17,11 +16,11 @@ public class ClearCommand
 
 	private static int clearEntityList(CommandSource source)
 	{
-		while(OpenSteveDataTable.aiEntityList.size() > 0)
+		while(OpenSteveStatics.aiEntityList.size() > 0)
 		{
-			OpenSteveDataTable.aiEntityList.get(0).setDead();
-			OpenSteveDataTable.aiEntityList.get(0).remove();
-			OpenSteveDataTable.aiEntityList.remove(0);
+			OpenSteveStatics.aiEntityList.get(0).setDead();
+			OpenSteveStatics.aiEntityList.get(0).remove();
+			OpenSteveStatics.aiEntityList.remove(0);
 		}
 
 		source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.clear.entityList"), true);

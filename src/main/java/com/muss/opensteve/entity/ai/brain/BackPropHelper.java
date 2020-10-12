@@ -1,6 +1,6 @@
 package com.muss.opensteve.entity.ai.brain;
 
-import com.muss.opensteve.util.OpenSteveDataTable;
+import com.muss.opensteve.util.OpenSteveStatics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class BackPropHelper
 				return factor;
 		}
 
-		OpenSteveDataTable.print("BackPropHelper::get", "error: no factor with matching key");
+		OpenSteveStatics.print("BackPropHelper::get", "error: no factor with matching key");
 		return null;
 	}
 

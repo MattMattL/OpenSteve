@@ -3,10 +3,11 @@ package com.muss.opensteve.util;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.util.text.ITextComponent;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenSteveDataTable
+public class OpenSteveStatics
 {
 
 	/* A List of Server-Side AIs */

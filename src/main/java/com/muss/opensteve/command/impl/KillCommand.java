@@ -3,7 +3,7 @@ package com.muss.opensteve.command.impl;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.AIEntityType;
-import com.muss.opensteve.util.OpenSteveDataTable;
+import com.muss.opensteve.util.OpenSteveStatics;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -24,7 +24,7 @@ public class KillCommand
 	{
 		int count = 0;
 
-		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
+		for(BaseAIEntity entity : OpenSteveStatics.aiEntityList)
 		{
 			if(entity.isAlive())
 			{
@@ -42,7 +42,7 @@ public class KillCommand
 		int i = 0;
 		int count = 0;
 
-		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
+		for(BaseAIEntity entity : OpenSteveStatics.aiEntityList)
 		{
 			if(entity.isAlive())
 			{
@@ -72,7 +72,7 @@ public class KillCommand
 		int i = 0;
 		int count = 0;
 
-		for(BaseAIEntity entity : OpenSteveDataTable.aiEntityList)
+		for(BaseAIEntity entity : OpenSteveStatics.aiEntityList)
 		{
 			if(entity.isAlive())
 			{

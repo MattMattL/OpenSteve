@@ -75,14 +75,14 @@ public abstract class BaseAIEntity extends MonsterEntity
 
 		if(!this.world.isRemote)
 		{
-			OpenSteveDataTable.aiEntityList.add(this);
+			OpenSteveStatics.aiEntityList.add(this);
 		}
 	}
 
 	@Nullable
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag)
 	{
-		OpenSteveDataTable.setRandomName(this);
+		OpenSteveStatics.setRandomName(this);
 		this.enablePersistence();
 
 		return spawnDataIn;
