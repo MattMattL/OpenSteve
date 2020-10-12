@@ -36,10 +36,11 @@ public class AIPlayerInteraction
 		if(!entity.shouldReceiveFeedback())
 			return ActionResultType.PASS;
 
+		player.sendMessage(new TranslationTextComponent("text.opensteve.printString", "[Inventory]"), Util.field_240973_b_);
+
 		for(ItemStack itemStack : entity.inventory.mainInventory)
 		{
 			String formatted = String.format("%3d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
-
 			player.sendMessage(new TranslationTextComponent("interaction.opensteve.onChestAction", formatted), Util.field_240973_b_);
 		}
 

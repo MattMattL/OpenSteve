@@ -1,4 +1,6 @@
 {
+	"text.opensteve.printString": "%s",
+
 	"entity.opensteve.steve_ai": "SteveAI",
 	"entity.opensteve.alex_ai": "AlexAI",
 
