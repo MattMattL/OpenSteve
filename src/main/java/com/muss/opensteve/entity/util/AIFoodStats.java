@@ -143,9 +143,24 @@ public class AIFoodStats
 		compound.putFloat("foodExhaustionLevel", this.foodExhaustionLevel);
 	}
 
+	public void setFoodLevel(int foodLevelIn)
+	{
+		this.foodLevel = foodLevelIn;
+	}
+
 	public int getFoodLevel()
 	{
 		return this.foodLevel;
+	}
+
+	public float getSaturationLevel()
+	{
+		return this.foodSaturationLevel;
+	}
+
+	public float getFoodExhaustionLevel()
+	{
+		return this.foodExhaustionLevel;
 	}
 
 	public boolean needFood()
@@ -156,16 +171,6 @@ public class AIFoodStats
 	public void addExhaustion(float exhaustion)
 	{
 		this.foodExhaustionLevel = Math.min(this.foodExhaustionLevel + exhaustion, 40.0F);
-	}
-
-	public float getSaturationLevel()
-	{
-		return this.foodSaturationLevel;
-	}
-
-	public void setFoodLevel(int foodLevelIn)
-	{
-		this.foodLevel = foodLevelIn;
 	}
 
 	@OnlyIn(Dist.CLIENT)
