@@ -26,7 +26,7 @@ public class AIPlayerInteraction
 	{
 		entity.setDead();
 		entity.remove();
-		entity.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((entity.world.rand.nextFloat()-entity.world.rand.nextFloat())*0.7F+1.0F)*2.0F);
+		entity.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.35F, ((entity.world.rand.nextFloat()-entity.world.rand.nextFloat())*0.7F+1.0F)*2.0F);
 
 		return ActionResultType.SUCCESS;
 	}
