@@ -19,11 +19,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("opst")
+@Mod("opensteve")
 public class OpenSteve
 {
 	private static final Logger LOGGER = LogManager.getLogger();
-	public static final String MOD_ID = "opst";
+	public static final String MOD_ID = "opensteve";
 
 	public static final ItemGroup TAB = new ItemGroup("OpenSteve")
 	{

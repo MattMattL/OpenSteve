@@ -56,7 +56,7 @@ public class OpenSteveGameRules
 		private int setValueTo(CommandSource source, String rule, boolean valueIn)
 		{
 			this.value = valueIn;
-			source.sendFeedback(new TranslationTextComponent("commands.opst.gamemode.setValue.bool", rule, (valueIn) ? "true" : "false"), true);
+			source.sendFeedback(new TranslationTextComponent("commands.opensteve.gamemode.setValue.bool", rule, (valueIn) ? "true" : "false"), true);
 
 			return 1;
 		}
@@ -85,7 +85,7 @@ public class OpenSteveGameRules
 		private int setValueTo(CommandSource source, String rule, double valueIn)
 		{
 			this.value = valueIn;
-			source.sendFeedback(new TranslationTextComponent("commands.opst.gamemode.setValue.double", rule, valueIn), true);
+			source.sendFeedback(new TranslationTextComponent("commands.opensteve.gamemode.setValue.double", rule, valueIn), true);
 
 			return 1;
 		}

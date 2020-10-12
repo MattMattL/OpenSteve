@@ -24,7 +24,7 @@ public class ClearCommand
 			OpenSteveDataTable.aiEntityList.remove(0);
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.clear.entityList"), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.clear.entityList"), true);
 		return 1;
 	}
 }

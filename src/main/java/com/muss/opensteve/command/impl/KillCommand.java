@@ -33,7 +33,7 @@ public class KillCommand
 			}
 		}
 
-		source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.all", count), true);
+		source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.kill.all", count), true);
 		return 1;
 	}
 
@@ -57,10 +57,10 @@ public class KillCommand
 		switch(type)
 		{
 			case ALEX:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.alex", count), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.kill.alex", count), true);
 				break;
 			case STEVE:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.steve", count), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.kill.steve", count), true);
 				break;
 		}
 
@@ -87,10 +87,10 @@ public class KillCommand
 		switch(type)
 		{
 			case ADULT:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.adult", count), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.kill.adult", count), true);
 				break;
 			case CHILD:
-				source.sendFeedback(new TranslationTextComponent("commands.opst.creator.kill.child", count), true);
+				source.sendFeedback(new TranslationTextComponent("commands.opensteve.creator.kill.child", count), true);
 				break;
 		}
 
