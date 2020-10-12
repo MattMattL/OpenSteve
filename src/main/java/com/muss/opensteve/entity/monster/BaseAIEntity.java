@@ -350,7 +350,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 	@Override
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vector, Hand hand)
 	{
-		return AIPlayerInteraction.getResult(this, player, vector, hand);
+		if(!this.world.isRemote)
+			return AIPlayerInteraction.getResult(this, player, vector, hand);
+		else
+			return ActionResultType.SUCCESS;
 	}
 
 	@Override
