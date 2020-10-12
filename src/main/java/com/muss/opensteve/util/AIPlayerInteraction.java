@@ -40,7 +40,7 @@ public class AIPlayerInteraction
 		{
 			String formatted = String.format("%3d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
 
-			player.sendMessage(new TranslationTextComponent("interaction.opst.onChestAction", formatted), Util.field_240973_b_);
+			player.sendMessage(new TranslationTextComponent("interaction.opensteve.onChestAction", formatted), Util.field_240973_b_);
 		}
 
 		return ActionResultType.SUCCESS;
