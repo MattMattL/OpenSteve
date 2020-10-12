@@ -73,6 +73,13 @@ public class OpenSteveStatics
 			return this;
 		}
 
+		public MultiLines endline(String format, Object... args)
+		{
+			this.formatted = String.format(this.formatted + format, args);
+
+			return this;
+		}
+
 		public String getString()
 		{
 			return this.formatted;
