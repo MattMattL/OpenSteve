@@ -35,13 +35,14 @@ public class AIPlayerInteraction
 
 	private static ActionResultType onChestAction(BaseAIEntity entity, PlayerEntity player)
 	{
-		player.sendMessage(new TranslationTextComponent("text.opensteve.printString", "[Inventory]"), Util.field_240973_b_);
+		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("[Inventory]");
 
 		for(ItemStack itemStack : entity.inventory.mainInventory)
 		{
-			String formatted = String.format("  %2d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
-			player.sendMessage(new TranslationTextComponent("interaction.opensteve.onChestAction", formatted), Util.field_240973_b_);
+			formatted.newline("  %2d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
 		}
+
+		player.sendMessage(new TranslationTextComponent("interaction.opensteve.onChestAction", formatted.getString()), Util.field_240973_b_);
 
 		return ActionResultType.SUCCESS;
 	}
