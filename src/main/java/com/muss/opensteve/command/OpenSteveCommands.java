@@ -18,8 +18,6 @@ public class OpenSteveCommands
 		);
 
         event.getDispatcher().register(Commands.literal("creator").requires(context -> { return context.hasPermissionLevel(2); })
-				// .then(PrintCommand.register())
-				// .then(GreetingCommand.register())
 				.then(KillCommand.register())
 				.then(ClearCommand.register())
 				.then(GameruleCommand.register())
