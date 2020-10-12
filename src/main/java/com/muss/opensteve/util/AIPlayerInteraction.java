@@ -38,7 +38,7 @@ public class AIPlayerInteraction
 
 		for(ItemStack itemStack : entity.inventory.mainInventory)
 		{
-			String formatted = String.format("%3d %s", itemStack.getCount(), itemStack.getItem().getName().getString());
+			String formatted = String.format("%3d  %s", itemStack.getCount(), itemStack.getItem().getName().getString());
 
 			player.sendMessage(new TranslationTextComponent("interaction.opst.onChestAction", formatted), Util.field_240973_b_);
 		}
