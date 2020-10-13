@@ -24,13 +24,15 @@ public class AIHandController extends AIControllerBase
 
 	public AIHandController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 11-3, 4, 3, "AIHandController");
+		super(entityIn, 11, 4, 3, "AIHandController");
 	}
 
 	@Override
 	public void setGlobalVariables()
 	{
-
+		this.rayTraceContext = new RayTraceContext(this.entity.eyePos, this.entity.lookPos, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, this.entity);
+		this.rayTraceTarget = this.entity.world.rayTraceBlocks(this.rayTraceContext);
+		this.entity.targetBlock = this.rayTraceTarget.getPos();
 	}
 
 	@Override
@@ -46,9 +48,9 @@ public class AIHandController extends AIControllerBase
 	{
 		int iNNet = 0;
 
-//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getX();
-//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getY();
-//		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getZ();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getX();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getY();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getZ();
 
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
@@ -112,13 +114,9 @@ public class AIHandController extends AIControllerBase
 		}
 		else if(this.heldItem.getItem() instanceof BlockItem) // place block
 		{
-			this.rayTraceContext = new RayTraceContext(this.entity.eyePos, this.entity.lookPos, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, this.entity);
-			this.rayTraceTarget = this.entity.world.rayTraceBlocks(this.rayTraceContext);
-
 			switch(this.rayTraceTarget.getType())
 			{
 				case BLOCK:
-					this.entity.targetBlock = this.rayTraceTarget.getPos();
 					this.placeablePos = this.entity.targetBlock.add(this.rayTraceTarget.getFace().getDirectionVec());
 
 					if(this.entity.world.getBlockState(this.placeablePos).isAir())

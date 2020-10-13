@@ -23,13 +23,13 @@ public class AILookController extends AIControllerBase
 	@Override
 	public void setGlobalVariables()
 	{
-
+		this.entity.eyePos = this.entity.getEyePosition(1.0F);
+		this.lookVec = this.polarCoord.getCartesian();
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
-		this.entity.eyePos = this.entity.getEyePosition(1.0F);
 		this.lookVec = this.entity.lookPos.subtract(this.entity.eyePos);
 		this.lookVec = this.lookVec.normalize();
 	}
