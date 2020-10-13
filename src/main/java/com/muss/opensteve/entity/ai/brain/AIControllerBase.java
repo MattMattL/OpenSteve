@@ -26,6 +26,12 @@ public abstract class AIControllerBase
 		this.fixEntityBehavior();
 	}
 
+	/* initialise variables that are used across the controllers */
+	public void setGlobalVariables()
+	{
+
+	}
+
 	/* save environmental factors for back propagations */
 	protected abstract void aiInitialise();
 

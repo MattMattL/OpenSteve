@@ -136,6 +136,9 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalBackProp.getKey("Global_Health").at().setValue(this.getHealth());
 		this.globalBackProp.getKey("Global_FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
 
+		for(int i=0; i<this.nnetArray.length; i++)
+			this.nnetArray[i].setGlobalVariables();
+
 		/*int iNNet = 0;
 
 		this.globalNNet.vectorIn[iNNet++] = this.getPosX();

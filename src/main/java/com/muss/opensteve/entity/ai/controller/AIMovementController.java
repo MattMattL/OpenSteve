@@ -30,6 +30,12 @@ public class AIMovementController extends AIControllerBase
 	}
 
 	@Override
+	public void setGlobalVariables()
+	{
+
+	}
+
+	@Override
 	protected void aiInitialise()
 	{
 		this.entityPos = this.entity.getPositionVec();

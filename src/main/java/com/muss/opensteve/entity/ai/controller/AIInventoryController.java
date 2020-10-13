@@ -18,6 +18,12 @@ public class AIInventoryController extends AIControllerBase
 	}
 
 	@Override
+	public void setGlobalVariables()
+	{
+
+	}
+
+	@Override
 	protected void aiInitialise()
 	{
 		this.currentSlot = this.inventory.mainHandIndex;

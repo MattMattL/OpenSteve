@@ -21,6 +21,12 @@ public class AILookController extends AIControllerBase
 	}
 
 	@Override
+	public void setGlobalVariables()
+	{
+
+	}
+
+	@Override
 	protected void aiInitialise()
 	{
 		this.entity.eyePos = this.entity.getEyePosition(1.0F);

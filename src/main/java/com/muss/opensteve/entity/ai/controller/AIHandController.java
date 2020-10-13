@@ -28,6 +28,12 @@ public class AIHandController extends AIControllerBase
 	}
 
 	@Override
+	public void setGlobalVariables()
+	{
+
+	}
+
+	@Override
 	protected void aiInitialise()
 	{
 		this.heldItem = this.entity.inventory.getCurrentItem();

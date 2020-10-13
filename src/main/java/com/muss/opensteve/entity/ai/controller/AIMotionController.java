@@ -11,6 +11,12 @@ public class AIMotionController extends AIControllerBase
 	}
 
 	@Override
+	public void setGlobalVariables()
+	{
+
+	}
+
+	@Override
 	protected void aiInitialise()
 	{
 
