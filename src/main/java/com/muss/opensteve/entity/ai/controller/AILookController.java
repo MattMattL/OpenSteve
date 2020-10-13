@@ -1,6 +1,7 @@
 package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.ai.brain.AIControllerHelper;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -16,25 +17,15 @@ public class AILookController extends AIControllerBase
 	{
 		super(entityIn, 17, 4, 4, "AILookController");
 
-		this.entity.lookPos = new Vector3d(0, 0, 0);
-		this.entity.eyePos = this.entity.getEyePosition(1.0F);
 		this.polarCoord = new PolarCoord(1, 0, 0);
-	}
-
-	@Override
-	public void setGlobalVariables()
-	{
-		this.entity.eyePos = this.entity.getEyePosition(1.0F);
-
-		this.polarCoord.setToPolarCoord(this.lookVec); // translate to polar basis
-		this.polarCoord = this.polarCoord.add(this.deltaAngle); // perform transformation
-		this.lookVec = this.polarCoord.getCartesian(); // translate back to the original basis
-		this.entity.lookPos = this.lookVec.add(this.entity.eyePos); // calculate absolute positions
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
+		this.entity.eyePos = AIControllerHelper.getEyePos(this.entity);
+		this.entity.lookPos = AIControllerHelper.getLookPos(this.entity);
+
 		this.lookVec = this.entity.lookPos.subtract(this.entity.eyePos);
 		this.lookVec = this.lookVec.normalize();
 	}
@@ -92,7 +83,10 @@ public class AILookController extends AIControllerBase
 				break;
 		}
 
-		this.setGlobalVariables();
+		this.polarCoord.setToPolarCoord(this.lookVec); // translate to polar basis
+		this.polarCoord = this.polarCoord.add(this.deltaAngle); // perform transformation
+		this.lookVec = this.polarCoord.getCartesian(); // translate back to the original basis
+		this.entity.lookPos = this.lookVec.add(this.entity.eyePos); // calculate absolute positions
 
 		this.entity.getLookController().setLookPosition(this.entity.lookPos.x, this.entity.lookPos.y, this.entity.lookPos.z);
 	}
