@@ -4,36 +4,35 @@ import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.AIControllerHelper;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.OpenSteveMath;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class AIHandController extends AIControllerBase
 {
-	private BlockPos targetBlock;
+	private Vector3d eyePos;
+	private BlockPos targetPos;
 	private BlockPos placeablePos;
 	private ItemStack heldItem;
 
 	public AIHandController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 12, 4, 5, "AIHandController");
+		super(entityIn, 15, 4, 5, "AIHandController");
 	}
 
 	@Override
 	protected void aiInitialise()
 	{
+		this.eyePos = AIControllerHelper.getEyePos(this.entity);
 		this.heldItem = this.entity.inventory.getCurrentItem();
-		this.targetBlock = AIControllerHelper.getBlockRayTraceResult(this.entity).getPos();
+		this.targetPos = AIControllerHelper.getBlockRayTraceResult(this.entity).getPos();
 
 		this.actionResult = ActionResultType.PASS;
 	}
@@ -43,9 +42,12 @@ public class AIHandController extends AIControllerBase
 	{
 		int iNNet = 0;
 
-		this.deepNNet.vectorIn[iNNet++] = this.targetBlock.getX();
-		this.deepNNet.vectorIn[iNNet++] = this.targetBlock.getY();
-		this.deepNNet.vectorIn[iNNet++] = this.targetBlock.getZ();
+		this.deepNNet.vectorIn[iNNet++] = this.eyePos.getX();
+		this.deepNNet.vectorIn[iNNet++] = this.eyePos.getY();
+		this.deepNNet.vectorIn[iNNet++] = this.eyePos.getZ();
+		this.deepNNet.vectorIn[iNNet++] = this.targetPos.getX();
+		this.deepNNet.vectorIn[iNNet++] = this.targetPos.getY();
+		this.deepNNet.vectorIn[iNNet++] = this.targetPos.getZ();
 
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getMaxHealth();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
@@ -68,16 +70,16 @@ public class AIHandController extends AIControllerBase
 
 		switch(this.nnetOut)
 		{
-			case 0:
+			case 0: // right click
 				this.actionResult = this.onRightClick();
 				break;
-			case 1:
+			case 1: // hold right button
 				this.actionResult = this.holdRightClick();
 				break;
-			case 2:
+			case 2: // left click
 				this.actionResult = this.onLeftClick();
 				break;
-			case 3:
+			case 3: // hold left button
 				this.actionResult = this.holdLeftClick();
 				break;
 			case 4: // throw held item
@@ -111,15 +113,16 @@ public class AIHandController extends AIControllerBase
 	{
 		if(this.heldItem.getItem() instanceof BlockItem) // place block
 		{
-			BlockRayTraceResult target = AIControllerHelper.getBlockRayTraceResult(this.entity);
+			BlockRayTraceResult rayTrace = AIControllerHelper.getBlockRayTraceResult(this.entity);
 
-			if(target.getType() == RayTraceResult.Type.BLOCK)
+			if(rayTrace.getType() == RayTraceResult.Type.BLOCK)
 			{
-				BlockPos placeablePos = this.entity.targetBlock.add(target.getFace().getDirectionVec());
+				this.targetPos = rayTrace.getPos();
+				this.placeablePos = this.targetPos.add(rayTrace.getFace().getDirectionVec());
 
 				if(this.entity.world.getBlockState(this.placeablePos).isAir())
 				{
-					if(OpenSteveMath.isInReach(this.entity.eyePos, this.entity.targetBlock, this.entity.maxReachRange))
+					if(OpenSteveMath.isInReach(this.eyePos, this.targetPos, this.entity.maxReachRange))
 					{
 						this.entity.world.setBlockState(placeablePos, ((BlockItem) this.heldItem.getItem()).getBlock().getDefaultState());
 						this.heldItem.shrink(1);

@@ -49,11 +49,8 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public AIControllerBase aiMotionController = new AIMotionController(this);
 	public AIControllerBase aiMovementController = new AIMovementController(this);
 	public AIControllerBase aiLookController = new AILookController(this);
-	public Vector3d eyePos;
-	public Vector3d lookPos;
 	public AIControllerBase aiInventoryController = new AIInventoryController(this);
 	public AIControllerBase aiHandController = new AIHandController(this);
-	public BlockPos targetBlock;
 	private BackPropHelper globalBackProp = new BackPropHelper();
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
