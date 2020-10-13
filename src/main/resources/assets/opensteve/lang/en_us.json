@@ -19,6 +19,7 @@
 	"commands.opensteve.creator.clear.entityList": "Reset AI entity list",
 	"commands.opensteve.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
 	"commands.opensteve.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f",
+	"commands.opensteve.gamemode.setValue.int": "OpenSteve gamerule %s set to: %d",
 
 	"interaction.opensteve.onChestAction": "%s"
 }
