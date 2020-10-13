@@ -17,6 +17,7 @@ public class AILookController extends AIControllerBase
 		super(entityIn, 17, 4, 4, "AILookController");
 
 		this.entity.lookPos = new Vector3d(0, 0, 0);
+		this.entity.eyePos = this.entity.getEyePosition(1.0F);
 		this.polarCoord = new PolarCoord(1, 0, 0);
 	}
 
@@ -24,7 +25,11 @@ public class AILookController extends AIControllerBase
 	public void setGlobalVariables()
 	{
 		this.entity.eyePos = this.entity.getEyePosition(1.0F);
-		this.lookVec = this.polarCoord.getCartesian();
+
+		this.polarCoord.setToPolarCoord(this.lookVec); // translate to polar basis
+		this.polarCoord = this.polarCoord.add(this.deltaAngle); // perform transformation
+		this.lookVec = this.polarCoord.getCartesian(); // translate back to the original basis
+		this.entity.lookPos = this.lookVec.add(this.entity.eyePos); // calculate absolute positions
 	}
 
 	@Override
@@ -87,17 +92,7 @@ public class AILookController extends AIControllerBase
 				break;
 		}
 
-		// translate to polar basis
-		this.polarCoord.setToPolarCoord(this.lookVec);
-
-		// perform transformation
-		this.polarCoord = this.polarCoord.add(this.deltaAngle);
-
-		// translate back to the original basis
-		this.lookVec = this.polarCoord.getCartesian();
-
-		// calculate absolute positions
-		this.entity.lookPos = this.lookVec.add(this.entity.eyePos);
+		this.setGlobalVariables();
 
 		this.entity.getLookController().setLookPosition(this.entity.lookPos.x, this.entity.lookPos.y, this.entity.lookPos.z);
 	}

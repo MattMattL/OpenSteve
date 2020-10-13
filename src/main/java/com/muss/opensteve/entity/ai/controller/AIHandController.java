@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -30,6 +31,7 @@ public class AIHandController extends AIControllerBase
 	@Override
 	public void setGlobalVariables()
 	{
+		this.entity.aiLookController.setGlobalVariables();
 		this.rayTraceContext = new RayTraceContext(this.entity.eyePos, this.entity.lookPos, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, this.entity);
 		this.rayTraceTarget = this.entity.world.rayTraceBlocks(this.rayTraceContext);
 		this.entity.targetBlock = this.rayTraceTarget.getPos();
@@ -47,6 +49,8 @@ public class AIHandController extends AIControllerBase
 	protected void setNNetInput()
 	{
 		int iNNet = 0;
+
+		this.entity.aiHandController.setGlobalVariables();
 
 		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getX();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.targetBlock.getY();
@@ -109,6 +113,7 @@ public class AIHandController extends AIControllerBase
 				this.entity.foodStats.consume(this.heldItem.getItem(), this.heldItem);
 				this.heldItem.shrink(1);
 
+				this.entity.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.5F, this.entity.world.rand.nextFloat() * 0.1F + 0.9F);
 				this.actionResult = ActionResultType.SUCCESS;
 			}
 		}

@@ -49,13 +49,12 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public AIControllerBase aiMotionController = new AIMotionController(this);
 	public AIControllerBase aiMovementController = new AIMovementController(this);
 	public AIControllerBase aiLookController = new AILookController(this);
-	public AIControllerBase aiInventoryController = new AIInventoryController(this);
-	public AIControllerBase aiHandController = new AIHandController(this);
-	private BackPropHelper globalBackProp = new BackPropHelper();
-
 	public Vector3d eyePos;
 	public Vector3d lookPos;
+	public AIControllerBase aiInventoryController = new AIInventoryController(this);
+	public AIControllerBase aiHandController = new AIHandController(this);
 	public BlockPos targetBlock;
+	private BackPropHelper globalBackProp = new BackPropHelper();
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
@@ -135,9 +134,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 		this.globalBackProp.tick();
 		this.globalBackProp.getKey("Global_Health").at().setValue(this.getHealth());
 		this.globalBackProp.getKey("Global_FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
-
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].setGlobalVariables();
 
 		/*int iNNet = 0;
 
