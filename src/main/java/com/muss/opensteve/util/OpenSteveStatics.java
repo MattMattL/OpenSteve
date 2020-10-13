@@ -61,6 +61,11 @@ public class OpenSteveStatics
 	{
 		private String formatted;
 
+		public MultiLines()
+		{
+			this.formatted = "";
+		}
+
 		public MultiLines(@Nonnull String format, Object... args)
 		{
 			this.formatted = String.format(format + "\n", args);
