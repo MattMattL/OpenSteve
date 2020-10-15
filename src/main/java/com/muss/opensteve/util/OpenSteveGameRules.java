@@ -5,9 +5,11 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.muss.opensteve.command.impl.GameruleCommand;
+import com.muss.opensteve.entity.monster.BaseAIEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
@@ -19,7 +21,11 @@ public class OpenSteveGameRules
 
 	public static final OpenSteveGameRules.Rule<Boolean> KEEP_INVENTORY = register("keepInventory", OpenSteveGameRules.BoolType.setDefault(false), null);
 	public static final OpenSteveGameRules.Rule<Double> TEST_DOUBLE = register("testDouble", OpenSteveGameRules.DoubleType.setDefault(0.5D), null);
-	public static final OpenSteveGameRules.Rule<Integer> MAIN_INVENTORY_SIZE = register("mainInventorySize", OpenSteveGameRules.IntegerType.setDefault(36), null);
+	public static final OpenSteveGameRules.Rule<Integer> COMMAND_TEST = register("commandTest", OpenSteveGameRules.NullType.setDefault(), source ->
+	{
+		return 1;
+	});
+
 
 	public static OpenSteveGameRules.Rule register(String literal, OpenSteveGameRules.DataType defaultValue, Command<CommandSource> command)
 	{
@@ -32,7 +38,7 @@ public class OpenSteveGameRules
 	private abstract static class DataType<T>
 	{
 		public T value;
-		public abstract ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule, final Command<CommandSource> command);
+		public abstract ArgumentBuilder<CommandSource, ?> registerType(ArgumentBuilder arguments, String rule, final Command<CommandSource> command);
 	}
 
 	public static class BoolType<T> extends OpenSteveGameRules.DataType<Boolean>
@@ -48,7 +54,7 @@ public class OpenSteveGameRules
 		}
 
 		@Override
-		public ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
+		public ArgumentBuilder<CommandSource, ?> registerType(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
 		{
 			return arguments
 					.then(Commands.argument("value::bool", BoolArgumentType.bool())
@@ -79,7 +85,7 @@ public class OpenSteveGameRules
 		}
 
 		@Override
-		public ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
+		public ArgumentBuilder<CommandSource, ?> registerType(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
 		{
 			return arguments
 					.then(Commands.argument("value::double", DoubleArgumentType.doubleArg())
@@ -108,7 +114,7 @@ public class OpenSteveGameRules
 		}
 
 		@Override
-		public ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
+		public ArgumentBuilder<CommandSource, ?> registerType(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
 		{
 			return arguments
 					.then(Commands.argument("value::int", IntegerArgumentType.integer())
@@ -121,6 +127,25 @@ public class OpenSteveGameRules
 			source.sendFeedback(new TranslationTextComponent("commands.opensteve.gamemode.setValue.int", rule, valueIn), true);
 
 			return 1;
+		}
+	}
+
+	public static class NullType<T> extends OpenSteveGameRules.DataType<Integer>
+	{
+		public NullType()
+		{
+			this.value = 0;
+		}
+
+		public static OpenSteveGameRules.DataType setDefault()
+		{
+			return new NullType();
+		}
+
+		@Override
+		public ArgumentBuilder<CommandSource, ?> registerType(ArgumentBuilder arguments, String rule, final Command<CommandSource> command)
+		{
+			return arguments.executes(command);
 		}
 	}
 
@@ -149,7 +174,7 @@ public class OpenSteveGameRules
 
 		public ArgumentBuilder<CommandSource, ?> registerArguments(ArgumentBuilder arguments)
 		{
-			return this.dataType.registerArguments(arguments, this.literal, this.command);
+			return this.dataType.registerType(arguments, this.literal, this.command);
 		}
 	}
 
@@ -157,10 +182,10 @@ public class OpenSteveGameRules
 	{
 		for(OpenSteveGameRules.Rule rule : OpenSteveGameRules.gameRuleList)
 		{
-			ArgumentBuilder<CommandSource, ?> subArguments = Commands.literal(rule.getLiteral()).executes(rule.command);
+			ArgumentBuilder<CommandSource, ?> gameruleCommand = Commands.literal(rule.getLiteral());
 
-			rule.registerArguments(subArguments);
-			arguments.then(subArguments);
+			rule.registerArguments(gameruleCommand);
+			arguments.then(gameruleCommand);
 		}
 
 		return arguments;
