@@ -19,12 +19,12 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 100, 5, 9, "AIMovementController");
+		super(entityIn, 100, 5, 10, "AIMovementController");
 
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
 
-		this.backPropLog = new BackPropLog(10, 100, 9);
+		this.backPropLog = new BackPropLog(10, 100, 10);
 
 		this.backProp.create("Distance", 10);
 	}
@@ -93,6 +93,9 @@ public class AIMovementController extends AIControllerBase
 			case 8: // Stay
 				this.targetPos = this.entityPos;
 				break;
+			case 9: // Jump
+				this.entity.getJumpController().setJumping();
+				return;
 		}
 
 		this.entity.getMoveHelper().setMoveTo(this.targetPos.x, this.targetPos.y, this.targetPos.z, 0.5D);
