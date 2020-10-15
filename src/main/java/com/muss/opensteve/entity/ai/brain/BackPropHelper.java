@@ -114,5 +114,15 @@ public class BackPropHelper
 
 			return this.data.get(index);
 		}
+
+		public double valueAt()
+		{
+			return this.valueAt(0);
+		}
+
+		public double valueAt(int index)
+		{
+			return this.at(index).value();
+		}
 	}
 }
