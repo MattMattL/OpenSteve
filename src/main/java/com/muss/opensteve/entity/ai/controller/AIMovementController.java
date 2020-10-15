@@ -107,20 +107,23 @@ public class AIMovementController extends AIControllerBase
 	@Override
 	protected void fixEntityBehavior()
 	{
-		// negative if the entity is walking farther from the target
-		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
-		{
-			this.deepNNet.vectorIn = this.backPropLog.getInputVec();
-			this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
+		this.deepNNet.vectorIn = this.backPropLog.getInputVec();
+		this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
+
+		// negative if harmed
+		if(this.entity.getBackPropData("Global_Health", 0) < this.entity.getBackPropData("Global_Health", -1))
 			this.trainNegative();
-		}
+
+		// negative if food level decreased
+		if(this.entity.getBackPropData("Global_FoodLevel", 0) < this.entity.getBackPropData("Global_FoodLevel", -1))
+			this.trainNegative();
+
+		// negative if the entity got stuck
+		if(this.backProp.getKey("Distance").at(0).value() == this.backProp.getKey("Distance").at(-1).value())
+			this.trainNegative();
 
 		// positive if the entity is getting closer to the target
-		if(this.backProp.getKey("Distance").at(0).value() > this.backProp.getKey("Distance").at(-1).value())
-		{
-			this.deepNNet.vectorIn = this.backPropLog.getInputVec();
-			this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
+		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
 			this.trainPositive();
-		}
 	}
 }
