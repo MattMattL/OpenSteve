@@ -17,9 +17,9 @@
 	"commands.opensteve.creator.kill.adult": "Removed %d grown-up AIs",
 	"commands.opensteve.creator.kill.child": "Removed %d child AIs",
 	"commands.opensteve.creator.clear.entityList": "Reset AI entity list",
-	"commands.opensteve.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
-	"commands.opensteve.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f",
-	"commands.opensteve.gamemode.setValue.int": "OpenSteve gamerule %s set to: %d",
+	"commands.opensteve.creator.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
+	"commands.opensteve.creator.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f",
+	"commands.opensteve.creator.gamemode.setValue.int": "OpenSteve gamerule %s set to: %d",
 	"commands.opensteve.creator.giveout.item": "Supplied AIs with %d %s",
 
 	"interaction.opensteve.onChestAction": "%s"
