@@ -281,14 +281,6 @@ public abstract class BaseAIEntity extends MonsterEntity
 	}
 
 
-	public void addExhaustion(float exhaustion)
-	{
-		if(!this.world.isRemote)
-		{
-			this.foodStats.addExhaustion(exhaustion);
-		}
-	}
-
 	public AIFoodStats getFoodStats()
 	{
 		return this.foodStats;
