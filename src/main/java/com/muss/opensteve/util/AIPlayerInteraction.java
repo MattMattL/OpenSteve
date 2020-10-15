@@ -35,7 +35,7 @@ public class AIPlayerInteraction
 
 	private static ActionResultType onChestAction(BaseAIEntity entity, PlayerEntity player)
 	{
-		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("[Inventory]");
+		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("\n[Inventory]");
 
 		for(ItemStack itemStack : entity.inventory.mainInventory)
 		{
@@ -49,7 +49,7 @@ public class AIPlayerInteraction
 
 	private static ActionResultType onAppleAction(BaseAIEntity entity, PlayerEntity player)
 	{
-		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("[Stats]")
+		OpenSteveStatics.MultiLines formatted = new OpenSteveStatics.MultiLines("\n[Stats]")
 				.newline("  Health: %5.2f", entity.getHealth())
 				.newline("  FoodLevel: %2d", entity.getFoodStats().getFoodLevel())
 				.newline("  Saturation: %5.2f", entity.getFoodStats().getSaturationLevel())
