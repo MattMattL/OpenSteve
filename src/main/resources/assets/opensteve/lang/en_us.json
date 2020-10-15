@@ -20,6 +20,7 @@
 	"commands.opensteve.gamemode.setValue.bool": "OpenSteve gamerule %s set to: %s",
 	"commands.opensteve.gamemode.setValue.double": "OpenSteve gamerule %s set to: %f",
 	"commands.opensteve.gamemode.setValue.int": "OpenSteve gamerule %s set to: %d",
+	"commands.opensteve.creator.giveout.item": "Supplied AIs with %d %s",
 
 	"interaction.opensteve.onChestAction": "%s"
 }

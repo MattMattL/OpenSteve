@@ -21,6 +21,7 @@ public class OpenSteveCommands
 				.then(KillCommand.register())
 				.then(ClearCommand.register())
 				.then(GameruleCommand.register())
+				.then(GiveoutCommand.register())
 				/* add commands here */
 		);
     }
