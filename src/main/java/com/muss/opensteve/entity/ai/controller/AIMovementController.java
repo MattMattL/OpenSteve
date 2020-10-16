@@ -3,7 +3,6 @@ package com.muss.opensteve.entity.ai.controller;
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.BackPropLog;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
-import com.muss.opensteve.entity.ai.brain.BackPropHelper;
 import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -19,12 +18,12 @@ public class AIMovementController extends AIControllerBase
 
 	public AIMovementController(BaseAIEntity entityIn)
 	{
-		super(entityIn, 100, 5, 10, "AIMovementController");
+		super(entityIn, 106, 6, 10, "AIMovementController");
 
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
 
-		this.backPropLog = new BackPropLog(10, 100, 10);
+		this.backPropLog = new BackPropLog(10, 106, 10);
 
 		this.backProp.create("Distance", 10);
 	}
@@ -44,6 +43,14 @@ public class AIMovementController extends AIControllerBase
 		int iNNet = 0;
 		Block block;
 		BlockPos origin = new BlockPos(this.entityPos.x, this.entityPos.y, this.entityPos.z);
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosX();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosY();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosZ();
+
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getHealth();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getFoodStats().getFoodLevel();
+		this.deepNNet.vectorIn[iNNet++] = this.entity.getFoodStats().getSaturationLevel();
 
 		for(int x = -2; x <= 2; x++)
 		{
@@ -90,12 +97,13 @@ public class AIMovementController extends AIControllerBase
 			case 7: // North-West
 				this.targetPos = this.entityPos.add(-1, 0, -1);
 				break;
-			case 8: // Stay
+			case 8: // Jump
+				this.entity.getJumpController().setJumping();
+				this.entity.getFoodStats().addExhaustion(0.8F);
+				return;
+			case 9: // Stay
 				this.targetPos = this.entityPos;
 				break;
-			case 9: // Jump
-				this.entity.getJumpController().setJumping();
-				return;
 		}
 
 		this.entity.getMoveHelper().setMoveTo(this.targetPos.x, this.targetPos.y, this.targetPos.z, 0.5D);
