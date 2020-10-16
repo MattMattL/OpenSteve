@@ -26,7 +26,7 @@ public class AIControllerHelper
 			new RayTraceContext
 			(
 				AIControllerHelper.getEyePos(entity), AIControllerHelper.getLookPos(entity),
-				RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE,
+				RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
 				entity
 			)
 		);
