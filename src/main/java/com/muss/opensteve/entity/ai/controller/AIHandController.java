@@ -4,12 +4,13 @@ import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.AIControllerHelper;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.OpenSteveMath;
+import com.muss.opensteve.util.OpenSteveStatics;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -22,9 +23,14 @@ public class AIHandController extends AIControllerBase
 	private BlockPos placeablePos;
 	private ItemStack heldItem;
 
+	private BlockPos breakingPos;
+	private int breakingTime;
+
 	public AIHandController(BaseAIEntity entityIn)
 	{
 		super(entityIn, 15, 4, 5, "AIHandController");
+
+		this.breakingTime = 0;
 	}
 
 	@Override
@@ -166,7 +172,51 @@ public class AIHandController extends AIControllerBase
 
 	private ActionResultType holdLeftClick()
 	{
+		/*BlockPos blockPos = AIControllerHelper.getBlockRayTraceResult(this.entity).getPos();
+		BlockState blockState = this.entity.world.getBlockState(this.targetPos);
 
+		if(blockState.getBlock() == Blocks.AIR)
+		{
+			return ActionResultType.FAIL;
+		}
+
+		if(this.targetPos != this.breakingPos) // restart if the target block has been changed
+		{
+			this.breakingPos = this.targetPos;
+			this.breakingTime = 0;
+		}
+
+		float digSpeed = this.entity.getDigSpeed(blockState, this.targetPos);
+		float hardness = blockState.getBlockHardness(this.entity.world, this.breakingPos);
+		this.breakingTime += digSpeed * 10 / hardness;
+
+		if(!this.entity.isSwingInProgress)
+		{
+			this.entity.swingArm(this.entity.getActiveHand());
+		}
+
+		this.entity.world.sendBlockBreakProgress(this.entity.getEntityId(), this.targetPos, this.breakingTime);
+
+		if(this.breakingTime > 60)
+		{
+			SoundEvent sound = blockState.getBlock().getSoundType(blockState, this.entity.world, blockPos, null).getBreakSound();
+
+			this.entity.world.removeBlock(this.breakingPos, false);
+			this.entity.world.playSound(this.breakingPos.getX(), this.breakingPos.getX(), this.breakingPos.getX(), sound, SoundCategory.BLOCKS, 4.0F, 1F, false);
+
+			this.breakingPos = null;
+			this.breakingTime = 0;
+		}
+
+
+		String debug = new OpenSteveStatics.MultiLines("[OpenSteve] AIHandController::holdLeftClick")
+				.newline("  block = %s", blockState.getBlock().asItem().getName().getString())
+				.newline("  digSpeed = %6.2f", digSpeed)
+				.newline("  hardness = %6.2f", hardness)
+				.newline("  time = %d\n", this.breakingTime)
+				.getString();
+
+		System.out.printf("%s\n", debug);*/
 
 		return ActionResultType.PASS;
 	}
