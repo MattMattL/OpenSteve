@@ -7,23 +7,42 @@ import net.minecraft.util.ActionResultType;
 public abstract class AIControllerBase
 {
 	protected BaseAIEntity entity;
-	protected DeepNNetIO deepNNet;
-	protected int nnetOut;
-	protected ActionResultType actionResult;
-	protected BackPropHelper backProp = new BackPropHelper();
+	protected AIControllerBase subController;
 
-	public AIControllerBase(BaseAIEntity entityIn, int netIn, int netDepth, int netOut, String compoundKey)
+	protected int NET_IN;
+	protected int NET_DEPTH;
+	protected int NET_OUT;
+	protected DeepNNetIO deepNNet;
+	protected String key;
+	protected int nnetOut;
+
+	protected ActionResultType actionResult;
+	protected ActionResultType returnResult;
+	protected BackPropHelper backPropHelper;
+	protected BackPropLog backPropLog;
+
+	public AIControllerBase(BaseAIEntity entityIn, AIControllerBase subNNet, int netIn, int netDepth, int netOut,  String compoundKey)
 	{
 		this.entity = entityIn;
+		this.subController = subNNet;
+
+		this.NET_IN = netIn;
+		this.NET_DEPTH = netDepth;
+		this.NET_OUT = netOut;
 		this.deepNNet = new DeepNNetIO(netIn, netDepth, netOut, compoundKey);
+
+		this.key = compoundKey;
 	}
 
-	public void runEntityAI()
+	public ActionResultType runEntityAI()
 	{
+		System.out.printf("[OpenSteve] %s executed\n", this.key);
+
 		this.aiInitialise();
 		this.setNNetInput();
 		this.runEntityBehavior();
-		this.fixEntityBehavior();
+
+		return this.fixEntityBehavior();
 	}
 
 	/* save environmental factors for back propagations */
@@ -36,7 +55,7 @@ public abstract class AIControllerBase
 	protected abstract void runEntityBehavior();
 
 	/* evaluate the outcome and run back propagations */
-	protected abstract void fixEntityBehavior();
+	protected abstract ActionResultType fixEntityBehavior();
 
 	protected void trainPositive()
 	{

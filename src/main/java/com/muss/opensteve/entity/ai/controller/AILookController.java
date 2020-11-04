@@ -2,7 +2,10 @@ package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
 import com.muss.opensteve.entity.ai.brain.AIControllerHelper;
+import com.muss.opensteve.entity.ai.brain.BackPropHelper;
+import com.muss.opensteve.entity.ai.brain.BackPropLog;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class AILookController extends AIControllerBase
@@ -15,9 +18,15 @@ public class AILookController extends AIControllerBase
 
 	private float prevHealth;
 
-	public AILookController(BaseAIEntity entityIn)
+	public AILookController(BaseAIEntity entityIn, AIControllerBase subNNet)
 	{
-		super(entityIn, 17, 4, 4, "AILookController");
+		super(entityIn, subNNet, 17, 4, 5, "AILookController");
+
+		this.backPropHelper = new BackPropHelper();
+		this.backPropLog = new BackPropLog(10, this.NET_IN, this.NET_OUT);
+
+		this.backPropHelper.create("Health", 10);
+		this.backPropHelper.create("FoodLevel", 10);
 
 		this.polarCoord = new PolarCoord(1, 0, 0);
 	}
@@ -30,6 +39,13 @@ public class AILookController extends AIControllerBase
 
 		this.lookVec = this.lookPos.subtract(this.eyePos);
 		this.lookVec = this.lookVec.normalize();
+
+		this.backPropHelper.tick();
+		this.backPropHelper.getKey("Health").at().setValue(this.entity.getHealth());
+		this.backPropHelper.getKey("FoodLevel").at().setValue(this.entity.getFoodStats().getFoodLevel() + this.entity.getFoodStats().getSaturationLevel());
+
+		this.actionResult = ActionResultType.PASS;
+		this.returnResult = ActionResultType.PASS;
 	}
 
 	@Override
@@ -80,6 +96,8 @@ public class AILookController extends AIControllerBase
 			case 3: // E-S-W
 				this.deltaAngle = new PolarCoord(0, 0, -unitAngle);
 				break;
+			case 4: // Fire Sub NNets
+				this.actionResult = this.subController.runEntityAI();
 			default: // Stay
 				this.deltaAngle = new PolarCoord(0, 0, 0);
 				break;
@@ -91,12 +109,29 @@ public class AILookController extends AIControllerBase
 		this.lookPos = this.lookVec.add(this.eyePos); // calculate absolute positions
 
 		this.entity.getLookController().setLookPosition(this.lookPos.x, this.lookPos.y, this.lookPos.z);
+
+		this.backPropLog.tick();
+		this.backPropLog.copy(this.deepNNet.vectorIn, this.deepNNet.vectorOut);
 	}
 
 	@Override
-	protected void fixEntityBehavior()
+	protected ActionResultType fixEntityBehavior()
 	{
+		// negative if harmed
+		if(this.backPropHelper.getKey("Health").valueAt() < this.backPropHelper.getKey("Health").valueAt(-1))
+			this.trainNegative();
 
+		// negative if food level decreased
+		if(this.backPropHelper.getKey("FoodLevel").valueAt() < this.backPropHelper.getKey("FoodLevel").valueAt(-1))
+			this.trainNegative();
+
+		// train with passed result
+		if(this.actionResult.isSuccessOrConsume())
+			this.trainPositive();
+		else
+			this.trainNegative();
+
+		return this.returnResult;
 	}
 
 	/*

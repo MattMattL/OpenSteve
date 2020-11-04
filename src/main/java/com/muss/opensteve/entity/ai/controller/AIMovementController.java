@@ -1,11 +1,13 @@
 package com.muss.opensteve.entity.ai.controller;
 
 import com.muss.opensteve.entity.ai.brain.AIControllerBase;
+import com.muss.opensteve.entity.ai.brain.BackPropHelper;
 import com.muss.opensteve.entity.ai.brain.BackPropLog;
 import com.muss.opensteve.entity.monster.BaseAIEntity;
 import com.muss.opensteve.util.OpenSteveMath;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -14,18 +16,19 @@ public class AIMovementController extends AIControllerBase
 	private Vector3d entityPos;
 	private Vector3d targetPos;
 
-	private BackPropLog backPropLog;
-
-	public AIMovementController(BaseAIEntity entityIn)
+	public AIMovementController(BaseAIEntity entityIn, AIControllerBase subNNet)
 	{
-		super(entityIn, 106, 6, 10, "AIMovementController");
+		super(entityIn, subNNet, 6 + 245 + 10, 20, 10, "AIMovementController");
+
+		this.backPropHelper = new BackPropHelper();
+		this.backPropLog = new BackPropLog(10, this.NET_IN, this.NET_OUT);
+
+		this.backPropHelper.create("Health", 10);
+		this.backPropHelper.create("FoodLevel", 10);
+		this.backPropHelper.create("Distance", 10);
 
 		this.entityPos = new Vector3d(0, 0, 0);
 		this.targetPos = new Vector3d(0, 0, 0);
-
-		this.backPropLog = new BackPropLog(10, 106, 10);
-
-		this.backProp.create("Distance", 10);
 	}
 
 	@Override
@@ -33,8 +36,12 @@ public class AIMovementController extends AIControllerBase
 	{
 		this.entityPos = this.entity.getPositionVec();
 
-		this.backProp.tick();
-		this.backProp.getKey("Distance").at().setValue(OpenSteveMath.distance(this.entityPos, this.targetPos));
+		this.backPropHelper.tick();
+		this.backPropHelper.getKey("Distance").at().setValue(OpenSteveMath.distance(this.entityPos, this.targetPos));
+		this.backPropHelper.getKey("FoodLevel").at().setValue(this.entity.getFoodStats().getFoodLevel() + this.entity.getFoodStats().getSaturationLevel());
+
+		this.actionResult = ActionResultType.PASS;
+		this.returnResult = ActionResultType.PASS;
 	}
 
 	@Override
@@ -44,6 +51,7 @@ public class AIMovementController extends AIControllerBase
 		Block block;
 		BlockPos origin = new BlockPos(this.entityPos.x, this.entityPos.y, this.entityPos.z);
 
+		// environmental factors
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosX();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosY();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getPosZ();
@@ -52,17 +60,22 @@ public class AIMovementController extends AIControllerBase
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getFoodStats().getFoodLevel();
 		this.deepNNet.vectorIn[iNNet++] = this.entity.getFoodStats().getSaturationLevel();
 
-		for(int x = -2; x <= 2; x++)
+		// surrounding info
+		for(int x = -3; x <= 3; x++)
 		{
-			for(int y = -2; y <= 1; y++)
+			for(int y = -2; y <= 2; y++)
 			{
-				for(int z = -2; z <= 2; z++)
+				for(int z = -3; z <= 3; z++)
 				{
 					block = this.entity.world.getBlockState(origin.add(x, y, z)).getBlock();
 					this.deepNNet.vectorIn[iNNet++] = Item.getIdFromItem(block.asItem());
 				}
 			}
 		}
+
+		// RNN
+		for(int i=0; i<this.deepNNet.NET_OUT; i++)
+			this.deepNNet.vectorIn[iNNet++] = this.deepNNet.vectorOut[i];
 	}
 
 	@Override
@@ -101,9 +114,8 @@ public class AIMovementController extends AIControllerBase
 				this.entity.getJumpController().setJumping();
 				this.entity.getFoodStats().addExhaustion(0.8F);
 				return;
-			case 9: // Stay
-				this.targetPos = this.entityPos;
-				break;
+			case 9: // Fire Sub NNets
+				this.actionResult = this.subController.runEntityAI();
 		}
 
 		this.entity.getMoveHelper().setMoveTo(this.targetPos.x, this.targetPos.y, this.targetPos.z, 0.5D);
@@ -113,25 +125,27 @@ public class AIMovementController extends AIControllerBase
 	}
 
 	@Override
-	protected void fixEntityBehavior()
+	protected ActionResultType fixEntityBehavior()
 	{
 		this.deepNNet.vectorIn = this.backPropLog.getInputVec();
 		this.deepNNet.vectorOut = this.backPropLog.getOutputVec();
 
 		// negative if harmed
-		if(this.entity.getBackPropData("Global_Health", 0) < this.entity.getBackPropData("Global_Health", -1))
+		if(this.backPropHelper.getKey("Health").valueAt() < this.backPropHelper.getKey("Health").valueAt(-1))
 			this.trainNegative();
 
 		// negative if food level decreased
-		if(this.entity.getBackPropData("Global_FoodLevel", 0) < this.entity.getBackPropData("Global_FoodLevel", -1))
+		if(this.backPropHelper.getKey("FoodLevel").valueAt() < this.backPropHelper.getKey("FoodLevel").valueAt(-1))
 			this.trainNegative();
 
 		// negative if the entity got stuck
-		if(this.backProp.getKey("Distance").at(0).value() == this.backProp.getKey("Distance").at(-1).value())
+		if(this.backPropHelper.getKey("Distance").valueAt() == this.backPropHelper.getKey("Distance").valueAt(-1))
 			this.trainNegative();
 
 		// positive if the entity is getting closer to the target
-		if(this.backProp.getKey("Distance").at(0).value() < this.backProp.getKey("Distance").at(-1).value())
+		if(this.backPropHelper.getKey("Distance").valueAt() < this.backPropHelper.getKey("Distance").valueAt(-1))
 			this.trainPositive();
+
+		return this.actionResult;
 	}
 }

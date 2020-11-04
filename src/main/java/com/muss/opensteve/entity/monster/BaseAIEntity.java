@@ -43,31 +43,21 @@ public abstract class BaseAIEntity extends MonsterEntity
 	public final AIFoodStats foodStats = new AIFoodStats(this);
 	public final double maxReachRange = 4;
 
-	private DeepNNetIO globalNNet = new DeepNNetIO(12, 4, 4, "GlobalNNet");
-	private int nnetOut;
-	private AIControllerBase nnetArray[];
-	public AIControllerBase aiMotionController = new AIMotionController(this);
-	public AIControllerBase aiMovementController = new AIMovementController(this);
-	public AIControllerBase aiLookController = new AILookController(this);
-	public AIControllerBase aiInventoryController = new AIInventoryController(this);
-	public AIControllerBase aiHandController = new AIHandController(this);
-	private BackPropHelper globalBackProp = new BackPropHelper();
+	private AIControllerBase aiControllers[];
+	private final AIControllerBase aiMovementController;
+	private final AIControllerBase aiLookController;
+	private final AIControllerBase aiInventoryController;
+	private final AIControllerBase aiHandController;
 
 	public BaseAIEntity(EntityType<? extends MonsterEntity> type, World worldIn)
 	{
 		super(type, worldIn);
 		this.experienceValue = 0;
 
-		int iNNet = 0;
-		this.nnetArray = new AIControllerBase[5];
-		this.nnetArray[iNNet++] = this.aiMotionController;
-		this.nnetArray[iNNet++] = this.aiMovementController;
-		this.nnetArray[iNNet++] = this.aiLookController;
-		this.nnetArray[iNNet++] = this.aiInventoryController;
-		this.nnetArray[iNNet++] = this.aiHandController;
-
-		this.globalBackProp.create("Global_Health", 10);
-		this.globalBackProp.create("Global_FoodLevel", 10);
+		this.aiHandController = new AIHandController(this, null);
+		this.aiInventoryController = new AIInventoryController(this, this.aiHandController);
+		this.aiLookController = new AILookController(this, this.aiInventoryController);
+		this.aiMovementController = new AIMovementController(this, this.aiLookController);
 
 		if(!this.world.isRemote)
 		{
@@ -115,47 +105,24 @@ public abstract class BaseAIEntity extends MonsterEntity
 		}
 	}
 
+	private int aiTickCount = 0;
+
 	/* Called to update the entity's behaviour */
 	public void livingTick()
 	{
 		super.livingTick();
 
-		if(!this.world.isRemote)
+		if(!this.world.isRemote && ++aiTickCount % 3 == 0)
 		{
+			aiTickCount %= 3;
 			this.aiTick();
 		}
 	}
 
 	private void aiTick()
 	{
-		this.globalBackProp.tick();
-		this.globalBackProp.getKey("Global_Health").at().setValue(this.getHealth());
-		this.globalBackProp.getKey("Global_FoodLevel").at().setValue(this.foodStats.getFoodLevel() + this.foodStats.getSaturationLevel());
-
-		/*int iNNet = 0;
-
-		this.globalNNet.vectorIn[iNNet++] = this.getPosX();
-		this.globalNNet.vectorIn[iNNet++] = this.getPosY();
-		this.globalNNet.vectorIn[iNNet++] = this.getPosZ();
-		this.globalNNet.vectorIn[iNNet++] = this.getMaxHealth();
-		this.globalNNet.vectorIn[iNNet++] = this.getHealth();
-		
-		this.globalNNet.vectorIn[iNNet++] = this.foodStats.getFoodLevel();
-		this.globalNNet.vectorIn[iNNet++] = this.foodStats.getSaturationLevel();
-		this.globalNNet.vectorIn[iNNet++] = this.isAlex()? 1 : -1;
-		this.globalNNet.vectorIn[iNNet++] = this.isBurning()? 1 : -1;
-		this.globalNNet.vectorIn[iNNet++] = this.isInWater()? 1 : -1;
-
-		this.globalNNet.vectorIn[iNNet++] = this.isChild()? 1 : -1;
-		this.globalNNet.vectorIn[iNNet++] = this.isJumping? 1 : -1;
-
-		this.globalNNet.nnRunFeedForward();
-		this.nnetOut = this.globalNNet.nnGetMaxOutputIndex();*/
-
-		/* TEST */
-		this.nnetArray[this.nnetOut++].runEntityAI();
-
-		this.nnetOut %= this.nnetArray.length;
+		this.aiMovementController.runEntityAI();
+		System.out.printf("\n");
 	}
 
 
@@ -303,11 +270,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.readAdditional(compound);
 
 		this.inventory.read(compound);
-		this.globalNNet.read(compound);
 		this.foodStats.read(compound);
 
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].read(compound);
+		//for(int i = 0; i<this.aiControllers.length; i++)
+		//	this.aiControllers[i].read(compound);
 	}
 
 	@Override
@@ -316,11 +282,10 @@ public abstract class BaseAIEntity extends MonsterEntity
 		super.writeAdditional(compound);
 
 		this.inventory.write(compound);
-		this.globalNNet.write(compound);
 		this.foodStats.write(compound);
 
-		for(int i=0; i<this.nnetArray.length; i++)
-			this.nnetArray[i].write(compound);
+		//for(int i = 0; i<this.aiControllers.length; i++)
+		//	this.aiControllers[i].write(compound);
 	}
 
 
@@ -432,10 +397,5 @@ public abstract class BaseAIEntity extends MonsterEntity
 	protected ItemStack getSkullDrop()
 	{
 		return new ItemStack(Items.PLAYER_HEAD);
-	}
-
-	public double getBackPropData(String key, int index)
-	{
-		return this.globalBackProp.getKey(key).at(index).value();
 	}
 }

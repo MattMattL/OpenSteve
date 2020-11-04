@@ -49,6 +49,12 @@ public class AIInventory
 		this.renderHeldItem();
 	}
 
+	public void addMainHandIndex(int offset)
+	{
+		this.mainHandIndex = this.boundHandIndex(this.mainHandIndex + offset);
+		this.renderHeldItem();
+	}
+
 	private int boundHandIndex(int index)
 	{
 		int max = this.mainInventory.size();

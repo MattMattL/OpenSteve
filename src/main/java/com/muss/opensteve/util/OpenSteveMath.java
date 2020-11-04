@@ -26,6 +26,13 @@ public class OpenSteveMath
 		return OpenSteveMath.distance(vector1, vector2);
 	}
 
+	public static double distance(Vector3d vector1, BlockPos block)
+	{
+		Vector3d vector2 = new Vector3d(block.getX(), block.getY(), block.getZ());
+
+		return OpenSteveMath.distance(vector1, vector2);
+	}
+
 	public static boolean isInReach(Vector3d entityPos, Vector3i blockCoord, double reach)
 	{
 		Vector3d blockPos = new Vector3d((double)blockCoord.getX(), (double)blockCoord.getY(), (double)blockCoord.getZ());
