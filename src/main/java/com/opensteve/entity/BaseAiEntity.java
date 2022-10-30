@@ -3,7 +3,6 @@ package com.opensteve.entity;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -18,8 +17,15 @@ public class BaseAiEntity extends LivingEntity
 		super(type, level);
 	}
 
+	public boolean isSteve()
+	{
+		return false;
+	}
 
-
+	public boolean isAlex()
+	{
+		return false;
+	}
 
 	@Override
 	public Iterable<ItemStack> getArmorSlots()

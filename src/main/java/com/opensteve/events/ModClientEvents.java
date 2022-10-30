@@ -4,7 +4,6 @@ import com.opensteve.OpenSteve;
 import com.opensteve.client.models.BaseAiModel;
 import com.opensteve.client.renderer.BaseAiRenderer;
 import com.opensteve.init.EntityInit;
-import net.minecraft.client.model.EntityModel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,7 +15,8 @@ public class ModClientEvents
 	@SubscribeEvent
 	public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event)
 	{
-		event.registerEntityRenderer(EntityInit.BASE_AI.get(), BaseAiRenderer::new);
+		event.registerEntityRenderer(EntityInit.ALEX_AI.get(), BaseAiRenderer::new);
+		event.registerEntityRenderer(EntityInit.STEVE_AI.get(), BaseAiRenderer::new);
 	}
 
 	@SubscribeEvent
