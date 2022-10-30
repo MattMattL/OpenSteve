@@ -1,3 +1,6 @@
 {
-
+	"item.opensteve.alex_ai_spawn_egg": "Spawn Alex AI",
+	"item.opensteve.steve_ai_spawn_egg": "Spawn Steve AI",
+	"entity.opensteve.steve_ai": "Steve",
+	"entity.opensteve.alex_ai": "Alex"
 }

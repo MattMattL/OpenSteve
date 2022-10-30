@@ -13,6 +13,7 @@ public class ModCommonEvents
 	@SubscribeEvent
 	public static void entityAttributes(EntityAttributeCreationEvent event)
 	{
-		event.put(EntityInit.BASE_AI.get(), BaseAiEntity.getBaseAiAttributes().build());
+		event.put(EntityInit.ALEX_AI.get(), BaseAiEntity.getBaseAiAttributes().build());
+		event.put(EntityInit.STEVE_AI.get(), BaseAiEntity.getBaseAiAttributes().build());
 	}
 }
