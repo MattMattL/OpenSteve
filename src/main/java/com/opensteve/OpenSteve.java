@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 @Mod(OpenSteve.MODID)
 public class OpenSteve
 {
-    public static final String MODID = "opst";
+    public static final String MODID = "opensteve";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
