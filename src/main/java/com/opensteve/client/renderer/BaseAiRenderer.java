@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+@Deprecated
 public class BaseAiRenderer extends LivingEntityRenderer<BaseAiEntity, BaseAiModel>
 {
 	private static final ResourceLocation STEVE_AI_TEXTURE = new ResourceLocation(OpenSteve.MODID, "textures/entity/steve_ai.png");
