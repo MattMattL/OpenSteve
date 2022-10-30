@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 import java.util.Random;
 
-public class BaseAiEntity extends LivingEntity
+public class BaseAiEntity extends Mob
 {
-	public BaseAiEntity(EntityType<? extends LivingEntity> type, Level level)
+	public BaseAiEntity(EntityType<? extends Mob> type, Level level)
 	{
 		super(type, level);
 	}
