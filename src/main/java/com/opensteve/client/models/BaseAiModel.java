@@ -17,18 +17,13 @@ public class BaseAiModel extends HumanoidModel<BaseAiEntity>
 {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(OpenSteve.MODID, "base_ai"), "main");
 
-    public BaseAiModel(ModelPart modelPart)
+    public BaseAiModel(ModelPart model)
     {
-        super(modelPart);
+        super(model);
     }
-
 
     public static LayerDefinition createBodyLayer()
     {
-//        return createBodyLayer(new CubeDeformation(0.0F));
-
-        MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(0f), 0f);
-
-        return LayerDefinition.create(mesh, 0, 0);
+        return LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0f), 0f), 64, 64);
     }
 }

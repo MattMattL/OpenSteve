@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BaseAiRenderer extends LivingEntityRenderer<BaseAiEntity, BaseAiModel>
 {
-	private static final ResourceLocation BASE_AI_TEXTURE = new ResourceLocation(OpenSteve.MODID, "textures/entities/steve_ai.png");
+	private static final ResourceLocation BASE_AI_TEXTURE = new ResourceLocation(OpenSteve.MODID, "textures/entity/steve_ai.png");
 
 	public BaseAiRenderer(EntityRendererProvider.Context context)
 	{
